@@ -25,8 +25,6 @@ public class User extends BaseTimeEntity{
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.COMMON;
 
-
-
     @Builder
     public User(String userName, String password, String nickName) {
         this.userName = userName;
