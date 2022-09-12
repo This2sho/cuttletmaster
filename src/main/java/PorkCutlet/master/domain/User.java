@@ -18,7 +18,7 @@ public class User extends BaseTimeEntity{
     @Column(name = "user_id")
     private Long id;
 
-    private String userName;
+    private String loginId;
     private String password;
     private String nickName;
 
@@ -26,8 +26,8 @@ public class User extends BaseTimeEntity{
     private UserType userType = UserType.COMMON;
 
     @Builder
-    public User(String userName, String password, String nickName) {
-        this.userName = userName;
+    public User(String loginId, String password, String nickName) {
+        this.loginId = loginId;
         this.password = password;
         this.nickName = nickName;
     }
