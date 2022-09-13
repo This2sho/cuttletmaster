@@ -30,7 +30,7 @@ public class initDB {
         public void dbInit() {
             char[] 성 = {'김', '박', '손'};
             for (int i = 0; i < 3; i++) {
-                em.persist(new User(성[i] + "민수", "1234", "user" + i));
+                em.persist(new User("user" + i, "1234", 성[i] + "민수"));
             }
 
             Rating[] 별점 = {ONE, TWO, THREE, FOUR, Five};
