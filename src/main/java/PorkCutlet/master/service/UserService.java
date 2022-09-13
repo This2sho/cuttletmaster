@@ -20,7 +20,7 @@ public class UserService {
     }
 
     private void validateDuplicateUser(User user) {
-        if(userRepository.findByLoginId(user.getLoginId()).isPresent()) {
+        if (userRepository.findByLoginId(user.getLoginId()).isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원 입니다.");
         }
     }
@@ -28,14 +28,14 @@ public class UserService {
 
     /**
      * 로그인
+     *
      * @param loginId
      * @param password
-     * @return 성공 -> User , 실패 -> IllegalStateException
+     * @return 성공 -> User , 실패 -> null
      */
     public User login(String loginId, String password) {
-        User user = userRepository.findByLoginId(loginId).orElse(null);
-        if(user == null) throw new IllegalStateException("아이디가 존재하지 않습니다.");
-        if(!user.getPassword().equals(password)) throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
-        return user;
+        return userRepository.findByLoginId(loginId)
+                .filter(user -> user.getPassword().equals(password))
+                .orElse(null);
     }
 }
