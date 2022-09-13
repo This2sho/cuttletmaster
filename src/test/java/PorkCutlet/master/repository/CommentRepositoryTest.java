@@ -29,7 +29,7 @@ class CommentRepositoryTest {
     @Test
     public void CommentRepositoryBasicTest() {
         //given
-        User user1 = userRepository.findByNickName("user1").orElseThrow();
+        User user1 = userRepository.findByLoginId("user1").orElseThrow();
         List<Review> all = reviewRepository.findAll();
         Comment comment = new Comment(user1, all.get(0));
         commentRepository.save(comment);
