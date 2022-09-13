@@ -1,7 +1,6 @@
 package PorkCutlet.master.repository;
 
 import PorkCutlet.master.domain.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +9,6 @@ import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -25,12 +23,12 @@ class UserRepositoryTest {
     public void UserCreateTest() {
         //given
         User user = new User("A", "123", "A");
-        Long saveId = userRepository.save(user);
+        userRepository.save(user);
         //when
-        User findUser = userRepository.findById(saveId).get();
+        User findUser = userRepository.findById(user.getId()).get();
         //then
         assertThat(user.getId()).isEqualTo(findUser.getId());
-        assertThat(user.getUserName()).isEqualTo(findUser.getUserName());
+        assertThat(user.getLoginId()).isEqualTo(findUser.getLoginId());
         assertThat(user).isEqualTo(findUser);
     }
 
