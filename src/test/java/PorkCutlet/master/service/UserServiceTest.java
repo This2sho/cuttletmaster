@@ -57,7 +57,10 @@ class UserServiceTest {
         User user = new User("hello", "password", "Im Nick");
         userService.join(user);
         //when
-        assertThrows(IllegalStateException.class, () -> userService.login("이런 아이디는 없습니다.", "이런 비밀번호는 없습니다."));
-        assertThrows(IllegalStateException.class, () -> userService.login(user.getLoginId(), "이런 비밀번호는 없습니다."));
+        User wrongId = userService.login("이런 아이디는 없습니다.", "이런 비밀번호는 없습니다.");
+        User wrongPassword = userService.login(user.getLoginId(), "이런 비밀번호는 없습니다.");
+        //then
+        assertThat(wrongId).isNull();
+        assertThat(wrongPassword).isNull();
     }
 }
