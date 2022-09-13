@@ -2,9 +2,9 @@ package PorkCutlet.master.repository;
 
 import PorkCutlet.master.domain.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.Optional;
+
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, RestaurantRepositoryCustom {
-
+    Optional<Restaurant> findByName(String name);
 }
