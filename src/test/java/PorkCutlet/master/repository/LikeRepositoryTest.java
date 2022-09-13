@@ -1,7 +1,6 @@
 package PorkCutlet.master.repository;
 
 import PorkCutlet.master.domain.*;
-import org.aspectj.lang.annotation.Before;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,9 +10,7 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @SpringBootTest
@@ -34,7 +31,7 @@ class LikeRepositoryTest {
         char[] 성 = {'김', '박', '손'};
         List<User> users = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            users.add(new User(성[i] + "민수", "1234", "user" + i));
+            users.add(new User("user" + i, "1234", 성[i] + "민수"));
         }
         userRepository.saveAll(users);
 
