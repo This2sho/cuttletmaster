@@ -16,14 +16,15 @@ public class Food {
     @Column(name = "food_id")
     private Long id;
 
-    private String name;
-    private int price;
-    @Enumerated(EnumType.STRING)
-    private FoodType foodType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    @Enumerated(EnumType.STRING)
+    private FoodType foodType;
+
+    private String name;
+    private int price;
 
     @Builder
     public Food(String name, int price, FoodType foodType, Restaurant restaurant) {

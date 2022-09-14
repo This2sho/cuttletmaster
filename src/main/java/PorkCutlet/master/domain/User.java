@@ -18,12 +18,13 @@ public class User extends BaseTimeEntity{
     @Column(name = "user_id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private UserType userType = UserType.COMMON;
+
     private String loginId;
     private String password;
     private String nickName;
 
-    @Enumerated(EnumType.STRING)
-    private UserType userType = UserType.COMMON;
 
     @Builder
     public User(String loginId, String password, String nickName) {

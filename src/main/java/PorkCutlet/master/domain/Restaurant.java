@@ -16,10 +16,11 @@ public class Restaurant {
     @Column(name = "restaurant_id")
     private Long id;
 
-    private String name;
-
     @Embedded
     private Address address;
+
+    private String name;
+
 
     @Builder
     public Restaurant(String name, Address address) {
