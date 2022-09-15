@@ -38,7 +38,7 @@ public class LoginController {
 
         HttpSession session = request.getSession();
 
-        session.setAttribute(SessionConst.LOGIN_USER, userToDto(loginUser));
+        session.setAttribute(SessionConst.LOGIN_USER, UserDto.from(loginUser));
         return "redirect:/";
     }
 
@@ -51,8 +51,4 @@ public class LoginController {
         return "redirect:/";
     }
 
-
-    private UserDto userToDto(User loginUser) {
-        return new UserDto(loginUser.getLoginId(), loginUser.getPassword(), loginUser.getNickName());
-    }
 }
