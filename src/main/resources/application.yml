@@ -9,8 +9,21 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        show_sql: true
         format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
 logging:
   level:
     org.hibernate.SQL: debug
+
+server:
+  servlet:
+    session:
+      tracking-modes: COOKIE
+      timeout: 120
+
+file:
+  dir: /Users/geonholee/Documents/개인프로젝트/cutletMasterRes/
