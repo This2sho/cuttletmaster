@@ -7,17 +7,21 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 public class Address {
 
-    private String city;
-    private String street;
-    private String zipcode;
+    private String roadAddress;
+    private String detailAddress;
+    private String postcode;
 
     @Builder
-    public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
+    public Address(String roadAddress, String detailAddress, String postcode) {
+        this.roadAddress = roadAddress;
+        this.detailAddress = detailAddress;
+        this.postcode = postcode;
+    }
+
+    @Override
+    public String toString() {
+        return roadAddress + " " + detailAddress + " " + postcode;
     }
 }
