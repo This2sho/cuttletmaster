@@ -3,33 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="../css/bootstrap.min.css" rel="stylesheet">
-    <title>돈까스 미식가의 맛집 탐방</title>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
 <body>
-
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<!--페이지 소스-->
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
         <h2>홈 화면</h2>
+        <a class="nav-link" href="/upload" th:href="@{/upload}" >임시업로드 <span class="sr-only">(current)</span></a>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" type="button"
-                    th:onclick="|location.href='@{/auth/join}'|">
-                회원 가입
-            </button>
-        </div>
-        <div class="col">
-            <button class="w-100 btn btn-dark btn-lg" type="button"
-                    th:onclick="|location.href='@{/auth/login}'|" >
-                로그인
-            </button>
-        </div>
-    </div>
 
-    <hr class="my-4">
 </div>
+<!--페이지 소스-->
+<footer th:replace="/fragments/footer.html :: fragment-footer"></footer>
 </body>
 </html>

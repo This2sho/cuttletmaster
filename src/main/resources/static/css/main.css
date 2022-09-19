@@ -1,0 +1,42 @@
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+    background: #ffffff;
+}
+.contents-wrap {
+    min-height:100%;
+    position:relative;
+}
+footer {
+    width:100%;
+    height:15%;
+    position:absolute;
+    bottom:0;
+    background: #a5201d;
+    color: #ffffff;
+}
+
+.head {
+    color: #a5201d;
+    background: white;
+}
+
+/*리뷰 폼 */
+.review_title{
+    width: 80%;
+    height: 13.1%;
+}
+
+.review_image{
+    width: 80%;
+    height: 8%;
+}
+.review_content{
+    width: 80%;
+    height: 16%;
+}
+
+
+
+/*리뷰 폼 */
