@@ -37,5 +37,5 @@ out/
 .vscode/
 
 ### 이미지 파일 ###
-!**/src/main/resources/static/img/
+**/src/main/resources/static/img/
 
