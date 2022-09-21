@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Food {
+public class ForkCutlet {
     @Id
     @GeneratedValue
     @Column(name = "food_id")
@@ -21,16 +21,14 @@ public class Food {
     private Restaurant restaurant;
 
     @Enumerated(EnumType.STRING)
-    private FoodType foodType;
+    private ForkCutletType forkCutletType;
 
     private String name;
-    private int price;
 
     @Builder
-    public Food(String name, int price, FoodType foodType, Restaurant restaurant) {
+    public ForkCutlet(String name, ForkCutletType forkCutletType, Restaurant restaurant) {
         this.name = name;
-        this.price = price;
-        this.foodType = foodType;
+        this.forkCutletType = forkCutletType;
         this.restaurant = restaurant;
     }
 }

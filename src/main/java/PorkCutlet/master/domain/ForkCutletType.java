@@ -1,5 +1,5 @@
 package PorkCutlet.master.domain;
 
-public enum FoodType {
+public enum ForkCutletType {
     KOREAN_STYLE, JAPANESE_STYLE
 }
