@@ -1,20 +1,28 @@
-body {
-    margin:0;
-    padding:0;
-    height:100%;
-    background: #ffffff;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-.contents-wrap {
-    min-height:100%;
-    position:relative;
+
+#wrapper{
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 15%;
 }
+
 footer {
-    width:100%;
-    height:15%;
-    position:absolute;
-    bottom:0;
+    height: 15%;
+    position : relative;
+    transform : translateY(-100%);
     background: #a5201d;
     color: #ffffff;
+}
+
+.about{
+    float: left;
+}
+.footer-logo{
+    float: right;
 }
 
 .head {
@@ -22,21 +30,45 @@ footer {
     background: white;
 }
 
-/*리뷰 폼 */
-.review_title{
-    width: 80%;
-    height: 13.1%;
+/* 리뷰 폼 */
+.review-container{
+    height: auto;
+    padding: 1% 5%;
+}
+/* 리뷰 폼 */
+
+/* 에러 */
+.container {
+     max-width: 560px;
+}
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
 }
 
-.review_image{
-    width: 80%;
-    height: 8%;
+/* nav bar */
+.navbar-brand {
+    color: #a5201d;
 }
-.review_content{
-    width: 80%;
-    height: 16%;
+.nav-bg{
+    background: #ffffff;
+    border-bottom: 3px solid #a5201d;
 }
-
-
-
-/*리뷰 폼 */
+a.nav-link{
+    color: #a5201d;
+}
+.userName{
+    color: #a5201d;
+}
+button.logout{
+    border: none;
+    background: none;
+    color: #a5201d;
+}
+button.logout:hover{
+    text-decoration: underline;
+}
+a.mypage{
+    color: #a5201d;
+}
+/* nav bar */
