@@ -26,26 +26,6 @@ class LikeRepositoryTest {
     @Autowired
     RestaurantRepository restaurantRepository;
 
-    @BeforeEach
-    public void beforeEach() {
-        char[] 성 = {'김', '박', '손'};
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            users.add(new User("user" + i, "1234", 성[i] + "민수"));
-        }
-        userRepository.saveAll(users);
-
-        List<Restaurant> restaurants = new ArrayList<>();
-        List<Review> reviews = new ArrayList<>();
-        Rating[] 별점 = {Rating.ONE, Rating.TWO, Rating.THREE, Rating.FOUR, Rating.Five};
-        for (int i = 1; i < 5; i++) {
-            restaurants.add(new Restaurant("식당"+i, new Address("부산", "부산 대학로", "147-" + i)));
-            reviews.add(new Review("정말 맛있다", restaurants.get(i-1), new RatingInfo(별점[i], 별점[i], 별점[i], 별점[i])));
-        }
-        restaurantRepository.saveAll(restaurants);
-        reviewRepository.saveAll(reviews);
-    }
-
     @Test
     public void LikeRepositoryTest() {
         //given
