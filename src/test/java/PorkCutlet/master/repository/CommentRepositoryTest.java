@@ -31,7 +31,7 @@ class CommentRepositoryTest {
         //given
         User user1 = userRepository.findByLoginId("user1").orElseThrow();
         List<Review> all = reviewRepository.findAll();
-        Comment comment = new Comment(user1, all.get(0));
+        Comment comment = new Comment(user1, all.get(0), "hi basic content");
         commentRepository.save(comment);
         //when
         Comment find = commentRepository.findById(comment.getId()).orElseThrow();
