@@ -28,26 +28,15 @@ public class Comment extends BaseTimeEntity{
 
     private String content;
 
-
-    void setReview(Review review) {
-        this.review = review;
-        review.getComments().add(this);
-    }
-
-    void setUser(User user) {
-        this.user = user;
-    }
-
     @Builder
-    public Comment(User user, Review review) {
+    public Comment(User user, Review review, String content) {
         this.user = user;
         this.review = review;
+        this.content = content;
     }
 
-    //    public Comment CreateComment(User user, Review review) {
-//        Comment comment = new Comment();
-//        comment.setUser(user);
-//        comment.setReview(review);
-//        return comment;
-//    }
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
 }
