@@ -7,11 +7,11 @@ html, body {
 #wrapper{
     height: auto;
     min-height: 100%;
-    padding-bottom: 15%;
+    padding-bottom: 15vh;
 }
 
 footer {
-    height: 15%;
+    height: 15vh;
     position : relative;
     transform : translateY(-100%);
     background: #a5201d;
@@ -53,6 +53,19 @@ footer {
 .nav-bg{
     background: #ffffff;
     border-bottom: 3px solid #a5201d;
+    height: 17vh;
+    margin: 0 4vw;
+    padding-top: 8vh;
+}
+#nav-no-login {
+    height: 8vh;
+    align-items: end;
+    display: flex;
+}
+#nav-login{
+    height: 8vh;
+    align-items: end;
+    display: flex;
 }
 a.nav-link{
     color: #a5201d;
@@ -71,4 +84,223 @@ button.logout:hover{
 a.mypage{
     color: #a5201d;
 }
+div.middle-dot1 {
+    height: 0.7vh;
+    width: 0.4vw;
+    margin-top: 1.5vh;
+    background-color: #a6201f;
+    border-radius: 3vh;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
+div.middle-dot2 {
+    height: 0.7vh;
+    width: 0.4vw;
+    margin-top: 1vh;
+    background-color: #a6201f;
+    border-radius: 3vh;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
 /* nav bar */
+
+
+/* home */
+.home-top{
+    margin: 0% 4.1%;
+    height: 83vh;
+}
+
+div.feature {
+    height: 8.7vh;
+    margin: 0;
+    width: 100%;
+    padding-top: 2.4vh;
+}
+
+.feature a{
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #a4a2a2;
+}
+
+div.top-img{
+    width: 100%;
+    height: 58.9vh;
+}
+
+div.top-img img{
+    height: 100%;
+    width: 100%;
+}
+
+div.desc{
+    height: 14.5vh;
+    text-align: center;
+    padding-top: 6vh;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2f200d;
+    font-size: 110%;
+    font-weight: 600;
+}
+
+.review-6-images {
+    text-align: center;
+    border-top: 3px solid #a5201d;
+    border-bottom: 3px solid #a5201d;
+    height: 100vh;
+    padding: 10vh 21.3vw;
+}
+
+.up-3-images {
+    height: 35vh;
+    width: 100%;
+}
+
+.line {
+    height: 5vh;
+    border-top: 0.2vh solid #982d25;
+}
+
+.down-3-images {
+    height: 35vh;
+    width: 100%;
+}
+
+div.reviews {
+    height: 12vh;
+    width: 100%;
+    padding-top: 6vh;
+}
+
+div.image-6-container {
+    width: 14.5vw;
+    float: left;
+    height: 30vh;
+    margin: 0 2.1vw;
+}
+
+.review-6-images img{
+    height: 100%;
+    max-width: 100%;
+    border-radius: 7%;
+}
+
+.reviews a {
+    height: 12vh;
+    width: 100%;
+    padding-top: 6vh;
+    color: #2f200d;
+    font-size: 2.5vh;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+.recommend-review{
+    height: 85vh;
+    text-align: center;
+}
+
+.recommend-title {
+    height: 20vh;
+    padding-top: 10vh;
+    font-size: 2.5vh;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f200d;
+}
+
+.recommend-images {
+    height: 30vh;
+    padding: 0 15.4vw;
+}
+
+.recommend-image-container{
+    width: 29.6vw;
+    height: 25vh;
+    float: left;
+    margin: 0 2.1vw;
+}
+
+.recommend-images img{
+    height: 100%;
+    width: 100%;
+}
+
+.recommend-desc {
+    height: 35vh;
+}
+
+.desc-title {
+    height: 8vh;
+    font-size: 2.5vh;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #a5201d;
+}
+
+.desc-menu {
+    height: 7vh;
+    color: #a5201d;
+}
+
+.desc-address {
+    height: 8vh;
+}
+
+.desc-recommend button {
+    /* text-decoration: none; */
+    background: #a5201d;
+    color: white;
+    border: none;
+    width: 21.6vw;
+    height: 4vh;
+    border-radius: 10%;
+}
+
+
+
+/* home */
+
+
+/*reviewList*/
+.review-list-container{
+    padding-top: 2.6vh;
+    height: 87.6vh;
+}
+div.left{
+    float: left;
+    width: 18%;
+    height: 100%;
+    background-color: #f8f1f0;
+}
+div.right{
+    float: right;
+    width: 82%;
+    height: 100%;
+    padding-top: 2.6vh;
+    padding-left: 6vw;
+    padding-right: 4.7vw;
+}
+.list-head{
+    border-bottom: 3px solid #a5201d;
+}
+/*reviewList*/

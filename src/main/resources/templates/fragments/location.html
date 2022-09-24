@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body th:fragment="location">
+    <body th:fragment="location" th:object="${reviewDto}">
         <div>
-            <input type="text" id="postcode" placeholder="우편번호">
-            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="roadAddress" placeholder="도로명주소">
-            <input type="text" id="detailAddress" placeholder="상세주소">
+            <input type="text" id="postcode" th:field="*{postcode}" placeholder="우편번호">
+            <input type="button" onclick="execDaumPostcode()" value="가게위치"><br>
+            <input type="text" id="roadAddress" th:field="*{roadAddress}" placeholder="도로명주소">
+            <input type="text" id="detailAddress" th:field="*{detailAddress}" placeholder="상세주소">
         </div>
 
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
