@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="star(title, id)" class="starRateContainer">
+    <span class="headerTitle" style="margin-right: 40px; vertical-align: middle; line-height: 50px;" th:text="${title}"></span>
+    <div class="rate star" th:id="${id}">
+        <input type="radio" th:id="${id} + 5" name="rate" value="5" />
+        <label th:for="${id} + 5" title="text">5 stars</label>
+        <input type="radio" th:id="${id} + 4" name="rate" value="4" />
+        <label th:for="${id} + 4" title="text">4 stars</label>
+        <input type="radio" th:id="${id} + 3" name="rate" value="3" />
+        <label th:for="${id} + 3" title="text">3 stars</label>
+        <input type="radio" th:id="${id} + 2" name="rate" value="2" />
+        <label th:for="${id} + 2" title="text">2 stars</label>
+        <input type="radio" th:id="${id} + 1" name="rate" value="1" />
+        <label th:for="${id} + 1" title="text">1 star</label>
+    </div>
+</div>
+</html>

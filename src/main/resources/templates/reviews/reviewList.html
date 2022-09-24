@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="utf-8">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+        <div class="review-list-container">
+            <div class="left">
+            </div>
+            <div class="right">
+                <div class="list-head">
+                    <span class="list-title">생생한 돈가스 맛집 리뷰</span>
+                    <a class="list-write" th:if="${user != null} and ${user.isAdmin()}" href="/reviews/new" th:href="@{/reviews/new}">글쓰기</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+</body>
+
+</html>

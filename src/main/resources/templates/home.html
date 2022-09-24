@@ -6,17 +6,114 @@
     <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
 <body>
-<div th:replace="/fragments/nav.html :: fragment-nav"></div>
-<!--페이지 소스-->
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2>홈 화면</h2>
-        <a class="nav-link" href="/upload" th:href="@{/upload}" >임시업로드 <span class="sr-only">(current)</span></a>
+    <div id="wrapper">
+        <div class="section">
+            <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+            <!--페이지 소스-->
+            <div class="home-top">
+                <div class="feature">
+                    <a href="#reviews">돈가스 맛집 리뷰</a>
+                    <a href="#recommend">오늘의 돈가스 맛집 추천</a>
+                </div>
+                <div class="top-img">
+                    <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                </div>
+                <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
+            </div>
+        </div>
+
+        <div class="review-6-images section" id="reviews">
+            <div class="up-3-images">
+                <div th:each="review, reviewStat : ${top6Reviews}">
+                    <div th:if="${reviewStat.count <= 3}" class="image-6-container">
+                        <img th:src="|/images/${review.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="down-3-images">
+                <div th:each="review, reviewStat : ${top6Reviews}">
+                    <div th:if="${reviewStat.count > 3}" class="image-6-container">
+                        <img th:src="|/images/${review.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                    </div>
+                </div>
+            </div>
+
+            <div class="reviews">
+                <a href="/reviews">생생한 돈가스 맛집 리뷰 보러가기 ></a>
+            </div>
+        </div>
+
+
+        <div class="recommend-review section" id="recommend">
+            <div class="recommend-title">오늘의 추천 돈가스는?</div>
+            <div class="recommend-images">
+                <div class="recommend-image-container">
+                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                </div>
+                <div class="recommend-image-container">
+                    <img th:if="${recommendReview.getStoreFileNames().size() > 1}" th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
+                    <img th:unless="${recommendReview.getStoreFileNames().size() > 1}" src="/img/home-top.png">
+                </div>
+            </div>
+
+            <div class="recommend-desc">
+                <div th:if="${recommendReview}" th:text="${recommendReview.getRestaurantName()}" class="desc-title">가게 이름</div>
+                <div th:if="${recommendReview}" th:text="${recommendReview.getForkCutletName()}" class="desc-menu">메뉴 이름</div>
+                <div th:if="${recommendReview}" th:text="|${recommendReview.getRoadAddress()} ${recommendReview.getDetailAddress()}|" class="desc-address">가게 주소</div>
+                <form class="desc-recommend"  method="get" th:action="@{/recommend}">
+                    <button>다시 추천받기</button>
+                </form>
+            </div>
+        </div>
     </div>
 
-
-</div>
-<!--페이지 소스-->
-<footer th:replace="/fragments/footer.html :: fragment-footer"></footer>
+        <!--페이지 소스-->
+        <div th:replace="/fragments/footer.html :: fragment-footer"></div>
 </body>
 </html>
+<script>
+// 참고 : https://velog.io/@jaenny/JavaScript-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%8B%9C-%ED%95%9C-%EC%84%B9%EC%85%98%EC%94%A9-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B2%8C-%ED%95%98%EA%B8%B0
+    window.onload = function(){
+        const elm = document.querySelectorAll('.section');
+        const elmCount = elm.length;
+        elm.forEach(function(item, index){
+            item.addEventListener('mousewheel', function(event){
+                event.preventDefault();
+                let delta = 0;
+
+                if (!event) event = window.event;
+                if (event.wheelDelta) {
+                    delta = event.wheelDelta / 120;
+                    if (window.opera) delta = -delta;
+                }
+                else if (event.detail)
+                    delta = -event.detail / 3;
+
+                let moveTop = window.scrollY;
+                let elmSelector = elm[index];
+
+                // wheel down : move to next section
+                if (delta < 0){
+                    if (elmSelector !== elmCount-1){
+                        try{
+                            moveTop = window.pageYOffset + elmSelector.nextElementSibling.getBoundingClientRect().top;
+                        }catch(e){}
+                    }
+                }
+
+                // wheel up : move to previous section
+                else{
+                    if (elmSelector !== 0){
+                        try{
+                            moveTop = window.pageYOffset + elmSelector.previousElementSibling.getBoundingClientRect().top;
+                        }catch(e){}
+                    }
+                }
+
+                const body = document.querySelector('html');
+                window.scrollTo({top:moveTop, left:0, behavior:'smooth'});
+            });
+        });
+    }
+</script>
