@@ -1,4 +1,4 @@
-package PorkCutlet.master.argumentresolver;
+package PorkCutlet.master.controller.login;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
