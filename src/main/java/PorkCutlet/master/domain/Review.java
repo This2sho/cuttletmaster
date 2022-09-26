@@ -3,6 +3,7 @@ package PorkCutlet.master.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -19,25 +20,42 @@ public class Review extends BaseTimeEntity {
     @Column(name = "review_id")
     private Long id;
 
-    private String content;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @Embedded
-    private RatingInfo ratingInfo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @BatchSize(size = 10)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    public Review(String content, Restaurant restaurant, RatingInfo ratingInfo) {
-        this.content = content;
+    private String content;
+
+    @Embedded
+    private RatingInfo ratingInfo;
+
+    public Review(User user, Restaurant restaurant, List<Image> images, String content, RatingInfo ratingInfo) {
+        this.user = user;
         this.restaurant = restaurant;
+        this.content = content;
+        setImage(images);
         this.ratingInfo = ratingInfo;
     }
 
-    /** todo
-     * UploadFile 만들어야함
-     */
+    public void setImage(List<Image> images) {
+        for (Image image : images) {
+            this.images.add(image);
+            image.setReview(this);
+        }
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 }
