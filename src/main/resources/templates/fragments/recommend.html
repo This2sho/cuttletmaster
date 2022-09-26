@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div id="recommend-content" th:fragment="recommend">
+        <div class="recommend-title">오늘의 추천 돈가스는?</div>
+        <div class="recommend-images">
+            <div class="recommend-image-container">
+                <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+            </div>
+            <div class="recommend-image-container">
+                <img th:if="${recommendReview.getStoreFileNames().size() > 1}" th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
+                <img th:unless="${recommendReview.getStoreFileNames().size() > 1}" src="/img/home-top.png">
+            </div>
+        </div>
+
+        <div class="recommend-desc">
+            <div th:text="${recommendReview.getRestaurantName()}" class="desc-title">가게 이름</div>
+            <div th:text="${recommendReview.getForkCutletName()}" class="desc-menu">메뉴 이름</div>
+            <div th:text="|${recommendReview.getRoadAddress()} ${recommendReview.getDetailAddress()}|" class="desc-address">가게 주소</div>
+
+            <div class="desc-recommend">
+                <button type="button" onclick="getRecommend()">다시 추천받기</button>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript">
+            function getRecommend() {
+                // var
+                $.ajax({
+                    type: "POST",
+                    url: "/recommend",
+                    // data: JSON.stringify(param),
+                    dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
+                }).done(function (result){
+                    console.log(result);
+                    $("#recommend-content").replaceWith(result);
+                });
+            }
+        </script>
+    </div>
+</html>
