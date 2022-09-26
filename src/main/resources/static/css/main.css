@@ -151,7 +151,6 @@ div.desc{
 }
 
 .review-6-images {
-    text-align: center;
     border-top: 3px solid #a5201d;
     border-bottom: 3px solid #a5201d;
     height: 100vh;
@@ -160,7 +159,7 @@ div.desc{
 
 .up-3-images {
     height: 35vh;
-    width: 100%;
+    width: 60vw;
 }
 
 .line {
@@ -170,13 +169,14 @@ div.desc{
 
 .down-3-images {
     height: 35vh;
-    width: 100%;
+    width: 60vw;
 }
 
 div.reviews {
     height: 12vh;
     width: 100%;
     padding-top: 6vh;
+    text-align: center;
 }
 
 div.image-6-container {
@@ -188,7 +188,7 @@ div.image-6-container {
 
 .review-6-images img{
     height: 100%;
-    max-width: 100%;
+    width: 100%;
     border-radius: 7%;
 }
 
@@ -203,7 +203,6 @@ div.image-6-container {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: center;
 }
 
 .recommend-review{
@@ -212,8 +211,8 @@ div.image-6-container {
 }
 
 .recommend-title {
-    height: 20vh;
-    padding-top: 10vh;
+    height: 15vh;
+    padding-top: 5vh;
     font-size: 2.5vh;
     font-weight: bold;
     font-stretch: normal;
@@ -226,6 +225,7 @@ div.image-6-container {
 
 .recommend-images {
     height: 30vh;
+    width: 100vw;
     padding: 0 15.4vw;
 }
 
@@ -266,7 +266,7 @@ div.image-6-container {
     height: 8vh;
 }
 
-.desc-recommend button {
+.desc-recommend button{
     /* text-decoration: none; */
     background: #a5201d;
     color: white;
