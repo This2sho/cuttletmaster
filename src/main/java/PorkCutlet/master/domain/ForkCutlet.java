@@ -1,9 +1,6 @@
 package PorkCutlet.master.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,12 +10,8 @@ import javax.persistence.*;
 public class ForkCutlet {
     @Id
     @GeneratedValue
-    @Column(name = "food_id")
+    @Column(name = "fork_cutlet_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
 
     @Enumerated(EnumType.STRING)
     private ForkCutletType forkCutletType;
@@ -26,9 +19,8 @@ public class ForkCutlet {
     private String name;
 
     @Builder
-    public ForkCutlet(String name, ForkCutletType forkCutletType, Restaurant restaurant) {
+    public ForkCutlet(String name, ForkCutletType forkCutletType) {
         this.name = name;
         this.forkCutletType = forkCutletType;
-        this.restaurant = restaurant;
     }
 }
