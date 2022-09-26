@@ -1,8 +1,7 @@
-package PorkCutlet.master.argumentresolver;
+package PorkCutlet.master.controller.login;
 
 import PorkCutlet.master.controller.SessionConst;
 import PorkCutlet.master.controller.UserDto;
-import PorkCutlet.master.domain.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
