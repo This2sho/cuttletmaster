@@ -17,19 +17,7 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/auth/join")
-    public String joinForm(UserDto userDto) {
-        return "join/joinForm";
-    }
 
-    @PostMapping("/auth/join")
-    public String join(@Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "join/joinForm";
-        }
-        userService.join(new User(userDto.getLoginId(), userDto.getPassword(), userDto.getNickName()));
-        return "redirect:/";
-    }
 
 
 
