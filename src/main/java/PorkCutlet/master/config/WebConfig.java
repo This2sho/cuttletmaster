@@ -1,17 +1,27 @@
 package PorkCutlet.master.config;
 
-import PorkCutlet.master.controller.LoginCheckInterceptor;
+import PorkCutlet.master.controller.login.LoginMemberArgumentResolver;
+import PorkCutlet.master.controller.login.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginMemberArgumentResolver());
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
-                .addPathPatterns("/stop"); // 비로그인시 못들어감 <- 리뷰 생성페이지, 마이페이지 관련 으로 바꿔야함
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "/auth/join", "/auth/login","/reviews", "/reviews/{spring:^[0-9]*$}",
+                        "/css/**","/js/**","/img/**", "/*.ico", "/images/**", "/recommend");
     }
 }
