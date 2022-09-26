@@ -8,34 +8,38 @@
 <body>
     <div id="wrapper">
         <div class="section">
-            <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+            <div id="navbar">
+                <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
+            </div>
             <!--페이지 소스-->
-            <div class="home-top">
-                <div class="feature">
-                    <a href="#reviews">돈가스 맛집 리뷰</a>
-                    <a href="#recommend">오늘의 돈가스 맛집 추천</a>
+            <div>
+                <div class="home-top">
+                    <div class="feature">
+                        <a href="#reviews">돈가스 맛집 리뷰</a>
+                        <a href="#recommend">오늘의 돈가스 맛집 추천</a>
+                    </div>
+                    <div class="top-img">
+                        <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                    </div>
+                    <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
                 </div>
-                <div class="top-img">
-                    <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                </div>
-                <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
             </div>
         </div>
 
         <div class="review-6-images section" id="reviews">
             <div class="up-3-images">
-                <div th:each="review, reviewStat : ${top6Reviews}">
-                    <div th:if="${reviewStat.count <= 3}" class="image-6-container">
-                        <img th:src="|/images/${review.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                    </div>
+                <div class="image-6-container" th:each="idx : ${#numbers.sequence(0,2)}">
+                    <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                    <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
                 </div>
             </div>
+
             <div class="line"></div>
+
             <div class="down-3-images">
-                <div th:each="review, reviewStat : ${top6Reviews}">
-                    <div th:if="${reviewStat.count > 3}" class="image-6-container">
-                        <img th:src="|/images/${review.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                    </div>
+                <div class="image-6-container" th:each="idx : ${#numbers.sequence(3,5)}">
+                    <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                    <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
                 </div>
             </div>
 
@@ -46,25 +50,7 @@
 
 
         <div class="recommend-review section" id="recommend">
-            <div class="recommend-title">오늘의 추천 돈가스는?</div>
-            <div class="recommend-images">
-                <div class="recommend-image-container">
-                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                </div>
-                <div class="recommend-image-container">
-                    <img th:if="${recommendReview.getStoreFileNames().size() > 1}" th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
-                    <img th:unless="${recommendReview.getStoreFileNames().size() > 1}" src="/img/home-top.png">
-                </div>
-            </div>
-
-            <div class="recommend-desc">
-                <div th:if="${recommendReview}" th:text="${recommendReview.getRestaurantName()}" class="desc-title">가게 이름</div>
-                <div th:if="${recommendReview}" th:text="${recommendReview.getForkCutletName()}" class="desc-menu">메뉴 이름</div>
-                <div th:if="${recommendReview}" th:text="|${recommendReview.getRoadAddress()} ${recommendReview.getDetailAddress()}|" class="desc-address">가게 주소</div>
-                <form class="desc-recommend"  method="get" th:action="@{/recommend}">
-                    <button>다시 추천받기</button>
-                </form>
-            </div>
+            <div id="recommend-content" th:replace="/fragments/recommend.html :: recommend"></div>
         </div>
     </div>
 
@@ -117,3 +103,4 @@
         });
     }
 </script>
+
