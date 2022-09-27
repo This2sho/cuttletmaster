@@ -3,7 +3,6 @@ package PorkCutlet.master.controller;
 import PorkCutlet.master.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
@@ -19,7 +18,7 @@ public class ReviewDto {
     private String forkCutletName;
 
     @NotNull(message = "돈가스 타입을 정해주세요.")
-    private int forkCutletType;
+    private Integer forkCutletType;
 
     @NotEmpty(message = "주소를 입력해주세요.")
     private String roadAddress;
@@ -33,19 +32,19 @@ public class ReviewDto {
 
     @Max(value = 5, message = "최대 평점은 5입니다.")
     @Min(value = 1, message = "최소 평점은 1입니다.")
-    private int texture;
+    private Integer texture;
 
     @Max(value = 5, message = "최대 평점은 5입니다.")
     @Min(value = 1, message = "최소 평점은 1입니다.")
-    private int sauce;
+    private Integer sauce;
 
     @Max(value = 5, message = "최대 평점은 5입니다.")
     @Min(value = 1, message = "최소 평점은 1입니다.")
-    private int side;
+    private Integer side;
 
     @Max(value = 5, message = "최대 평점은 5입니다.")
     @Min(value = 1, message = "최소 평점은 1입니다.")
-    private int accessibility;
+    private Integer accessibility;
 
 
 //    public static ReviewDto from(Review review) {
