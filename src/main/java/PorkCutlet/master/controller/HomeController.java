@@ -1,12 +1,13 @@
 package PorkCutlet.master.controller;
 
+import PorkCutlet.master.controller.dto.HomeReviewDto;
+import PorkCutlet.master.controller.dto.UserDto;
 import PorkCutlet.master.controller.login.Login;
 import PorkCutlet.master.domain.Address;
 import PorkCutlet.master.domain.Image;
 import PorkCutlet.master.domain.Restaurant;
 import PorkCutlet.master.domain.Review;
 import PorkCutlet.master.service.ReviewService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class HomeController {
         model.addAttribute("top6Reviews", top6Reviews);
 
         /**
-         * 
+         *
          * 현재 추천 미구현으로 null 넣어놓음 구현 후 바꿔야 함
          */
         HomeReviewDto recommendReview = reviewToHomeReviewDto(reviewService.recommend(null));

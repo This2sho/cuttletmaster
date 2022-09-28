@@ -1,5 +1,6 @@
 package PorkCutlet.master.controller;
 
+import PorkCutlet.master.controller.dto.UserDto;
 import PorkCutlet.master.domain.User;
 import PorkCutlet.master.service.UserService;
 import lombok.RequiredArgsConstructor;

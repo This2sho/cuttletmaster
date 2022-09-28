@@ -1,4 +1,4 @@
-package PorkCutlet.master.controller;
+package PorkCutlet.master.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
