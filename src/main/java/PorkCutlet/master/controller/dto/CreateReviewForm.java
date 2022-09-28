@@ -1,4 +1,4 @@
-package PorkCutlet.master.controller;
+package PorkCutlet.master.controller.dto;
 
 import PorkCutlet.master.domain.*;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ReviewDto {
+public class CreateReviewForm {
     @NotEmpty(message = "가게 이름을 입력해주세요.")
     private String restaurantName;
 
@@ -27,7 +27,10 @@ public class ReviewDto {
 
     private List<MultipartFile> imageFiles;
 
-    @NotEmpty(message = "리뷰를 입력해주세요.")
+    @NotEmpty(message = "한줄평을 입력해주세요.")
+    private String oneSentence;
+
+    @NotEmpty(message = "상세 리뷰를 입력해주세요.")
     private String content;
 
     @Max(value = 5, message = "최대 평점은 5입니다.")
