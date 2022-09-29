@@ -48,7 +48,8 @@ public class initDB {
                 if(i==4) image = new Image("upload" + i, "store" + i+".png");
                 List<Image> images = new ArrayList<>();
                 images.add(image);
-                em.persist(new Review(users.get(i % 3), restaurant, images, "맛있다" + i, new RatingInfo(별점[i], 별점[i], 별점[i], 별점[i])));
+                em.persist(new Review(users.get(i % 3), restaurant, images, "맛있다 오우 너무너무 맛있다 정말 정말 맛있다." + i,
+                        "존맛탱~", new RatingInfo(별점[i], 별점[i], 별점[i], 별점[i])));
             }
         }
     }

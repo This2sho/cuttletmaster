@@ -28,7 +28,6 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @BatchSize(size = 10)
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
@@ -37,13 +36,16 @@ public class Review extends BaseTimeEntity {
 
     private String content;
 
+    private String oneSentence;
+
     @Embedded
     private RatingInfo ratingInfo;
 
-    public Review(User user, Restaurant restaurant, List<Image> images, String content, RatingInfo ratingInfo) {
+    public Review(User user, Restaurant restaurant, List<Image> images, String content,String oneSentence, RatingInfo ratingInfo) {
         this.user = user;
         this.restaurant = restaurant;
         this.content = content;
+        this.oneSentence = oneSentence;
         setImage(images);
         this.ratingInfo = ratingInfo;
     }
