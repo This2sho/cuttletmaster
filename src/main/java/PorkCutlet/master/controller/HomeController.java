@@ -1,7 +1,7 @@
 package PorkCutlet.master.controller;
 
 import PorkCutlet.master.controller.dto.HomeReviewDto;
-import PorkCutlet.master.controller.dto.UserDto;
+import PorkCutlet.master.controller.dto.UserInfoDto;
 import PorkCutlet.master.controller.login.Login;
 import PorkCutlet.master.domain.Address;
 import PorkCutlet.master.domain.Image;
@@ -26,7 +26,7 @@ public class HomeController {
     private final ReviewService reviewService;
 
     @GetMapping("/")
-    public String home(@Login UserDto user, Model model) {
+    public String home(@Login UserInfoDto user, Model model) {
         Review mostRecentReview = reviewService.getMostRecentReview();
         model.addAttribute("mostRecentReview", reviewToHomeReviewDto(mostRecentReview));
 
@@ -44,7 +44,7 @@ public class HomeController {
     }
 
     @PostMapping("/recommend")
-    public String recommend(@Login UserDto user, Model model) {
+    public String recommend(@Login UserInfoDto user, Model model) {
         HomeReviewDto recommendReview = reviewToHomeReviewDto(reviewService.recommend(null));
         model.addAttribute("recommendReview", recommendReview);
         return "fragments/recommend";
