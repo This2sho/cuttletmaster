@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 
 @SpringBootTest
 @Transactional
@@ -36,7 +38,42 @@ class LikeRepositoryTest {
         //when
         Like find = likeRepository.findById(like.getId()).orElseThrow();
         //then
-        Assertions.assertThat(like).isEqualTo(find);
+        assertThat(like).isEqualTo(find);
 
+    }
+
+    @Test
+    public void 좋아요_수_테스트() throws Exception {
+        //given
+        List<User> users = userRepository.findAll();
+        List<Review> reviews = reviewRepository.findAll();
+        for (int i = 0; i < 3; i++) {
+            Like like = new Like(users.get(i), reviews.get(0));
+            likeRepository.save(like);
+        }
+        //when
+        Long likesNum = likeRepository.countAllByReviewId(reviews.get(0).getId());
+
+        //then
+        assertThat(likesNum).isEqualTo(3);
+    }
+
+    @Test
+    public void 좋아요_삭제_테스트() throws Exception {
+        //given
+        List<User> users = userRepository.findAll();
+        List<Review> reviews = reviewRepository.findAll();
+        Like like = null;
+        for (int i = 0; i < 3; i++) {
+            like = new Like(users.get(i), reviews.get(0));
+            likeRepository.save(like);
+        }
+        //when
+        Long likesNum = likeRepository.countAllByReviewId(reviews.get(0).getId());
+        assertThat(likesNum).isEqualTo(3);
+        //then
+        likeRepository.delete(like);
+        likesNum = likeRepository.countAllByReviewId(reviews.get(0).getId());
+        assertThat(likesNum).isEqualTo(2);
     }
 }
