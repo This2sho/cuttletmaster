@@ -1,12 +1,10 @@
 package PorkCutlet.master.controller;
 
-import PorkCutlet.master.controller.dto.CreateReviewForm;
-import PorkCutlet.master.controller.dto.DetailReviewDto;
-import PorkCutlet.master.controller.dto.ThumbNailReviewDto;
-import PorkCutlet.master.controller.dto.UserDto;
+import PorkCutlet.master.controller.dto.*;
 import PorkCutlet.master.controller.login.Login;
 import PorkCutlet.master.domain.*;
 import PorkCutlet.master.ImageStore;
+import PorkCutlet.master.service.LikeService;
 import PorkCutlet.master.service.ReviewService;
 import PorkCutlet.master.service.UserService;
 import PorkCutlet.master.validation.FileValidator;
@@ -32,22 +30,30 @@ import java.util.stream.Collectors;
 public class ReviewController {
     private final UserService userService;
     private final ReviewService reviewService;
+    private final LikeService likeService;
     private final ImageStore imageStore;
 
     private final FileValidator fileValidator;
 
     @GetMapping("/{reviewId}")
-    public String reviewDetail(@Login UserDto user, @PathVariable Long reviewId,
+    public String reviewDetail(@Login UserInfoDto user, @PathVariable Long reviewId,
                                Model model) {
-        model.addAttribute("review" ,DetailReviewDto.from(reviewService.getReviewById(reviewId)));
+        Review review = reviewService.getReviewByIdWithFetchJoin(reviewId);
+
+        model.addAttribute("review" ,DetailReviewDto.from(review));
         /**
          * todo
-         * 좋아요, 댓글 추가 구현
+         * 댓글 추가 구현
          */
+        model.addAttribute("likes", userLikesReview(user, reviewId));
+        Long likesNum = likeService.countLikesNum(reviewId);
+        model.addAttribute("likesNum", likesNum);
+
         return "reviews/reviewDetail";
     }
+
     @GetMapping
-    public String reviewList(@Login UserDto user, @PageableDefault(size = 4)
+    public String reviewList(@Login UserInfoDto user, @PageableDefault(size = 4)
             Pageable pageable, Model model) {
         List<ThumbNailReviewDto> reviewList = reviewService.getPagingReview(pageable).getContent()
                 .stream().map(ThumbNailReviewDto::from).collect(Collectors.toList());
@@ -56,13 +62,13 @@ public class ReviewController {
     }
 
     @GetMapping("/new")
-    public String createReviewForm(@Login UserDto user, CreateReviewForm createReviewForm) {
+    public String createReviewForm(@Login UserInfoDto user, CreateReviewForm createReviewForm) {
         if(!user.isAdmin()) return "reviews/reviewList";
         return "reviews/reviewForm";
     }
 
     @PostMapping("/new")
-    public String createReview(@Login UserDto user, @Valid CreateReviewForm createReviewForm,
+    public String createReview(@Login UserInfoDto user, @Valid CreateReviewForm createReviewForm,
                                BindingResult bindingResult) throws IOException {
         if(!user.isAdmin()) return "reviews/reviewList";
         List<MultipartFile> files = createReviewForm.getImageFiles();
@@ -71,7 +77,7 @@ public class ReviewController {
 
         List<Image> images = imageStore.storeImages(files);
 
-        User loginUser = userService.login(user.getLoginId(), user.getPassword());
+        User loginUser = userService.findById(user.getId()).orElse(null);
         Review review = makeReview(createReviewForm, images, loginUser);
         reviewService.createReview(review);
         return "redirect:/reviews";
@@ -80,5 +86,9 @@ public class ReviewController {
     private Review makeReview(CreateReviewForm createReviewForm, List<Image> images, User loginUser) {
         Review review = new Review(loginUser, createReviewForm.makeRestaurant(), images, createReviewForm.getContent(), createReviewForm.getOneSentence(), createReviewForm.makeRatingInfo());
         return review;
+    }
+
+    private boolean userLikesReview(UserInfoDto user, Long reviewId) {
+        return user != null && likeService.doExistLike(user.getId(), reviewId);
     }
 }

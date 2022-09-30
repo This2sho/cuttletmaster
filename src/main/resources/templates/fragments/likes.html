@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="likes-content" class="likes" th:fragment="likes">
+
+    <div th:if="${user} == null">
+        <div class="likes-container">
+            <button th:onclick="|location.href='@{/auth/login}'|">좋아요</button>
+            <span th:text="${likesNum}">좋아요 수</span>
+        </div>
+    </div>
+
+    <div th:unless="${user} == null">
+        <div th:if="${likes}">
+            <div class="likes-container">
+                <button onclick="Like('DELETE')">좋아요 취소</button>
+                <span th:text="${likesNum}">좋아요 수</span>
+            </div>
+        </div>
+
+        <div th:unless="${likes}">
+            <div class="likes-container">
+                <button onclick="Like('POST')">좋아요</button>
+                <span th:text="${likesNum}">좋아요 수</span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function Like(method) {
+            var url = $(location).attr('origin') + $(location).attr('pathname') + "/likes";
+            // var
+            $.ajax({
+                type: method,
+                url: url,
+                // data: JSON.stringify(param),
+                dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
+            }).done(function (result){
+                $("#likes-content").replaceWith(result);
+            });
+        }
+    </script>
+</div>
+</html>

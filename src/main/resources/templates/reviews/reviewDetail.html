@@ -40,7 +40,7 @@
                     <div class="rating"> <span>총점</span> <span class="rating" th:text="${review.getOverallRating()}">3</span> </div>
                 </div>
 
-                <div class="likes">좋아요</div>
+                <div th:replace="/fragments/likes.html :: likes"></div>
 
                 <div class="comments">
                     <div id="comment" th:each="page : ${#numbers.sequence(1,5)}">댓글을 달아용</div>
