@@ -1,7 +1,7 @@
 package PorkCutlet.master.controller.login;
 
 import PorkCutlet.master.controller.SessionConst;
-import PorkCutlet.master.controller.dto.UserDto;
+import PorkCutlet.master.controller.dto.UserInfoDto;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -15,8 +15,8 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasUserDtoType = UserDto.class.isAssignableFrom(parameter.getParameterType());
-        return hasLoginAnnotation && hasUserDtoType;
+        boolean hasUserInfoDtoType = UserInfoDto.class.isAssignableFrom(parameter.getParameterType());
+        return hasLoginAnnotation && hasUserInfoDtoType;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
         if (session == null) {
             return null;
         }
-        UserDto user = (UserDto) session.getAttribute(SessionConst.LOGIN_USER);
+        UserInfoDto user = (UserInfoDto) session.getAttribute(SessionConst.LOGIN_USER);
         mavContainer.addAttribute("user", user);
         return session.getAttribute(SessionConst.LOGIN_USER);
     }
