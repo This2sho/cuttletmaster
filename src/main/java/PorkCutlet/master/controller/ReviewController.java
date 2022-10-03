@@ -4,12 +4,15 @@ import PorkCutlet.master.controller.dto.*;
 import PorkCutlet.master.controller.login.Login;
 import PorkCutlet.master.domain.*;
 import PorkCutlet.master.ImageStore;
+import PorkCutlet.master.service.CommentService;
 import PorkCutlet.master.service.LikeService;
 import PorkCutlet.master.service.ReviewService;
 import PorkCutlet.master.service.UserService;
 import PorkCutlet.master.validation.FileValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static PorkCutlet.master.controller.PageConst.commentsPageSize;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -32,6 +37,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final LikeService likeService;
     private final ImageStore imageStore;
+    private final CommentService commentService;
 
     private final FileValidator fileValidator;
 
@@ -41,13 +47,18 @@ public class ReviewController {
         Review review = reviewService.getReviewByIdWithFetchJoin(reviewId);
 
         model.addAttribute("review" ,DetailReviewDto.from(review));
-        /**
-         * todo
-         * 댓글 추가 구현
-         */
         model.addAttribute("likes", userLikesReview(user, reviewId));
+
         Long likesNum = likeService.countLikesNum(reviewId);
         model.addAttribute("likesNum", likesNum);
+
+        PageRequest request = PageRequest.of(0, commentsPageSize);
+
+        List<CommentDto> comments = commentService.getCommentsWithFetchJoin(request, reviewId)
+                .stream().map(CommentDto::from).collect(Collectors.toList());
+
+        model.addAttribute("comments", comments);
+        model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
 
         return "reviews/reviewDetail";
     }
