@@ -282,9 +282,9 @@ div.image-6-container {
 
 
 /*reviewList*/
-.review-list-container{
-    padding-top: 2.6vh;
-    height: 87.6vh;
+.review-list-page{
+    padding-top: 7vh;
+    height: 210vh;
 }
 div.left{
     float: left;
@@ -300,7 +300,355 @@ div.right{
     padding-left: 6vw;
     padding-right: 4.7vw;
 }
-.list-head{
+
+.list-head {
+    border-bottom: 3px solid #a5201d;
+    height: 8vh;
+}
+.review-list {
+    height: 163vh;
+    width: 100%;
+    padding-top: 2.3vh;
     border-bottom: 3px solid #a5201d;
 }
+
+
+.review-list-container {
+    padding: 4vh 0;
+    height: 40vh;
+    border-top: 3px solid #a5201d;
+}
+#review-list-thumbnail{
+    width: 14.5vw;
+    height: 32vh;
+    float: left;
+}
+#review-list-thumbnail img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+}
+#review-list-info {
+    height: 14vh;
+    width: 30vw;
+    padding-left: 3.3vw;
+    padding-top: 2vh;
+    float: left;
+}
+span.list-title {
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #0b0a0a;
+    font-size: 2rem;
+    padding-bottom: 4vh;
+}
+
+
+.review-list-title{
+    font-family: Pretendard;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0b0a0a;
+    font-size: 1.72rem;
+}
+
+a.list-write {
+    text-decoration: none;
+    color: #4a4040;
+    padding-top: 3vh;
+    float: right;
+    font-size: 1.2rem;
+}
+
+.review-list-menu{
+    ont-family: Pretendard;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0b0a0a;
+    font-size: 1.4rem;
+}
+
+.review-list-by{
+    opacity: 0.5;
+    font-family: Pretendard;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4d4141;
+    padding-top: 18.8vh;
+    font-size: 1.1rem;
+}
+
+
+.review-paging {
+    height: 25vh;
+    width: 100%;
+    padding-top: 5vh;
+    padding-left: 25vw;
+}
+
+.page-num {
+    /* text-align: center; */
+    float: left;
+    margin-left: 1vw;
+    width: 2rem;
+    height: 2.3rem;
+    text-align: center;
+    border: solid 1px #4b4141;
+}
+
+.page-num a {
+    text-decoration: none;
+    color: #b03112;
+    font-size: 1.5rem;
+}
+
+.next-page {
+    float: left;
+    margin-left: 1vw;
+    width: 2.2vw;
+    height: 2.5vh;
+}
 /*reviewList*/
+
+/*reviewDetail*/
+.review-detail-page{
+    padding-top: 7vh;
+    height: 210vh;
+}
+
+#review-detail-info {
+    height: 18vh;
+    width: 62.2vw;
+    border-bottom: solid 1px #4b4141;
+}
+
+.review-detail-title {
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #0b0a0a;
+    font-size: 2rem;
+}
+
+.review-detail-menu {
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0b0a0a;
+    font-size: 1.3rem;
+    padding-bottom: 4.3vh;
+}
+
+.review-detail-overall {
+    font-size: 1.1rem;
+    color: #a5201d;
+}
+
+.review-detail-by {
+    font-family: Pretendard;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #4d4141;
+    font-size: 1rem;
+}
+
+.review-detail-one-sentence {
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #982d25;
+    padding: 2.2vh 0.5vw;
+    font-size: 1rem;
+}
+
+.review-detail-container {
+    width: 62.2vw;
+    height: 50vh;
+    margin-bottom: 1.5vh;
+}
+
+.review-detail-container img {
+    height: 100%;
+    width: 100%;
+}
+
+.review-detail-content {
+    width: 62.2vw;
+    height: 20vh;
+    border-bottom: solid 1px #4b4141;
+    padding-bottom: 2.2vh;
+}
+
+.review-detail-ratings {
+    height: 30vh;
+    width: 62.2vw;
+    border-bottom: solid 1px #4b4141;
+    padding: 3vh 1vw;
+}
+
+div.rating {
+    padding-bottom: 1vh;
+}
+
+.likes {
+    height: 10vh;
+    width: 62.2vw;
+    padding-top: 3vh;
+}
+
+#comment {
+    width: 62.2vw;
+    height: 6vh;
+    padding-top: 2vh;
+    border-bottom: solid 1px #4b4141;
+}
+
+.page-container {
+    width: 62.2vw;
+    height: 8vh;
+    padding: 2vh 25vw;
+}
+.comment-container{
+    width: 62.4vw;
+    height: 15vh;
+    border: solid 1px #4b4141;
+}
+.write-container {
+    width: 62.2vw;
+    height: 10vh;
+}
+input.write-comment {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.send-container{
+    width: 62.2vw;
+    height: 5vh;
+    border-top: solid 1px #4b4141;
+}
+
+.send-container button {
+    border: none;
+    background-color: #FFFF;
+    float: right;
+    color: #a5201d;
+    width: 7vw;
+    padding-right: 1vw;
+    border-left: solid 1px #4b4141;
+    height: 4.7vh;
+}
+
+
+/*reviewDetail*/
+
+
+/*myPage*/
+#my-page-container {
+    min-height: 68vh;
+    padding: 0 4vw;
+}
+
+.mypage-top {
+    height: 8vh;
+    padding: 2.3vh 1vw;
+    border-bottom: 3px solid #982d25;
+    font-size: 2vh;
+}
+
+.mypage-menu {
+    height: 8vh;
+}
+
+.mypage-menu ui {
+    float: left;
+    margin: 2vh 1vw;
+}
+
+.mypage-menu button {
+    border: none;
+    background: none;
+    focus: none;
+    outline: none;
+}
+
+.selected{
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #982d25;
+}
+
+.non-selected{
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #4b4141;
+}
+
+#update-content {
+    height: 52vh;
+    padding: 1vh 1vw;
+}
+
+.my-page-content-title {
+    height: 6vh;
+    font-size: 2vh;
+}
+
+.input-container {
+    margin-bottom: 4vh;
+}
+
+.input-container label {
+    display: block;
+    font-size: 1.4vh;
+    font-weight: 600;
+}
+
+.input-container input {
+    width: 20vw;
+    height: 3.5vh;
+    border: 1px solid #982d25;
+}
+.input-button button {
+    border: none;
+    background: none;
+    font-size: 1.7vh;
+    color: #982d25;
+}
+
+#like-list-content {
+    min-height: 52vh;
+    width: 100%;
+}
+
+/*myPage*/
