@@ -6,8 +6,9 @@ import PorkCutlet.master.domain.User;
 import PorkCutlet.master.repository.CommentRepository;
 import PorkCutlet.master.repository.ReviewRepository;
 import PorkCutlet.master.repository.UserRepository;
+import com.mysema.commons.lang.Pair;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.expression.AccessException;
@@ -15,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import static PorkCutlet.master.controller.PageConst.commentsPageSize;
 
 @Service
 @Transactional(readOnly = true)
@@ -50,13 +54,26 @@ public class CommentService {
         commentRepository.delete(comment);
     }
 
-    public Page<Comment> getCommentsWithPage(Pageable pageable, Long reviewId) {
-        return commentRepository.findCommentsPageWithFetchJoin(pageable, reviewId);
+    public List<Comment> getCommentsWithFetchJoin(Pageable pageable, Long reviewId) {
+        return commentRepository.findCommentsWithFetchJoin(pageable, reviewId);
+    }
+
+    public Long getTotalPage(Long reviewId) {
+        Long totalSize = commentRepository.countByReview_Id(reviewId);
+        if(totalSize == 0) return 0L;
+        return totalSize % commentsPageSize == 0 ? totalSize / commentsPageSize - 1 : totalSize / commentsPageSize;
     }
 
     public List<Comment> getComments(Long reviewId) {
         PageRequest pageRequest = PageRequest.of(0, 4);
-        return commentRepository.findCommentsPageWithFetchJoin(pageRequest, reviewId).getContent();
+        return commentRepository.findCommentsWithFetchJoin(pageRequest, reviewId);
+    }
+
+    public Pair<Integer, List<Comment>> getLastCommentsWithTotalPage(Long reviewId) {
+        int totalPage = getTotalPage(reviewId).intValue();
+        PageRequest request = PageRequest.of(totalPage, commentsPageSize);
+        List<Comment> comments = commentRepository.findCommentsWithFetchJoin(request, reviewId);
+        return Pair.of(totalPage, comments);
     }
 
 
