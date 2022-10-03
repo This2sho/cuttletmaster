@@ -1,15 +1,12 @@
 package PorkCutlet.master.repository;
 
 import PorkCutlet.master.domain.*;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -75,5 +72,27 @@ class LikeRepositoryTest {
         likeRepository.delete(like);
         likesNum = likeRepository.countAllByReviewId(reviews.get(0).getId());
         assertThat(likesNum).isEqualTo(2);
+    }
+
+
+    @Test
+    public void 좋아하는_맛집_리스트_테스트() throws Exception {
+        //given
+        List<User> users = userRepository.findAll();
+        List<Review> reviews = reviewRepository.findAll();
+        for (int i = 0; i < 3; i++) {
+            Like like1 = new Like(users.get(0), reviews.get(i));
+            Like like2 = new Like(users.get(1), reviews.get(i));
+            likeRepository.save(like1);
+            likeRepository.save(like2);
+        }
+        //when
+        List<Review> likeList = likeRepository.findReviewsByUserIdWithFetchJoin(users.get(0).getId());
+        //then
+
+        for (Review review : likeList) {
+            System.out.println("review : " + review.getRestaurant().getName());
+        }
+
     }
 }
