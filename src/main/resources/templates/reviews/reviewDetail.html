@@ -41,26 +41,7 @@
                 </div>
 
                 <div th:replace="/fragments/likes.html :: likes"></div>
-
-                <div class="comments">
-                    <div id="comment" th:each="page : ${#numbers.sequence(1,5)}">댓글을 달아용</div>
-                    <div class="page-container">
-                        <div class="page-num" th:each="page : ${#numbers.sequence(1,2)}">
-                            <a th:text="${page}" th:href="|?page=${page}|"></a>
-                        </div>
-                    </div>
-
-                    <form method="post">
-                        <div class="comment-container">
-                            <div class="write-container">
-                                <input type="text" class="write-comment" placeholder=""></input>
-                            </div>
-                            <div class="send-container">
-                                <button>등록</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <div th:replace="/fragments/comments.html :: comments"></div>
 
             </div>
         </div>
