@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="like-list-content" class="update" th:fragment="likeList">
+
+    <div class="my-page-content-title">
+        <b>찜한 맛집 목록</b>
+    </div>
+
+    <div class="like-list">
+        <div class="review-list-container" th:each="review : ${likeList}">
+            <a th:href="|/reviews/${review.getId()}|">
+                <div id="review-list-thumbnail">
+                    <img src="/img/home-top.png" th:src="|/images/${review.getStoreImageName()}|">
+                </div>
+                <div id="review-list-info">
+                    <div th:text="${review.getRestaurantName()}" class="review-list-title">가게 이름</div>
+                    <div th:text="${review.getForkCutletName()}" class="review-list-menu">메뉴 이름</div>
+                    <div class="review-list-by">
+                        <span th:text="${review.getOverallRating()}">평점</span>
+                        <span th:text="${review.getCreatedDate()}">날짜</span>
+                        <span th:text="'| ' + ${review.getUserNickName()}">| 작성자</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</html>

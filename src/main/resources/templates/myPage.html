@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="navbar">
+            <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
+        </div>
+        <!--페이지 소스-->
+        <div id="my-page-container">
+            <div class="mypage-top">
+                <b th:text="${user.nickName}">홍길동</b> <span>님 계정</span>
+            </div>
+
+            <div class="mypage-menu">
+                <ui>
+                    <button class="selected" id="menu-0" onclick="selectMenu(0)">회원정보 수정</button>
+                </ui>
+                <ui>
+                    <button class="non-selected" id="menu-1" onclick="selectMenu(1)">찜한 맛집 목록</button>
+                </ui>
+            </div>
+
+            <div id="selected-0" style="display: block">
+                <div th:replace="/fragments/mypageUpdate.html :: update"></div>
+            </div>
+            <div id="selected-1" style="display: none">
+                <div th:replace="/fragments/mypageLikeList.html :: likeList"></div>
+            </div>
+
+        </div>
+    </div>
+    <!--페이지 소스-->
+    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+</body>
+<script type="text/javascript">
+    function selectMenu(num) {
+        var selectId = "selected-";
+        var selectMenu = "menu-";
+
+        var menuSize = 2;
+        for (var i = 0; i < menuSize; i++) {
+            if (i != num) {
+                document.getElementById(selectId + i).style.display = 'none';
+                document.getElementById(selectMenu + i).className = "non-selected";
+            }
+            if (i == num) {
+                document.getElementById(selectId + i).style.display = 'block';
+                document.getElementById(selectMenu + i).className = "selected";
+            }
+        }
+    }
+</script>
+</html>

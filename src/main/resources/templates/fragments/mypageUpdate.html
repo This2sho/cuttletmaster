@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div id="update-content" class="update" th:fragment="update">
+
+        <div class="my-page-content-title">
+            <b>회원정보 수정</b>
+        </div>
+
+        <div class="my-page-update-form">
+            <form th:action th:object="${userUpdateDto}">
+                <div class="input-container">
+                    <label for="password">비밀번호</label>
+                    <input type="text" id="password" th:field="*{password}" th:errorclass="field-error">
+                    <div class="field-error" th:errors="*{password}" />
+                </div>
+                <div class="input-container">
+                    <label for="passwordCheck">비밀번호 재확인</label>
+                    <input type="text" id="passwordCheck" th:field="*{passwordCheck}" th:errorclass="field-error">
+                    <div class="field-error" th:errors="*{passwordCheck}" />
+                </div>
+                <div class="input-container">
+                    <label for="nickName">닉네임</label>
+                    <input type="text" id="nickName" th:field="*{nickName}" th:errorclass="field-error">
+                    <div class="field-error" th:errors="*{nickName}" />
+                </div>
+                <div class="input-button">
+                    <button>수정</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</html>
