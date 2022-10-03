@@ -19,9 +19,9 @@ import static PorkCutlet.master.domain.QUser.user;
 public class CommentRepositoryImpl implements CommentRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     @Override
-    public Page<Comment> findCommentsPageWithFetchJoin(Pageable pageable, Long reviewId) {
+    public List<Comment> findCommentsWithFetchJoin(Pageable pageable, Long reviewId) {
         long pageNum = pageable.getOffset() == 0 ? 0 : pageable.getOffset() - pageable.getPageSize();
-        List<Comment> comments = queryFactory.selectFrom(comment)
+        return queryFactory.selectFrom(comment)
                 .join(comment.review, review).fetchJoin()
                 .join(comment.user, user).fetchJoin()
                 .where(comment.review.id.eq(reviewId))
@@ -29,7 +29,5 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 .offset(pageNum)
                 .limit(pageable.getPageSize())
                 .fetch();
-        int total = comments.size();
-        return new PageImpl<>(comments, pageable, total);
     }
 }

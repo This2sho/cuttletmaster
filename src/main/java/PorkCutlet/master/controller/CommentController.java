@@ -3,10 +3,11 @@ package PorkCutlet.master.controller;
 import PorkCutlet.master.controller.dto.CommentDto;
 import PorkCutlet.master.controller.dto.UserInfoDto;
 import PorkCutlet.master.controller.login.Login;
+import PorkCutlet.master.domain.Comment;
 import PorkCutlet.master.service.CommentService;
-import PorkCutlet.master.service.ReviewService;
-import PorkCutlet.master.service.UserService;
+import com.mysema.commons.lang.Pair;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -18,26 +19,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static PorkCutlet.master.controller.PageConst.commentsPageSize;
+
 @Controller
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("reviews/{reviewId}/comments")
-    public String getComments(@PathVariable Long reviewId, @PageableDefault(size = 4)
-            Pageable pageable, Model model) {
-        List<CommentDto> comments = commentService.getCommentsWithPage(pageable, reviewId).getContent()
+    public String getComments(@Login UserInfoDto user, @PathVariable Long reviewId, Model model,
+                              @PageableDefault(size = commentsPageSize) Pageable pageable) {
+        List<CommentDto> comments = commentService.getCommentsWithFetchJoin(pageable, reviewId)
                 .stream().map(CommentDto::from).collect(Collectors.toList());
+
         model.addAttribute("comments", comments);
+        model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
+
         return "fragments/comments";
     }
 
     @PostMapping("reviews/{reviewId}/comments")
     public String createComment(@Login UserInfoDto user, @PathVariable Long reviewId, String content, Model model) {
         commentService.createComment(user.getId(), reviewId, content);
-        List<CommentDto> comments = commentService.getComments(reviewId)
+        Pair<Integer, List<Comment>> result = commentService.getLastCommentsWithTotalPage(reviewId);
+        List<CommentDto> comments = result.getSecond()
                 .stream().map(CommentDto::from).collect(Collectors.toList());
+
         model.addAttribute("comments", comments);
+        model.addAttribute("totalPage", result.getFirst());
         return "fragments/comments";
     }
 }
