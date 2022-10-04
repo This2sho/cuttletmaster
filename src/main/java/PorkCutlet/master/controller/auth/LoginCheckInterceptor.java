@@ -1,4 +1,4 @@
-package PorkCutlet.master.controller.login;
+package PorkCutlet.master.controller.auth;
 
 import PorkCutlet.master.controller.SessionConst;
 import org.springframework.web.servlet.HandlerInterceptor;
