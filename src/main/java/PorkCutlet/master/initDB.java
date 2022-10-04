@@ -42,7 +42,7 @@ public class initDB {
 
             Rating[] 별점 = {ONE, TWO, THREE, FOUR, Five};
             for (int i = 1; i < 5; i++) {
-                Restaurant restaurant = new Restaurant("식당" + i, new Address("부산", "부산 대학로", "147-" + i), new ForkCutlet("왕돈까스" + i, ForkCutletType.KOREAN_STYLE));
+                Restaurant restaurant = new Restaurant("식당" + i, new Address("부산", "부산 대학로"), new ForkCutlet("왕돈까스" + i, ForkCutletType.KOREAN_STYLE));
                 em.persist(restaurant);
                 Image image = new Image("upload" + i, "store" + i+".jpeg");
                 if(i==4) image = new Image("upload" + i, "store" + i+".png");

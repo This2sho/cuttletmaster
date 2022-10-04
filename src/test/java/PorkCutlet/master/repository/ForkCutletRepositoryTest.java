@@ -26,7 +26,7 @@ class ForkCutletRepositoryTest {
     public void FoodRepositoryTest(){
         //given
         ForkCutlet forkCutlet = new ForkCutlet("바삭바삭 돈까스", ForkCutletType.KOREAN_STYLE);
-        Restaurant restaurant = new Restaurant("은하수 식당", new Address("부산", "부산 대학로", "147-1"), forkCutlet);
+        Restaurant restaurant = new Restaurant("은하수 식당", new Address("부산", "부산 대학로"), forkCutlet);
         restaurantRepository.save(restaurant);
 
         //when

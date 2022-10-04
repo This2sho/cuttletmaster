@@ -24,7 +24,7 @@ class RestaurantRepositoryTest {
     @Test
     public void RestaurantCreateTest() {
         //given
-        Address address = new Address("a city", "b street", "123");
+        Address address = new Address("a city", "b street");
         Restaurant restaurant = new Restaurant("cocoa", address, new ForkCutlet("미니 돈까스", ForkCutletType.JAPANESE_STYLE));
         restaurantRepository.save(restaurant);
         //when
@@ -39,7 +39,7 @@ class RestaurantRepositoryTest {
     @Test
     public void RestaurantRepositoryQueryDslTest(){
         //given
-        Address address = new Address("a city", "b street", "123");
+        Address address = new Address("a city", "b street");
         Restaurant restaurant = new Restaurant("cocoa", address, new ForkCutlet("미니 돈까스", ForkCutletType.JAPANESE_STYLE));
         restaurantRepository.save(restaurant);
         //when
@@ -53,7 +53,7 @@ class RestaurantRepositoryTest {
     @Test
     public void findByNameTest(){
         //given
-        Address address = new Address("a city", "b street", "123");
+        Address address = new Address("a city", "b street");
         Restaurant restaurant = new Restaurant("cocoa", address, new ForkCutlet("미니 돈까스", ForkCutletType.JAPANESE_STYLE));
         restaurantRepository.save(restaurant);
         //when
@@ -70,7 +70,7 @@ class RestaurantRepositoryTest {
         //given
         Restaurant restaurant = restaurantRepository.findByName("식당1").orElseThrow();
         //when
-        String forkcutletName = restaurant.getForkCutlets().get(0).getName();
+        String forkcutletName = restaurant.getForkCutlet().getName();
         //then
         System.out.println("restaurant = " + restaurant.getName());
         System.out.println("forkcutletName = " + forkcutletName);

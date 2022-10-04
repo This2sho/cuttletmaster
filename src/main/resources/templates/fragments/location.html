@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <body th:fragment="location" th:object="${createReviewForm}">
-        <div>
-            <input type="text" id="postcode" th:field="*{postcode}" placeholder="우편번호">
-            <input type="button" onclick="execDaumPostcode()" value="가게위치"><br>
+        <div class="review-form-location">
+            <input type="button" id="location-btn" onclick="execDaumPostcode()" value="가게 위치">
             <input type="text" id="roadAddress" th:field="*{roadAddress}" placeholder="도로명주소">
             <input type="text" id="detailAddress" th:field="*{detailAddress}" placeholder="상세주소">
         </div>
@@ -36,7 +35,6 @@
                         }
 
                         // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('postcode').value = data.zonecode;
                         document.getElementById("roadAddress").value = roadAddr;
                     }
                 }).open();

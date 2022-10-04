@@ -23,7 +23,6 @@ public class CreateReviewForm {
     @NotEmpty(message = "주소를 입력해주세요.")
     private String roadAddress;
     private String detailAddress;
-    private String postcode;
 
     private List<MultipartFile> imageFiles;
 
@@ -68,7 +67,7 @@ public class CreateReviewForm {
 //    }
 
     public Address makeAddress() {
-        return new Address(roadAddress, detailAddress, postcode);
+        return new Address(roadAddress, detailAddress);
     }
 
     public ForkCutlet makeForkCutlet() {
