@@ -6,56 +6,59 @@
     <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
 <body>
-    <div id="wrapper">
-        <div class="section">
-            <div id="navbar">
-                <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
-            </div>
-            <!--페이지 소스-->
-            <div>
-                <div class="home-top">
-                    <div class="feature">
-                        <a href="#reviews">돈가스 맛집 리뷰</a>
-                        <a href="#recommend">오늘의 돈가스 맛집 추천</a>
+    <div class="home-background">
+        <div id="wrapper">
+                <div class="section">
+                    <div id="navbar">
+                        <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
                     </div>
-                    <div class="top-img">
-                        <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                    <!--페이지 소스-->
+                    <div>
+                        <div class="home-top section">
+                            <div class="feature">
+                                <a href="#reviews">돈가스 맛집 리뷰</a>
+                                <a href="#recommend">오늘의 돈가스 맛집 추천</a>
+                            </div>
+                            <div class="top-img">
+                                <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                            </div>
+                            <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
+                        </div>
                     </div>
-                    <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
                 </div>
-            </div>
+
+                    <div class="review-6-images section" id="reviews">
+                        <div class="up-3-images">
+                            <div class="image-6-container" th:each="idx : ${#numbers.sequence(0,2)}">
+                                <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                                <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
+                            </div>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="down-3-images">
+                            <div class="image-6-container" th:each="idx : ${#numbers.sequence(3,5)}">
+                                <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                                <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
+                            </div>
+                        </div>
+
+                        <div class="reviews">
+                            <a href="/reviews">생생한 돈가스 맛집 리뷰 보러가기 ></a>
+                        </div>
+                    </div>
+
+
+                    <div class="recommend-review section" id="recommend">
+                        <div id="recommend-content" th:replace="/fragments/recommend.html :: recommend"></div>
+                    </div>
         </div>
-
-        <div class="review-6-images section" id="reviews">
-            <div class="up-3-images">
-                <div class="image-6-container" th:each="idx : ${#numbers.sequence(0,2)}">
-                    <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
-                    <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
-                </div>
-            </div>
-
-            <div class="line"></div>
-
-            <div class="down-3-images">
-                <div class="image-6-container" th:each="idx : ${#numbers.sequence(3,5)}">
-                    <img th:if="${top6Reviews.size() > idx}"  th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
-                    <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
-                </div>
-            </div>
-
-            <div class="reviews">
-                <a href="/reviews">생생한 돈가스 맛집 리뷰 보러가기 ></a>
-            </div>
-        </div>
-
-
-        <div class="recommend-review section" id="recommend">
-            <div id="recommend-content" th:replace="/fragments/recommend.html :: recommend"></div>
-        </div>
-    </div>
 
         <!--페이지 소스-->
         <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+    </div>
+
 </body>
 </html>
 <script>

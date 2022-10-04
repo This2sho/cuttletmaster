@@ -121,9 +121,188 @@ footer {
 
 
 /* 리뷰 폼 */
-.review-container{
+.review-form-back {
+    background: #f8f1f0;
+    text-align: -webkit-center;
+    width: 100%;
+    margin-top: 2vh;
     height: auto;
-    padding: 1% 5%;
+}
+.review-container {
+    height: auto;
+    background: white;
+    margin: 0 6vw;
+    text-align: left;
+    padding-left: 2vw;
+}
+
+.review-container input{
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 1vh 2vw;
+}
+
+.review-form-title {
+    height: 10vh;
+    border-bottom: 1px solid #982d25;
+    width: 100%;
+}
+
+
+.review-form-menu {
+    height: 8vh;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+
+input#forkCutletType {
+    border-right: solid 1px #982d25;
+    height: 100%;
+    width: 14vw;
+    float: left;
+}
+input#forkCutletName {
+    height: 100%;
+    width: 82%;
+}
+#upload-images {
+    height: auto;
+    width: 100%;
+    padding-top: 3vh;
+    display: none;
+    border-bottom: 1px solid #982d25;
+    text-align: -webkit-center;
+}
+.upload-image-container {
+    width: 65vw;
+    height: 55vh;
+    margin-bottom: 3vh;
+}
+.upload-image-container img{
+    width: 100%;
+    height: 100%;
+}
+.review-form-image{
+    height: 8vh;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+.review-form-image label {
+    width: 14vw;
+    height: 100%;
+    border-right: 1px solid #982d25;
+    margin: 0;
+    float: left;
+}
+#camera-ico-container {
+    height: 100%;
+    width: 7vw;
+    float: left;
+    padding: 2vh 1vw;
+    text-align: right;
+}
+
+#review-image-name {
+    margin-bottom: 0;
+    height: 100%;
+    padding: 3vh 1vw;
+    opacity: 0.4;
+    font-family: GangwonEduAll;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #4b4141;
+    font-size: 110%;
+}
+
+
+.review-form-location{
+    height: 7vh;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+.review-form-location input {
+    float: left;
+}
+input#location-btn {
+    width: 10%;
+    background: none;
+    border-right: 1px solid #982d25;
+    color: #4b4141;
+    opacity: 0.4;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+input#roadAddress {
+    width: 45%;
+    height: 100%;
+    border-right: solid 1px #982d25;
+}
+input#detailAddress {
+    width: 45%;
+    height: 100%;
+}
+.review-form-oneSentence{
+    height: 6vh;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+
+.review-form-content{
+    height: 15vh;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+
+textarea#content {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 2vh 2vw;
+}
+
+.review-form-ratings {
+    height: 30vh;
+    padding: 2vh 2vw;
+    width: 100%;
+    border-bottom: solid 1px #982d25;
+}
+
+.review-form-rating {
+    padding: 1vh 1vw;
+}
+
+.review-form-rating label {
+    width: 8vw;
+    height: 2vh;
+}
+
+.review-form-rating input {
+    width: 14vw;
+    height: 100%;
+    border: 1px solid #982d25;
+}
+
+.review-form-button {
+    width: 100%;
+    height: 25vh;
+    padding: 10.5vh 2vw;
+}
+
+.review-form-button button {
+    border: none;
+    background: #a5201d;
+    color: white;
+    width: 9vw;
+    height: 3.8vh;
+    border-radius: 5px;
 }
 /* 리뷰 폼 */
 
@@ -199,6 +378,13 @@ div.middle-dot2 {
 .home-top{
     margin: 0% 4.1%;
     height: 83vh;
+}
+
+.home-background {
+    height: 300vh;
+    width: 100%;
+    background: url("../img/home-back.webp") bottom no-repeat;
+    background-size: 100% 95%;
 }
 
 div.feature {
@@ -383,7 +569,6 @@ div.image-6-container {
 /*reviewList*/
 .review-list-page {
     padding-top: 7vh;
-    min-height: 210vh;
     overflow: hidden;
     position: relative;
 }
@@ -527,6 +712,12 @@ a.list-write {
 /*reviewList*/
 
 /*reviewDetail*/
+.review-background {
+    width: 100%;
+    background: url("../img/detail-back.webp") bottom right no-repeat;
+    background-size: 100% 135%;
+}
+
 .review-detail-page {
     padding-top: 7vh;
     overflow: hidden;
