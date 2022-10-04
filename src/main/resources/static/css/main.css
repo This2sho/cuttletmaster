@@ -17,18 +17,108 @@ footer {
     background: #a5201d;
     color: #ffffff;
 }
-
-.about{
+.about {
     float: left;
+    padding: 1.5vh 1vw;
 }
-.footer-logo{
+
+#about-title {
+    font-family: Pretendard;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    padding-bottom: 1vh;
+    font-size: 120%;
+}
+
+.about-people{
+    font-family: Pretendard;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+#about-project{
+    font-family: GangwonEduAll;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.footer-logo {
     float: right;
+    height: 100%;
+    padding: 3vh 4vw;
 }
 
 .head {
     color: #a5201d;
     background: white;
 }
+
+/* 회원 가입 페이지*/
+.auth-head {
+    height: 17vh;
+    padding: 4vh 38vw;
+    text-align: -webkit-center;
+}
+
+.head-logo-container {
+    width: 16vw;
+    height: 8vh;
+}
+
+.head-logo-container img {
+    width: 100%;
+    height: 100%;
+}
+
+#joinForm {
+    height: 68vh;
+    padding: 5vh 38vw;
+    text-align: left;
+}
+
+#joinForm input {
+    width: 100%;
+    height: 4.5vh;
+    border-radius: 4px;
+}
+
+.auth-button button {
+    border: none;
+    background: #982d25;
+    color: white;
+    width: 100%;
+    height: 5.5vh;
+    margin-top: 2vh;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+/* 회원 가입 페이지*/
+
+/* 로그인 페이지*/
+#loginForm {
+    height: 68vh;
+    padding: 5vh 38vw;
+    text-align: left;
+}
+
+#loginForm input {
+    width: 100%;
+    height: 4.5vh;
+    border-radius: 4px;
+}
+/* 로그인 페이지*/
+
 
 /* 리뷰 폼 */
 .review-container{
@@ -229,10 +319,19 @@ div.image-6-container {
     padding: 0 15.4vw;
 }
 
+.recommend-one-img {
+    width: 100%;
+    height: 100%;
+    text-align: -webkit-center;
+}
+
+.recommend-two-img div {
+    float: left;
+}
+
 .recommend-image-container{
     width: 29.6vw;
     height: 25vh;
-    float: left;
     margin: 0 2.1vw;
 }
 
@@ -282,14 +381,17 @@ div.image-6-container {
 
 
 /*reviewList*/
-.review-list-page{
+.review-list-page {
     padding-top: 7vh;
-    height: 210vh;
+    min-height: 210vh;
+    overflow: hidden;
+    position: relative;
 }
-div.left{
+div.left {
     float: left;
     width: 18%;
     height: 100%;
+    position: absolute;
     background-color: #f8f1f0;
 }
 div.right{
@@ -425,9 +527,10 @@ a.list-write {
 /*reviewList*/
 
 /*reviewDetail*/
-.review-detail-page{
+.review-detail-page {
     padding-top: 7vh;
-    height: 210vh;
+    overflow: hidden;
+    position: relative;
 }
 
 #review-detail-info {
@@ -532,10 +635,11 @@ div.rating {
     height: 8vh;
     padding: 2vh 25vw;
 }
-.comment-container{
+.comment-container {
     width: 62.4vw;
     height: 15vh;
     border: solid 1px #4b4141;
+    margin-bottom: 20vh;
 }
 .write-container {
     width: 62.2vw;
@@ -638,6 +742,7 @@ input.write-comment {
     width: 20vw;
     height: 3.5vh;
     border: 1px solid #982d25;
+    padding-left: 1vw;
 }
 .input-button button {
     border: none;

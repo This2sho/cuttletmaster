@@ -3,12 +3,19 @@
     <div id="recommend-content" th:fragment="recommend">
         <div class="recommend-title">오늘의 추천 돈가스는?</div>
         <div class="recommend-images">
-            <div class="recommend-image-container">
-                <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+            <div class="recommend-two-img" th:if="${recommendReview.getStoreFileNames().size() > 1}">
+                <div class="recommend-image-container">
+                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                </div>
+                <div class="recommend-image-container">
+                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
+                </div>
             </div>
-            <div class="recommend-image-container">
-                <img th:if="${recommendReview.getStoreFileNames().size() > 1}" th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
-                <img th:unless="${recommendReview.getStoreFileNames().size() > 1}" src="/img/home-top.png">
+
+            <div class="recommend-one-img" th:unless="${recommendReview.getStoreFileNames().size() > 1}">
+                <div class="recommend-image-container">
+                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                </div>
             </div>
         </div>
 

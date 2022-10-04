@@ -2,7 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="fragment-nav">
     <nav class="navbar navbar-expand-lg nav-bg">
-        <a class="navbar-brand" href="/">돈가스 미식가의<br>맛집탐방</a>
+        <a class="navbar-brand" href="/">
+            <div class="nav-logo-container">
+                <img src="/img/main-logo.webp"/>
+            </div>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,8 +31,7 @@
                 <div id="nav-login" th:unless="${user} == null">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <!--마이페이지 url -> /users/{id}로 수정-->
-                            <a class="mypage" th:href="@{/users/${user.id}}">마이페이지</a>
+                            <a class="mypage" th:href="|/users/${user.id}|">마이페이지</a>
                         </li>
 
                         <li>
