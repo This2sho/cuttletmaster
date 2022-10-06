@@ -2,15 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div id="comments-content" class="comments" th:fragment="comments">
     <div id="comment" th:each="comment : ${comments}" th:text="${comment.getContent()}">댓글을 달아용</div>
-    <div class="page-container">
-        <div class="page-num" th:each="page : ${#numbers.sequence(1,2)}">
-            <button th:text="${page}" th:page="${page}" th:onclick="getCommentPage(this.getAttribute('page'))"></button>
-        </div>
-    </div>
+
+    <div th:replace="/fragments/page-container.html :: page-container"></div>
 
     <div class="comment-container">
         <div class="write-container">
-            <input id="comment-content" type="text" class="write-comment" placeholder=""></input>
+            <input id="comment-content" type="text" class="write-comment" placeholder=""/>
         </div>
         <div class="send-container">
             <button th:if="${user} == null" th:onclick="|location.href='@{/auth/login}'|">등록</button>
@@ -19,16 +16,6 @@
     </div>
 
     <script type="text/javascript">
-        function getCommentPage(page) {
-            var url = $(location).attr('origin') + $(location).attr('pathname') + "/comments?page=" + page;
-            $.ajax({
-                type: "GET",
-                url: url,
-                dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
-            }).done(function (result){
-                $("#comments-content").replaceWith(result);
-            });
-        }
         function addComment() {
             var url = $(location).attr('origin') + $(location).attr('pathname') + "/comments";
             var content = $("#comment-content").val();
@@ -38,7 +25,7 @@
                 type: "POST",
                 url: url,
                 data: data,
-                dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
+                dataType: "text"
             }).done(function (result){
                 $("#comments-content").replaceWith(result);
             });
