@@ -60,19 +60,27 @@
                 <!-- 별점 -->
                 <div class="review-form-ratings">
                     <div class="review-form-rating">
-                        <label>식감</label><input type="number" name="texture" placeholder="1~5" th:field="*{texture}"/>
+                        <label>식감</label>
+                        <input type="number" style="display: none" th:field="*{texture}" value="0">
+                        <div th:replace="/fragments/star.html :: star(fieldName = 'texture')"></div>
                         <div class="field-error" th:errors="*{texture}"></div>
                     </div>
                     <div class="review-form-rating">
-                        <label>소스</label><input type="number" name="sauce" placeholder="1~5" th:field="*{sauce}"/>
+                        <label>소스</label>
+                        <input type="number" style="display: none" th:field="*{sauce}" value=0>
+                        <div th:replace="/fragments/star.html :: star(fieldName = 'sauce')"></div>
                         <div class="field-error" th:errors="*{sauce}"></div>
                     </div>
                     <div class="review-form-rating">
-                        <label>사이드</label><input type="number" name="side" placeholder="1~5" th:field="*{side}"/>
+                        <label>사이드</label>
+                        <input type="number" style="display: none" th:field="*{side}" value=0>
+                        <div th:replace="/fragments/star.html :: star(fieldName = 'side')"></div>
                         <div class="field-error" th:errors="*{side}"></div>
                     </div>
                     <div class="review-form-rating">
-                        <label>접근성</label><input type="number" name="accessibility" placeholder="1~5" th:field="*{accessibility}"/>
+                        <label>접근성</label>
+                        <input type="number" style="display: none" th:field="*{accessibility}" value=0>
+                        <div th:replace="/fragments/star.html :: star(fieldName = 'accessibility')"></div>
                         <div class="field-error" th:errors="*{accessibility}"></div>
                     </div>
                 </div>

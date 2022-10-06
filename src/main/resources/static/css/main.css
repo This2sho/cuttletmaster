@@ -277,11 +277,14 @@ textarea#content {
 
 .review-form-rating {
     padding: 1vh 1vw;
+    width: 30vw;
+    height: 5vh;
 }
 
 .review-form-rating label {
     width: 8vw;
     height: 2vh;
+    float: left;
 }
 
 .review-form-rating input {
@@ -688,13 +691,28 @@ a.list-write {
 }
 
 .page-num {
-    /* text-align: center; */
     float: left;
     margin-left: 1vw;
     width: 2rem;
     height: 2.3rem;
     text-align: center;
     border: solid 1px #4b4141;
+}
+.page-num button {
+    border: none;
+    padding: 20%;
+    width: 100%;
+    height: 100%;
+}
+
+.page-selected{
+    background: #982d25;
+    color: white;
+}
+
+.page-non-selected{
+    background: white;
+    color: #982d25;
 }
 
 .page-num a {
@@ -814,6 +832,11 @@ div.rating {
     padding-top: 3vh;
 }
 
+.likes-container button {
+    border: none;
+    background: none;
+}
+
 #comment {
     width: 62.2vw;
     height: 6vh;
@@ -858,6 +881,45 @@ input.write-comment {
     height: 4.7vh;
 }
 
+/* 별점 */
+.starRateContainer {
+    width: 20vw;
+    height: 100%;
+    float: left;
+}
+div.star {
+    width: 12vw;
+    height: 2.5vh;
+    position: relative;
+}
+.star-empty {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.star-img-container {
+    width: 0%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+.star-full {
+    position: relative;
+    pointer-events: none;
+    width: 12vw;
+    height: 100%;
+}
+input.star-input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: unset;
+}
+
+/* 별점 */
 
 /*reviewDetail*/
 
