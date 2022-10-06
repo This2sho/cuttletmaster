@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="staticStar(fieldName, width)" class="staticStar">
+    <div class="star">
+        <img class="star-empty" src="/img/empty-ratings.webp"/>
+        <div th:id="rating- + ${fieldName}" th:style="|width : ${width * 20}%|" class="star-img-container">
+            <img class="star-full" src="/img/full-ratings.webp"/>
+        </div>
+    </div>
+</div>
+</html>

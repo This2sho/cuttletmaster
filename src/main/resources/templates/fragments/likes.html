@@ -4,7 +4,7 @@
 
     <div th:if="${user} == null">
         <div class="likes-container">
-            <button th:onclick="|location.href='@{/auth/login}'|">좋아요</button>
+            <button th:onclick="|location.href='@{/auth/login}'|"><img src="/img/empty-like.webp"></button>
             <span th:text="${likesNum}">좋아요 수</span>
         </div>
     </div>
@@ -12,14 +12,14 @@
     <div th:unless="${user} == null">
         <div th:if="${likes}">
             <div class="likes-container">
-                <button onclick="Like('DELETE')">좋아요 취소</button>
+                <button onclick="Like('DELETE')"><img src="/img/full-like.webp"></button>
                 <span th:text="${likesNum}">좋아요 수</span>
             </div>
         </div>
 
         <div th:unless="${likes}">
             <div class="likes-container">
-                <button onclick="Like('POST')">좋아요</button>
+                <button onclick="Like('POST')"><img src="/img/empty-like.webp"></button>
                 <span th:text="${likesNum}">좋아요 수</span>
             </div>
         </div>

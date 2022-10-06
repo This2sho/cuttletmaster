@@ -58,6 +58,16 @@ footer {
     padding: 3vh 4vw;
 }
 
+.footer-logo-container {
+    width: 11.4vw;
+    height: 5.6vh;
+}
+
+.footer-logo-container img {
+    width: 100%;
+    height: 100%;
+}
+
 .head {
     color: #a5201d;
     background: white;
@@ -322,6 +332,15 @@ textarea#content {
 .navbar-brand {
     color: #a5201d;
 }
+.nav-logo-container {
+    width: 11.7vw;
+    height: 5.4vh;
+}
+.nav-logo-container img {
+    width: 100%;
+    height: 100%;
+}
+
 .nav-bg{
     background: #ffffff;
     border-bottom: 3px solid #a5201d;
@@ -620,7 +639,7 @@ div.right{
 }
 #review-list-info {
     height: 14vh;
-    width: 30vw;
+    width: 50vw;
     padding-left: 3.3vw;
     padding-top: 2vh;
     float: left;
@@ -668,8 +687,7 @@ a.list-write {
     font-size: 1.4rem;
 }
 
-.review-list-by{
-    opacity: 0.5;
+.review-list-by {
     font-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
@@ -678,8 +696,14 @@ a.list-write {
     letter-spacing: normal;
     text-align: left;
     color: #4d4141;
-    padding-top: 18.8vh;
-    font-size: 1.1rem;
+    padding-top: 18vh;
+    width: 100%;
+    height: 22vh;
+}
+
+.review-list-by label {
+    opacity: 0.5;
+    margin-top: 0.5vh;
 }
 
 
@@ -767,12 +791,13 @@ a.list-write {
     letter-spacing: normal;
     color: #0b0a0a;
     font-size: 1.3rem;
-    padding-bottom: 4.3vh;
+    padding-bottom: 3.5vh;
 }
 
 .review-detail-overall {
-    font-size: 1.1rem;
     color: #a5201d;
+    width: 100%;
+    height: 4vh;
 }
 
 .review-detail-by {
@@ -823,8 +848,11 @@ a.list-write {
 }
 
 div.rating {
-    padding-bottom: 1vh;
+    width: 100%;
+    height: 5vh;
 }
+
+
 
 .likes {
     height: 10vh;
@@ -882,6 +910,18 @@ input.write-comment {
 }
 
 /* 별점 */
+.rating label {
+    float: left;
+    width: 8vw;
+    padding-top: 0.5vh;
+}
+
+.staticStar {
+    width: 20vw;
+    height: 100%;
+    float: left;
+}
+
 .starRateContainer {
     width: 20vw;
     height: 100%;
@@ -889,7 +929,7 @@ input.write-comment {
 }
 div.star {
     width: 12vw;
-    height: 2.5vh;
+    height: 3vh;
     position: relative;
 }
 .star-empty {

@@ -15,10 +15,10 @@
                 <div id="review-detail-info">
                     <div th:text="${review.getRestaurantName()}" class="review-detail-title">가게 이름</div>
                     <div th:text="${review.getForkCutletName()}" class="review-detail-menu">메뉴 이름</div>
-                    <div th:text="${review.getOverallRating()}" class="review-detail-overall">평점</div>
+                    <div class="review-detail-overall"><span class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span></div>
                     <div class="review-detail-by">
                         <span th:text="${review.getCreatedDate()}">날짜</span>
-                        <span th:text="'| ' + ${review.getUserNickName()}">| 작성자</span>
+                        <span th:text="'| ' + ${review.getUserNickName()} + ' 님'">| 작성자</span>
                     </div>
                 </div>
 
@@ -33,11 +33,12 @@
                 <div class="review-detail-content" th:text="${review.getContent()}">리뷰 상세 평가 내용이다능</div>
 
                 <div class="review-detail-ratings">
-                    <div class="rating"> <span>식감</span> <span class="rating" th:text="${review.getRatingInfo().get('texture')}">3</span> </div>
-                    <div class="rating"> <span>소스</span> <span class="rating" th:text="${review.getRatingInfo().get('sauce')}">3</span> </div>
-                    <div class="rating"> <span>사이드</span> <span class="rating" th:text="${review.getRatingInfo().get('side')}">3</span> </div>
-                    <div class="rating"> <span>접근성</span> <span class="rating" th:text="${review.getRatingInfo().get('accessibility')}">3</span> </div>
-                    <div class="rating"> <span>총점</span> <span class="rating" th:text="${review.getOverallRating()}">3</span> </div>
+                    <div class="rating"> <label>식감</label> <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('texture', ${review.getRatingInfo().get('texture')})">3</span> </div>
+                    <div class="rating"> <label>소스</label> <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('sauce', ${review.getRatingInfo().get('sauce')})">3</span> </div>
+                    <div class="rating"> <label>사이드</label> <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('side', ${review.getRatingInfo().get('side')})">3</span> </div>
+                    <div class="rating"> <label>접근성</label> <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('accessibility', ${review.getRatingInfo().get('accessibility')})">3</span> </div>
+                    <br>
+                    <div class="rating"> <label>총점</label> <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span> </div>
                 </div>
 
                 <div th:replace="/fragments/likes.html :: likes"></div>
