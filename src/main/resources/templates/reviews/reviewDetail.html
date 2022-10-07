@@ -17,8 +17,9 @@
                     <div th:text="${review.getForkCutletName()}" class="review-detail-menu">메뉴 이름</div>
                     <div class="review-detail-overall"><span class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span></div>
                     <div class="review-detail-by">
-                        <span th:text="${review.getCreatedDate()}">날짜</span>
-                        <span th:text="'| ' + ${review.getUserNickName()} + ' 님'">| 작성자</span>
+                        <label th:text="${review.getCreatedDate()}">날짜</label>
+                        <label class="by-bar">| </label>
+                        <label th:text="${review.getUserNickName()} + ' 님'">| 작성자</label>
                     </div>
                 </div>
 

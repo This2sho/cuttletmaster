@@ -18,7 +18,8 @@
                     <div class="review-list-by">
                         <label class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</label>
                         <label th:text="${review.getCreatedDate()}">날짜</label>
-                        <span th:text="'| ' + ${review.getUserNickName()} + ' 님'">| 작성자</span>
+                        <label class="by-bar">| </label>
+                        <label th:text="${review.getUserNickName()} + ' 님'">| 작성자</label>
                     </div>
                 </div>
             </a>
