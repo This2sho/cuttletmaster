@@ -59,7 +59,7 @@ footer {
 }
 
 .footer-logo-container {
-    width: 11.4vw;
+    width: 8.2vw;
     height: 5.6vh;
 }
 
@@ -75,14 +75,14 @@ footer {
 
 /* 회원 가입 페이지*/
 .auth-head {
-    height: 17vh;
-    padding: 4vh 38vw;
+    height: 20vh;
     text-align: -webkit-center;
+    padding-top: 8.5vh;
 }
 
 .head-logo-container {
-    width: 16vw;
-    height: 8vh;
+    width: 15vw;
+    height: 10.3vh;
 }
 
 .head-logo-container img {
@@ -91,7 +91,7 @@ footer {
 }
 
 #joinForm {
-    height: 68vh;
+    height: 65vh;
     padding: 5vh 38vw;
     text-align: left;
 }
@@ -117,8 +117,8 @@ footer {
 
 /* 로그인 페이지*/
 #loginForm {
-    height: 68vh;
-    padding: 5vh 38vw;
+    height: 65vh;
+    padding: 15vh 38vw;
     text-align: left;
 }
 
@@ -205,12 +205,21 @@ input#forkCutletName {
     margin: 0;
     float: left;
 }
+.review-form-image label:hover{
+    cursor: pointer;
+}
+
 #camera-ico-container {
-    height: 100%;
-    width: 7vw;
+    height: 80%;
+    width: 3.8vw;
     float: left;
     padding: 2vh 1vw;
-    text-align: right;
+    margin-top: 0.5vh;
+    margin-left: 3.5vh;
+}
+#camera-ico-container img {
+    width: 100%;
+    height: 100%;
 }
 
 #review-image-name {
@@ -225,7 +234,7 @@ input#forkCutletName {
     line-height: normal;
     letter-spacing: normal;
     color: #4b4141;
-    font-size: 110%;
+    font-size: 100%;
 }
 
 
@@ -280,7 +289,7 @@ textarea#content {
 
 .review-form-ratings {
     height: 30vh;
-    padding: 2vh 2vw;
+    padding: 5.5vh 2vw;
     width: 100%;
     border-bottom: solid 1px #982d25;
 }
@@ -295,6 +304,7 @@ textarea#content {
     width: 8vw;
     height: 2vh;
     float: left;
+    line-height: normal;
 }
 
 .review-form-rating input {
@@ -333,8 +343,9 @@ textarea#content {
     color: #a5201d;
 }
 .nav-logo-container {
-    width: 11.7vw;
-    height: 5.4vh;
+    width: 10vw;
+    height: 7vh;
+    margin-bottom: 4vh;
 }
 .nav-logo-container img {
     width: 100%;
@@ -482,13 +493,58 @@ div.image-6-container {
     float: left;
     height: 30vh;
     margin: 0 2.1vw;
+    position: relative;
 }
 
-.review-6-images img{
+.review-6-explain {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    height: 30vh;
+    width: 14.5vw;
+    color: white;
+    padding-top: 10vh;
+    font-family: GangwonEduAll;
+    font-size: 80%;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.explain-restaurant-name {
+    height: 30%;
+    font-size: 200%;
+}
+
+.explain-address {
+    height: 50%;
+    padding: 0 20%;
+}
+
+.review-go {
+    height: 20%;
+}
+
+
+
+.image-6-container:hover img{
+    filter: brightness(0.4);
+}
+
+.image-6-container:hover .review-6-explain{
+    opacity: 1;
+}
+
+.review-6-images img {
     height: 100%;
     width: 100%;
     border-radius: 7%;
+    position: absolute;
 }
+
+
 
 .reviews a {
     height: 12vh;
@@ -703,7 +759,10 @@ a.list-write {
 
 .review-list-by label {
     opacity: 0.5;
-    margin-top: 0.5vh;
+}
+
+label.by-bar {
+    color: #982d25;
 }
 
 
@@ -913,11 +972,11 @@ input.write-comment {
 .rating label {
     float: left;
     width: 8vw;
-    padding-top: 0.5vh;
+    line-height: normal;
 }
 
 .staticStar {
-    width: 20vw;
+    width: 10vw;
     height: 100%;
     float: left;
 }
@@ -928,8 +987,8 @@ input.write-comment {
     float: left;
 }
 div.star {
-    width: 12vw;
-    height: 3vh;
+    width: 6vw;
+    height: 1.6vh;
     position: relative;
 }
 .star-empty {
@@ -946,8 +1005,9 @@ div.star {
 .star-full {
     position: relative;
     pointer-events: none;
-    width: 12vw;
-    height: 100%;
+    width: 6vw;
+    height: 1.6vh;
+    vertical-align: super;
 }
 input.star-input {
     width: 100%;
@@ -1022,7 +1082,7 @@ input.star-input {
 }
 
 .input-container {
-    margin-bottom: 4vh;
+    margin-bottom: 2vh;
 }
 
 .input-container label {
