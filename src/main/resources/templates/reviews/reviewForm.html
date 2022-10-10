@@ -19,8 +19,16 @@
                 </div>
 
                 <div class="review-form-menu">
-                    <input type="number" name="forkCutletType" th:field="*{forkCutletType}" placeholder="경양식: 0, 일식: 1"/>
-                    <div class="field-error" th:errors="*{forkCutletType}"></div>
+                    <div class="review-form-menu-type">
+                        <input type="number" name="forkCutletType"  th:field="*{forkCutletType}"/>
+                        <div class="left-type">
+                            <label class="review-form-fork-type non-selected" for="type-0" id="type-name-0">경양식</label><input type="radio" id="type-0" checked onclick="selectType(this)" name="forkCutletType" value="0">
+                        </div>
+                        <div class="right-type">
+                            <label class="review-form-fork-type non-selected" for="type-1" id="type-name-1">일식</label><input type="radio" id="type-1" onclick="selectType(this)" name="forkCutletType" value="1">
+                        </div>
+                        <div class="field-error" th:errors="*{forkCutletType}"></div>
+                    </div>
 
                     <input class="menu-name" type="text" id="forkCutletName" name="restaurantName" th:field="*{forkCutletName}" placeholder="메뉴 이름"
                            th:errorclass="field-error">
@@ -62,25 +70,25 @@
                     <div class="review-form-rating">
                         <label>식감</label>
                         <input type="number" style="display: none" th:field="*{texture}" value="0">
-                        <div th:replace="/fragments/star.html :: star(fieldName = 'texture')"></div>
+                        <div th:replace="/fragments/star.html :: star('texture', ${createReviewForm.getTexture()})"></div>
                         <div class="field-error" th:errors="*{texture}"></div>
                     </div>
                     <div class="review-form-rating">
                         <label>소스</label>
-                        <input type="number" style="display: none" th:field="*{sauce}" value=0>
-                        <div th:replace="/fragments/star.html :: star(fieldName = 'sauce')"></div>
+                        <input type="number" style="display: none" th:field="*{sauce}" value="0">
+                        <div th:replace="/fragments/star.html :: star('sauce', ${createReviewForm.getSauce()})"></div>
                         <div class="field-error" th:errors="*{sauce}"></div>
                     </div>
                     <div class="review-form-rating">
                         <label>사이드</label>
-                        <input type="number" style="display: none" th:field="*{side}" value=0>
-                        <div th:replace="/fragments/star.html :: star(fieldName = 'side')"></div>
+                        <input type="number" style="display: none" th:field="*{side}" value="0">
+                        <div th:replace="/fragments/star.html :: star('side', ${createReviewForm.getSide()})"></div>
                         <div class="field-error" th:errors="*{side}"></div>
                     </div>
                     <div class="review-form-rating">
                         <label>접근성</label>
-                        <input type="number" style="display: none" th:field="*{accessibility}" value=0>
-                        <div th:replace="/fragments/star.html :: star(fieldName = 'accessibility')"></div>
+                        <input type="number" style="display: none" th:field="*{accessibility}" value="0">
+                        <div th:replace="/fragments/star.html :: star('accessibility', ${createReviewForm.getAccessibility()})"></div>
                         <div class="field-error" th:errors="*{accessibility}"></div>
                     </div>
                 </div>
@@ -157,6 +165,34 @@
                     $(str).appendTo('#upload-images');
                 }
             });//arr.forEach
+        }
+    });
+    const selectType = (target) => {
+        var id = "type-name-";
+        var className = "review-form-fork-type ";
+        var menuSize = 2;
+        for (var i = 0; i < menuSize; i++){
+            if(i == target.value){
+                document.getElementById(id + i).className = className + "selected";
+            }else{
+                document.getElementById(id + i).className = className + "non-selected";
+            }
+        }
+
+        document.getElementById("forkCutletType").setAttribute('value', target.value);
+    }
+    $(function (){
+        var id = "type-name-";
+        var className = "review-form-fork-type ";
+        var menuSize = 2;
+        var preValue = document.getElementById("forkCutletType").value;
+
+        for (var i = 0; i < menuSize; i++){
+            if(i == preValue){
+                document.getElementById(id + i).className = className + "selected";
+            }else{
+                document.getElementById(id + i).className = className + "non-selected";
+            }
         }
     });
 </script>
