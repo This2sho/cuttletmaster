@@ -1,7 +1,7 @@
 package PorkCutlet.master.controller;
 
 import PorkCutlet.master.controller.dto.*;
-import PorkCutlet.master.controller.login.Login;
+import PorkCutlet.master.controller.auth.Login;
 import PorkCutlet.master.domain.*;
 import PorkCutlet.master.ImageStore;
 import PorkCutlet.master.service.CommentService;
@@ -11,7 +11,6 @@ import PorkCutlet.master.service.UserService;
 import PorkCutlet.master.validation.FileValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -41,6 +40,15 @@ public class ReviewController {
 
     private final FileValidator fileValidator;
 
+    @GetMapping
+    public String reviewList(@Login UserInfoDto user, @PageableDefault(size = 4)
+            Pageable pageable, Model model) {
+        List<ThumbNailReviewDto> reviewList = reviewService.getPagingReview(pageable).getContent()
+                .stream().map(ThumbNailReviewDto::from).collect(Collectors.toList());
+        model.addAttribute("reviewList", reviewList);
+        return "reviews/reviewList";
+    }
+
     @GetMapping("/{reviewId}")
     public String reviewDetail(@Login UserInfoDto user, @PathVariable Long reviewId,
                                Model model) {
@@ -57,49 +65,74 @@ public class ReviewController {
         List<CommentDto> comments = commentService.getCommentsWithFetchJoin(request, reviewId)
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        model.addAttribute("firstLoad", true);
         model.addAttribute("comments", comments);
         model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
 
         return "reviews/reviewDetail";
     }
 
-    @GetMapping
-    public String reviewList(@Login UserInfoDto user, @PageableDefault(size = 4)
-            Pageable pageable, Model model) {
-        List<ThumbNailReviewDto> reviewList = reviewService.getPagingReview(pageable).getContent()
-                .stream().map(ThumbNailReviewDto::from).collect(Collectors.toList());
-        model.addAttribute("reviewList", reviewList);
-        return "reviews/reviewList";
-    }
-
     @GetMapping("/new")
-    public String createReviewForm(@Login UserInfoDto user, CreateReviewForm createReviewForm) {
+    public String createReviewForm(@Login UserInfoDto user, ReviewForm reviewForm) {
         if(!user.isAdmin()) return "reviews/reviewList";
-        return "reviews/reviewForm";
+        return "reviews/reviewCreateForm";
     }
 
     @PostMapping("/new")
-    public String createReview(@Login UserInfoDto user, @Valid CreateReviewForm createReviewForm,
+    public String createReview(@Login UserInfoDto user, @Valid ReviewForm reviewForm,
                                BindingResult bindingResult) throws IOException {
         if(!user.isAdmin()) return "reviews/reviewList";
-        List<MultipartFile> files = createReviewForm.getImageFiles();
+        List<MultipartFile> files = reviewForm.getImageFiles();
         fileValidator.validate(files, bindingResult);
-        if (bindingResult.hasErrors()) {return "reviews/reviewForm";}
+        if (bindingResult.hasErrors()) {return "reviews/reviewCreateForm";}
 
         List<Image> images = imageStore.storeImages(files);
 
         User loginUser = userService.findById(user.getId()).orElse(null);
-        Review review = makeReview(createReviewForm, images, loginUser);
+        Review review = makeReview(reviewForm, images, loginUser);
         reviewService.createReview(review);
         return "redirect:/reviews";
     }
 
-    private Review makeReview(CreateReviewForm createReviewForm, List<Image> images, User loginUser) {
-        Review review = new Review(loginUser, createReviewForm.makeRestaurant(), images, createReviewForm.getContent(), createReviewForm.getOneSentence(), createReviewForm.makeRatingInfo());
+    @GetMapping("/{reviewId}/update")
+    public String updateForm(@Login UserInfoDto user, @PathVariable Long reviewId, ReviewForm reviewForm,
+                             Model model, BindingResult bindingResult) {
+
+        if (noAuthReview(reviewId, user)) {
+            bindingResult.reject("noAuthReview", "리뷰를 수정할 권한이 없습니다.");
+            return "/reviews/{reviewId}";
+        }
+
+        model.addAttribute("reviewForm", ReviewForm.from(reviewService.findById(reviewId).orElseThrow()));
+        return "reviews/reviewUpdateForm";
+    }
+
+    @PutMapping("/{reviewId}/update")
+    public String updateReview(@Login UserInfoDto user, @PathVariable Long reviewId, @Valid ReviewForm reviewForm,
+                               BindingResult bindingResult) throws IOException{
+        List<MultipartFile> files = reviewForm.getImageFiles();
+        fileValidator.validate(files, bindingResult);
+        if (bindingResult.hasErrors()) {return "reviews/reviewUpdateForm";}
+
+        List<Image> images = imageStore.storeImages(files);
+        User loginUser = userService.findById(user.getId()).orElse(null);
+        Review review = makeReview(reviewForm, images, loginUser);
+        reviewService.updateReview(reviewId, review);
+        return "redirect:/reviews";
+    }
+
+    private Review makeReview(ReviewForm reviewForm, List<Image> images, User loginUser) {
+        Review review = new Review(loginUser, reviewForm.makeRestaurant(), images, reviewForm.getContent(), reviewForm.getOneSentence(), reviewForm.makeRatingInfo());
         return review;
     }
 
     private boolean userLikesReview(UserInfoDto user, Long reviewId) {
         return user != null && likeService.doExistLike(user.getId(), reviewId);
+    }
+
+    private boolean noAuthReview(Long reviewId, UserInfoDto user) {
+        if(user == null) return true;
+        Review findReview = reviewService.getReviewByIdWithFetchJoin(reviewId);
+        return !findReview.getUser().getId().equals(user.getId());
     }
 }
