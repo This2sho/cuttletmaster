@@ -58,11 +58,6 @@ public class CommentService {
         return commentRepository.findCommentsWithFetchJoin(pageable, reviewId);
     }
 
-    public Long getTotalPage(Long reviewId) {
-        Long totalSize = commentRepository.countByReview_Id(reviewId);
-        if(totalSize == 0) return 0L;
-        return totalSize % commentsPageSize == 0 ? totalSize / commentsPageSize - 1 : totalSize / commentsPageSize;
-    }
 
     public List<Comment> getComments(Long reviewId) {
         PageRequest pageRequest = PageRequest.of(0, 4);
@@ -74,6 +69,12 @@ public class CommentService {
         PageRequest request = PageRequest.of(totalPage, commentsPageSize);
         List<Comment> comments = commentRepository.findCommentsWithFetchJoin(request, reviewId);
         return Pair.of(totalPage, comments);
+    }
+
+    public Long getTotalPage(Long reviewId) {
+        Long totalSize = commentRepository.countByReview_Id(reviewId);
+        if(totalSize == 0) return 1L;
+        return totalSize % commentsPageSize == 0 ? (totalSize / commentsPageSize) : (totalSize / commentsPageSize) + 1;
     }
 
 
