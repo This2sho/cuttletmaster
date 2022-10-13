@@ -2,12 +2,11 @@ package PorkCutlet.master.controller;
 
 import PorkCutlet.master.controller.dto.CommentDto;
 import PorkCutlet.master.controller.dto.UserInfoDto;
-import PorkCutlet.master.controller.login.Login;
+import PorkCutlet.master.controller.auth.Login;
 import PorkCutlet.master.domain.Comment;
 import PorkCutlet.master.service.CommentService;
 import com.mysema.commons.lang.Pair;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -32,6 +31,7 @@ public class CommentController {
         List<CommentDto> comments = commentService.getCommentsWithFetchJoin(pageable, reviewId)
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        model.addAttribute("firstLoad", false);
         model.addAttribute("comments", comments);
         model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
 
@@ -45,6 +45,7 @@ public class CommentController {
         List<CommentDto> comments = result.getSecond()
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        model.addAttribute("firstLoad", false);
         model.addAttribute("comments", comments);
         model.addAttribute("totalPage", result.getFirst());
         return "fragments/comments";
