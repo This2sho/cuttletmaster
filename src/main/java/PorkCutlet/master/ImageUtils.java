@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ImageStore {
+public class ImageUtils {
     @Value("${file.dir}")
     private String fileDir;
 
