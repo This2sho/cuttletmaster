@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div id="imageUpload" th:fragment="imageUpload">
-    <div id="upload-images"></div>
+    <div id="upload-images">
+    </div>
 
 
+<!--    <input id="preImages" th:field="*{preImages}" type="text" style="display: none">-->
     <div class="review-form-image">
         <label for="imageFiles">
             <div id="camera-ico-container">
@@ -16,20 +18,47 @@
         <input id="imageFiles" type="file" multiple="multiple" placeholder="사진" style="display: none">
     </div>
 
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         // 파일 현재 필드 숫자 totalCount랑 비교값
         var imageCount = 0;
         // 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
         var totalCount = 5;
         // 파일 고유넘버
         var imageNum = 0;
+
+        var preImageNum = 0;
+
+        var pre_images = new Array();
+        var deleteImages = new Array();
+
         // 첨부파일 배열
         var image_files = new Array();
 
+        /*<![CDATA[*/
+        var imagesNames = [[${reviewForm.preImages}]];
+        /*]]>*/
+
         $(document).ready(function(){
             $("#imageFiles").on("change", fileCheck);
-        });
 
+            var hasImage = false;
+            imagesNames.forEach(i => {
+                pre_images.push(i);
+                hasImage = true;
+            });
+            pre_images.forEach(imageName => {
+                var str = '<div id="image'+imageNum+'" class="upload-images-container">';
+                var delbtn = '<button class="delete_btn" onclick="preImageDelete(\'image' + imageNum + '\')">X</button> <div class="upload-image-container">';
+                str += delbtn;
+                str += '<img src="/images/'+imageName+'"></div> </div>';
+                $(str).appendTo('#upload-images');
+                imageCount++;
+                imageNum++;
+                preImageNum++;
+            })
+            if (hasImage) document.getElementById('upload-images').style.display = 'block';
+            $("#preImages").val("");
+        });
 
         function fileCheck(e) {
             var files = e.target.files;
@@ -43,14 +72,12 @@
             var hasImage = false;
 
             filesArr.forEach(f => {
-                if(preview(f)){
-                    addImageFile(f);
-                    hasImage = true;
-                }
+                if(preview(f)) hasImage = true;
             })
+
             if (hasImage) document.getElementById('upload-images').style.display = 'block';
 
-            // $("#imageFiles").val("");
+            $("#imageFiles").val("");
         }
 
         function validateFiles(files, filesArr) {
@@ -90,16 +117,17 @@
         }
 
         function preview(f){
-            //div에 이미지 추가
-            var str = '<div id="image'+imageNum+'" class="upload-images-container">';
-            var delbtn = '<button class="delete_btn" onclick="fileDelete(\'image' + imageNum + '\')">X</button> <div class="upload-image-container">';
-            str += delbtn;
             //이미지 파일 미리보기
             if(f.type.match('image.*')){
                 var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
                 reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+                    var str = '<div id="image'+imageNum+'" class="upload-images-container">';
+                    var delbtn = '<button class="delete_btn" onclick="fileDelete(\'image' + imageNum + '\')">X</button> <div class="upload-image-container">';
+                    str += delbtn;
                     str += '<img src="'+e.target.result+'"></div> </div>';
                     $(str).appendTo('#upload-images');
+                    image_files.push(f);
+                    imageNum++;
                 }
                 reader.readAsDataURL(f);
                 return true;
@@ -107,18 +135,22 @@
             return false;
         }
 
-        // 파일 부분 삭제 함수
-        function fileDelete(imageNum){
+        function preImageDelete(imageNum){
             var no = imageNum.replace(/[^0-9]/g, "");
-            image_files[no].is_delete = true;
+            pre_images[no].is_delete = true;
+            deleteImages.push(pre_images[no]);
             $('#' + imageNum).remove();
             imageCount --;
             if(imageCount == 0) document.getElementById("upload-images").style.display = 'none';
         }
 
-        function addImageFile(f) {
-            image_files.push(f);
-            imageNum++;
+        // 파일 부분 삭제 함수
+        function fileDelete(imageNum){
+            var no = imageNum.replace(/[^0-9]/g, "") - preImageNum;
+            image_files[no].is_delete = true;
+            $('#' + imageNum).remove();
+            imageCount --;
+            if(imageCount == 0) document.getElementById("upload-images").style.display = 'none';
         }
 
         function registerReview(){
@@ -126,6 +158,9 @@
             var formData = new FormData(form);
             image_files.forEach(image => {if(!image.is_delete) formData.append("imageFiles", image);});
             var url = window.location.href;
+
+            pre_images.forEach(image => {if(!image.is_delete) formData.append("preImages", image);});
+            deleteImages.forEach(image => formData.append("deleteImages", image));
 
             $.ajax({
                 type: "PUT",
@@ -136,15 +171,11 @@
                 contentType: false,
                 async: false,
                 success: function (data) {
-                    console.log(data);
                     if (typeof data == 'string') {
                         var lastIdx = url.lastIndexOf('/');
-                        window.location.href = url.substring(0, lastIdx);
+                        window.location.replace(url.substring(0, lastIdx));
                     }else{
                         data.forEach(error => {
-                            console.log("field", error['field']);
-                            console.log("defaultMessage", error['defaultMessage']);
-
                             var errorElement = document.getElementById(error['field']);
                             if(errorElement.getAttribute('class') == 'field-error') return;
 
@@ -160,11 +191,8 @@
 
                     return false;
                 },
-                error: function (xhr, status, error) {
+                error: function () {
                     alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-                    console.log("xhr : ", xhr);
-                    console.log("status : ",status);
-                    console.log("error : ",error);
                     return false;
                 }
             });

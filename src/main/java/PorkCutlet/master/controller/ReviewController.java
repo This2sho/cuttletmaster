@@ -3,11 +3,8 @@ package PorkCutlet.master.controller;
 import PorkCutlet.master.controller.dto.*;
 import PorkCutlet.master.controller.auth.Login;
 import PorkCutlet.master.domain.*;
-import PorkCutlet.master.ImageStore;
-import PorkCutlet.master.service.CommentService;
-import PorkCutlet.master.service.LikeService;
-import PorkCutlet.master.service.ReviewService;
-import PorkCutlet.master.service.UserService;
+import PorkCutlet.master.ImageUtils;
+import PorkCutlet.master.service.*;
 import PorkCutlet.master.validation.FileValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +32,9 @@ public class ReviewController {
     private final UserService userService;
     private final ReviewService reviewService;
     private final LikeService likeService;
-    private final ImageStore imageStore;
+    private final ImageUtils imageUtils;
     private final CommentService commentService;
+    private final ImageService imageService;
 
     private final FileValidator fileValidator;
 
@@ -86,7 +84,7 @@ public class ReviewController {
         fileValidator.validate(files, bindingResult);
         if (bindingResult.hasErrors()) {return "reviews/reviewCreateForm";}
 
-        List<Image> images = imageStore.storeImages(files);
+        List<Image> images = imageUtils.storeImages(files);
 
         User loginUser = userService.findById(user.getId()).orElse(null);
         Review review = makeReview(reviewForm, images, loginUser);
@@ -97,28 +95,54 @@ public class ReviewController {
     @GetMapping("/{reviewId}/update")
     public String updateForm(@Login UserInfoDto user, @PathVariable Long reviewId, ReviewForm reviewForm,
                              Model model, BindingResult bindingResult) {
-
         if (noAuthReview(reviewId, user)) {
             bindingResult.reject("noAuthReview", "리뷰를 수정할 권한이 없습니다.");
-            return "/reviews/{reviewId}";
+            return "reviews/"+reviewId;
         }
 
-        model.addAttribute("reviewForm", ReviewForm.from(reviewService.findById(reviewId).orElseThrow()));
+        Review review = reviewService.findById(reviewId).orElseThrow();
+
+        model.addAttribute("reviewForm", ReviewForm.from(review));
         return "reviews/reviewUpdateForm";
     }
 
-    @PutMapping("/{reviewId}/update")
-    public String updateReview(@Login UserInfoDto user, @PathVariable Long reviewId, @Valid ReviewForm reviewForm,
-                               BindingResult bindingResult) throws IOException{
-        List<MultipartFile> files = reviewForm.getImageFiles();
-        fileValidator.validate(files, bindingResult);
-        if (bindingResult.hasErrors()) {return "reviews/reviewUpdateForm";}
 
-        List<Image> images = imageStore.storeImages(files);
+    @PutMapping("/{reviewId}/update")
+    @ResponseBody
+    public Object updateReview(@Login UserInfoDto user, @PathVariable Long reviewId, @Valid ReviewForm reviewForm,
+                               BindingResult bindingResult) throws IOException {
+        List<MultipartFile> files = reviewForm.getImageFiles();
+        List<String> preImages = reviewForm.getPreImages();
+        List<String> deleteImages = reviewForm.getDeleteImages();
+
+        validateFile(bindingResult, files, preImages, deleteImages);
+
+        if (bindingResult.hasErrors()) {
+            return bindingResult.getAllErrors();
+        }
+
         User loginUser = userService.findById(user.getId()).orElse(null);
+        List<Image> images = imageUtils.updateImages(deleteImages, files);
+
+        if (deleteImages != null) {
+            for (String deleteImage : deleteImages) {
+                imageService.deleteByStoreName(deleteImage);
+            }
+        }
+
+        if(images == null){
+            images = imageService.getImagesByReviewId(reviewId);
+        }
+
         Review review = makeReview(reviewForm, images, loginUser);
         reviewService.updateReview(reviewId, review);
-        return "redirect:/reviews";
+        return "{\"result\":\"OK\"}";
+    }
+
+    private void validateFile(BindingResult bindingResult, List<MultipartFile> files, List<String> preImages, List<String> deleteImages) {
+        if(preImages == null || deleteImages != null && preImages.size() == deleteImages.size()){
+            fileValidator.validate(files, bindingResult);
+        }
     }
 
     private Review makeReview(ReviewForm reviewForm, List<Image> images, User loginUser) {
