@@ -31,4 +31,9 @@ public class Image {
     public void setReview(Review review) {
         this.review = review;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this.getStoreImageName().equals(other);
+    }
 }
