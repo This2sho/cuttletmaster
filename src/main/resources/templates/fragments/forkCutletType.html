@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="review-form-menu-type" th:fragment="forkCutletType">
+    <input type="number" name="forkCutletType"  th:field="*{forkCutletType}"/>
+    <div class="left-type">
+        <label class="review-form-fork-type non-selected" for="type-0" id="type-name-0">경양식</label><input type="radio" id="type-0" checked onclick="selectType(this)" name="forkCutletType" value="0">
+    </div>
+    <div class="right-type">
+        <label class="review-form-fork-type non-selected" for="type-1" id="type-name-1">일식</label><input type="radio" id="type-1" onclick="selectType(this)" name="forkCutletType" value="1">
+    </div>
+    <div class="field-error" th:errors="*{forkCutletType}"></div>
+
+    <script type="text/javascript">
+        /*돈가스 타입 js*/
+        const selectType = (target) => {
+            var id = "type-name-";
+            var className = "review-form-fork-type ";
+            var menuSize = 2;
+            for (var i = 0; i < menuSize; i++){
+                if(i == target.value){
+                    document.getElementById(id + i).className = className + "selected";
+                }else{
+                    document.getElementById(id + i).className = className + "non-selected";
+                }
+            }
+
+            document.getElementById("forkCutletType").setAttribute('value', target.value);
+        }
+        $(function (){
+            var id = "type-name-";
+            var className = "review-form-fork-type ";
+            var menuSize = 2;
+            var preValue = document.getElementById("forkCutletType").value;
+            if(preValue == ''){
+                preValue = 0;
+                document.getElementById("forkCutletType").value = preValue;
+            }
+
+            for (var i = 0; i < menuSize; i++){
+                if(i == preValue){
+                    document.getElementById(id + i).className = className + "selected";
+                }else{
+                    document.getElementById(id + i).className = className + "non-selected";
+                }
+            }
+        });
+    </script>
+</div>
+</html>
