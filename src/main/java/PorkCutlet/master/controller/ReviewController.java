@@ -77,27 +77,29 @@ public class ReviewController {
     }
 
     @PostMapping("/new")
-    public String createReview(@Login UserInfoDto user, @Valid ReviewForm reviewForm,
+    @ResponseBody
+    public Object createReview(@Login UserInfoDto user, @Valid ReviewForm reviewForm,
                                BindingResult bindingResult) throws IOException {
         if(!user.isAdmin()) return "reviews/reviewList";
         List<MultipartFile> files = reviewForm.getImageFiles();
         fileValidator.validate(files, bindingResult);
-        if (bindingResult.hasErrors()) {return "reviews/reviewCreateForm";}
+        if (bindingResult.hasErrors()) {
+            return bindingResult.getAllErrors();
+        }
 
         List<Image> images = imageUtils.storeImages(files);
 
         User loginUser = userService.findById(user.getId()).orElse(null);
         Review review = makeReview(reviewForm, images, loginUser);
         reviewService.createReview(review);
-        return "redirect:/reviews";
+        return "{\"result\":\"OK\"}";
     }
 
     @GetMapping("/{reviewId}/update")
     public String updateForm(@Login UserInfoDto user, @PathVariable Long reviewId, ReviewForm reviewForm,
                              Model model, BindingResult bindingResult) {
         if (noAuthReview(reviewId, user)) {
-            bindingResult.reject("noAuthReview", "리뷰를 수정할 권한이 없습니다.");
-            return "reviews/"+reviewId;
+            return alertMessage("/reviews/" + reviewId, model);
         }
 
         Review review = reviewService.findById(reviewId).orElseThrow();
@@ -105,7 +107,6 @@ public class ReviewController {
         model.addAttribute("reviewForm", ReviewForm.from(review));
         return "reviews/reviewUpdateForm";
     }
-
 
     @PutMapping("/{reviewId}/update")
     @ResponseBody
@@ -121,7 +122,6 @@ public class ReviewController {
             return bindingResult.getAllErrors();
         }
 
-        User loginUser = userService.findById(user.getId()).orElse(null);
         List<Image> images = imageUtils.updateImages(deleteImages, files);
 
         if (deleteImages != null) {
@@ -134,8 +134,8 @@ public class ReviewController {
             images = imageService.getImagesByReviewId(reviewId);
         }
 
-        Review review = makeReview(reviewForm, images, loginUser);
-        reviewService.updateReview(reviewId, review);
+        reviewService.updateReview(reviewId, reviewForm.getForkCutletName(), reviewForm.makeForkCutletType(), reviewForm.getRestaurantName(),
+                reviewForm.makeAddress(), reviewForm.getContent(), reviewForm.getOneSentence(), reviewForm.makeRatingInfo(), images);
         return "{\"result\":\"OK\"}";
     }
 
@@ -158,5 +158,11 @@ public class ReviewController {
         if(user == null) return true;
         Review findReview = reviewService.getReviewByIdWithFetchJoin(reviewId);
         return !findReview.getUser().getId().equals(user.getId());
+    }
+
+    private String alertMessage(String redirectPathName, Model model) {
+        model.addAttribute("errorMsg", "리뷰를 수정할 권한이 없습니다.");
+        model.addAttribute("url", redirectPathName);
+        return "fragments/alert";
     }
 }
