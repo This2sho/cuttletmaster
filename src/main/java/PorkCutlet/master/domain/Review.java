@@ -3,7 +3,6 @@ package PorkCutlet.master.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -52,6 +51,7 @@ public class Review extends BaseTimeEntity {
 
     public void setImage(List<Image> images) {
         for (Image image : images) {
+            if(this.images.contains(image)) continue;
             this.images.add(image);
             image.setReview(this);
         }
@@ -59,5 +59,13 @@ public class Review extends BaseTimeEntity {
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public void update(String forkCutletName, ForkCutletType forkCutletType, String restaurantName, Address address, String content, String oneSentence, RatingInfo ratingInfo, List<Image> images) {
+        this.restaurant.update(forkCutletName, forkCutletType, restaurantName, address);
+        this.content = content;
+        this.oneSentence = oneSentence;
+        this.ratingInfo = ratingInfo;
+        setImage(images);
     }
 }

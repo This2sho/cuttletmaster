@@ -1,7 +1,6 @@
 package PorkCutlet.master.service;
 
-import PorkCutlet.master.domain.Review;
-import PorkCutlet.master.domain.UserType;
+import PorkCutlet.master.domain.*;
 import PorkCutlet.master.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +23,13 @@ public class ReviewService {
         validateReview(review); // 사용자 권한 확인
         reviewRepository.save(review);
         return review.getId();
+    }
+
+    @Transactional
+    public Long updateReview(Long id, String forkCutletName, ForkCutletType forkCutletType, String restaurantName, Address address, String content, String oneSentence, RatingInfo ratingInfo, List<Image> images) {
+        Review findReview = reviewRepository.findById(id).orElseThrow(() -> new IllegalStateException("리뷰가 존재하지 않습니다."));
+        findReview.update(forkCutletName, forkCutletType, restaurantName, address, content, oneSentence, ratingInfo, images);
+        return findReview.getId();
     }
 
     public Optional<Review> findById(Long id) {

@@ -38,4 +38,10 @@ public class Restaurant {
         this.address = address;
         this.forkCutlet = forkCutlet;
     }
+
+    public void update(String forkCutletName, ForkCutletType forkCutletType, String restaurantName, Address address) {
+        this.forkCutlet.update(forkCutletName, forkCutletType);
+        this.name = restaurantName;
+        this.address = address;
+    }
 }

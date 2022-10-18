@@ -23,4 +23,9 @@ public class ForkCutlet {
         this.name = name;
         this.forkCutletType = forkCutletType;
     }
+
+    public void update(String name, ForkCutletType forkCutletType) {
+        this.forkCutletType = forkCutletType;
+        this.name = name;
+    }
 }
