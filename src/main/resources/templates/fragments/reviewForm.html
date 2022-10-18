@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <form id="review-form" th:fragment="reviewForm" th:object="${reviewForm}">
+        <div class="review-form-title">
+            <input class="review_title" type="text" id="restaurantName" name="restaurantName" th:field="*{restaurantName}" placeholder="가게 이름"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{restaurantName}" />
+        </div>
+
+        <div class="review-form-menu">
+            <div th:replace="/fragments/forkCutletType.html :: forkCutletType"></div>
+
+            <input class="menu-name" type="text" id="forkCutletName" name="restaurantName" th:field="*{forkCutletName}" placeholder="메뉴 이름"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{forkCutletName}" />
+        </div>
+
+        <div th:replace="/fragments/imageUpload.html :: imageUpload"></div>
+
+        <div th:replace="/fragments/location.html :: location"></div>
+
+        <div class="review-form-oneSentence">
+            <input type="text" class="oneSentence" name="oneSentence" th:field="*{oneSentence}" placeholder="한줄 추천을 입력해주세요"/>
+            <div class="field-error" th:errors="*{oneSentence}"></div>
+        </div>
+
+        <div class="review-form-content">
+            <textarea class="review_content" name="content" th:field="*{content}" placeholder="리뷰를 입력해주세요"/>
+            <div class="field-error" th:errors="*{content}"></div>
+        </div>
+        <!-- 별점 -->
+        <div class="review-form-ratings">
+            <div id="rating-error" class="non-error">아래 평점을 입력해주세요.</div>
+            <div class="review-form-rating">
+                <label>식감</label>
+                <input type="number" style="display: none" th:field="*{texture}">
+                <div th:replace="/fragments/star.html :: star('texture', ${reviewForm.getTexture()})"></div>
+                <div class="field-error" th:errors="*{texture}"></div>
+            </div>
+            <div class="review-form-rating">
+                <label>소스</label>
+                <input type="number" style="display: none" th:field="*{sauce}" value="0">
+                <div th:replace="/fragments/star.html :: star('sauce', ${reviewForm.getSauce()})"></div>
+                <div class="field-error" th:errors="*{sauce}"></div>
+            </div>
+            <div class="review-form-rating">
+                <label>사이드</label>
+                <input type="number" style="display: none" th:field="*{side}" value="0">
+                <div th:replace="/fragments/star.html :: star('side', ${reviewForm.getSide()})"></div>
+                <div class="field-error" th:errors="*{side}"></div>
+            </div>
+            <div class="review-form-rating">
+                <label>접근성</label>
+                <input type="number" style="display: none" th:field="*{accessibility}" value="0">
+                <div th:replace="/fragments/star.html :: star('accessibility', ${reviewForm.getAccessibility()})"></div>
+                <div class="field-error" th:errors="*{accessibility}"></div>
+            </div>
+        </div>
+    </form>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="utf-8">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+    <!--페이지 소스-->
+    <div class="review-form-back">
+        <div class="review-container">
+            <form th:replace="/fragments/reviewForm.html :: reviewForm"></form>
+            <div class="review-form-button">
+                <button onclick="updateReview()">발행</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/footer.html :: fragment-footer"></div>
+</body>
+<script type="text/javascript">
+    function updateReview(){
+        var form = $("#review-form")[0];
+        var formData = new FormData(form);
+        image_files.forEach(image => {if(!image.is_delete) formData.append("imageFiles", image);});
+        var url = window.location.href;
+
+        pre_images.forEach(image => {if(!image.is_delete) formData.append("preImages", image);});
+        deleteImages.forEach(image => formData.append("deleteImages", image));
+
+        $.ajax({
+            type: "PUT",
+            enctype: "multipart/form-data",
+            url: url,
+            data : formData,
+            processData: false,
+            contentType: false,
+            async: false,
+            success: function (data) {
+                if (typeof data == 'string') {
+                    var lastIdx = url.lastIndexOf('/');
+                    window.location.replace(url.substring(0, lastIdx));
+                }else{
+                    var hasImageError = false;
+                    var hasRatingError = false;
+                    var ratingInfoArr = ['texture', 'sauce', 'side', 'accessibility'];
+                    data.forEach(error => {
+                        let errorField = error['field'];
+                        if(error['field'] == 'imageFiles') {
+                            hasImageError = true;
+                            var errorElement = document.getElementById('noImageError');
+                            errorElement.className = 'yes-error';
+                            return;
+                        }
+
+                        if (ratingInfoArr.indexOf(errorField) != -1) {
+                            hasRatingError = true;
+                            var errorElement = document.getElementById('rating-error');
+                            errorElement.className = 'yes-error';
+                            return;
+                        }
+
+                        var errorElement = document.getElementById(errorField);
+                        if(errorElement.getAttribute('class') == 'error-filed') return;
+
+                        errorElement.setAttribute('class', 'error-filed');
+                        errorElement.setAttribute('placeholder', error['defaultMessage']);
+                    })
+                    if(!hasImageError){
+                        var errorElement = document.getElementById('noImageError');
+                        errorElement.className = 'non-error';
+                    }
+                    if (!hasRatingError) {
+                        var errorElement = document.getElementById('rating-error');
+                        errorElement.className = 'non-error';
+                    }
+                    window.scrollTo(0, 0);
+                }
+
+                return false;
+            },
+            error: function () {
+                alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+                return false;
+            }
+        });
+    }
+</script>
+</html>
