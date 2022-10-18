@@ -16,13 +16,17 @@ public class ImageUtils {
     private String fileDir;
 
     public List<Image> updateImages(List<String> deleteImages, List<MultipartFile> multipartFiles) throws IOException {
-        if (deleteImages != null) {
-            for (String deleteImage : deleteImages) {
+        deleteImageFilesByStoreFileName(deleteImages);
+        return multipartFiles != null ? storeImages(multipartFiles) : null;
+    }
+
+    public void deleteImageFilesByStoreFileName(List<String> storeFileName) {
+        if (storeFileName != null) {
+            for (String deleteImage : storeFileName) {
                 File file = new File(getFullPath(deleteImage));
                 file.delete();
             }
         }
-        return multipartFiles != null ? storeImages(multipartFiles) : null;
     }
 
     public List<Image> storeImages(List<MultipartFile> multipartFiles) throws IOException {

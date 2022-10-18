@@ -32,6 +32,16 @@ public class ReviewService {
         return findReview.getId();
     }
 
+    @Transactional
+    public void deleteReview(Review review) {
+        reviewRepository.delete(review);
+    }
+
+    @Transactional
+    public void deleteReviewById(Long reviewId) {
+        reviewRepository.deleteById(reviewId);
+    }
+
     public Optional<Review> findById(Long id) {
         return reviewRepository.findById(id);
     }

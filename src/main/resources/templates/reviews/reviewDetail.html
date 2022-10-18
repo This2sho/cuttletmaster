@@ -13,6 +13,7 @@
             </div>
             <div class="right">
                 <div id="review-detail-info">
+                    <div th:if="${errorMsg} != null" th:text="${errorMsg}"></div>
                     <div th:text="${review.getRestaurantName()}" class="review-detail-title">가게 이름</div>
                     <div th:text="${review.getForkCutletName()}" class="review-detail-menu">메뉴 이름</div>
                     <div class="review-detail-overall"><span class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span></div>
@@ -20,6 +21,13 @@
                         <label th:text="${review.getCreatedDate()}">날짜</label>
                         <label class="by-bar">| </label>
                         <label th:text="${review.getUserNickName()} + ' 님'">| 작성자</label>
+                        <div class="review-detail-button">
+                            <button onclick="update_review()">수정</button>
+                            <label class="by-bar"> | </label>
+                            <form id="delete-btn-form" th:action th:method="DELETE">
+                                <button>삭제</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -50,5 +58,10 @@
     </div>
     <div th:replace="/fragments/footer.html :: fragment-footer"></div>
 </body>
-
+<script type="text/javascript">
+    function update_review() {
+        var url = $(location).attr('pathname') + "/update";
+        location.replace(url);
+    }
+</script>
 </html>

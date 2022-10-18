@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static PorkCutlet.master.controller.PageConst.commentsPageSize;
@@ -70,6 +71,17 @@ public class ReviewController {
         return "reviews/reviewDetail";
     }
 
+    @DeleteMapping("/{reviewId}")
+    public String deleteReview(@Login UserInfoDto user, @PathVariable Long reviewId, Model model) {
+        if (noAuthReview(reviewId, user)) {
+            return alertMessage("/reviews/" + reviewId, "리뷰를 삭제할 권한이 없습니다.",model);
+        }
+        Review review = reviewService.findById(reviewId).orElseThrow();
+        imageUtils.deleteImageFilesByStoreFileName(review.getImages().stream().map(Image::getStoreImageName).collect(Collectors.toList()));
+        reviewService.deleteReview(review);
+        return "redirect:/reviews";
+    }
+
     @GetMapping("/new")
     public String createReviewForm(@Login UserInfoDto user, ReviewForm reviewForm) {
         if(!user.isAdmin()) return "reviews/reviewList";
@@ -99,7 +111,7 @@ public class ReviewController {
     public String updateForm(@Login UserInfoDto user, @PathVariable Long reviewId, ReviewForm reviewForm,
                              Model model, BindingResult bindingResult) {
         if (noAuthReview(reviewId, user)) {
-            return alertMessage("/reviews/" + reviewId, model);
+            return alertMessage("/reviews/" + reviewId, "리뷰를 수정할 권한이 없습니다.", model);
         }
 
         Review review = reviewService.findById(reviewId).orElseThrow();
@@ -122,21 +134,21 @@ public class ReviewController {
             return bindingResult.getAllErrors();
         }
 
-        List<Image> images = imageUtils.updateImages(deleteImages, files);
+        List<Image> updatedImages = getUpdatedImages(files, deleteImages, reviewId);
 
+        reviewService.updateReview(reviewId, reviewForm.getForkCutletName(), reviewForm.makeForkCutletType(), reviewForm.getRestaurantName(),
+                reviewForm.makeAddress(), reviewForm.getContent(), reviewForm.getOneSentence(), reviewForm.makeRatingInfo(), updatedImages);
+        return "{\"result\":\"OK\"}";
+    }
+
+    private List<Image> getUpdatedImages(List<MultipartFile> files, List<String> deleteImages, Long reviewId) throws IOException {
+        List<Image> images = imageUtils.updateImages(deleteImages, files);
         if (deleteImages != null) {
             for (String deleteImage : deleteImages) {
                 imageService.deleteByStoreName(deleteImage);
             }
         }
-
-        if(images == null){
-            images = imageService.getImagesByReviewId(reviewId);
-        }
-
-        reviewService.updateReview(reviewId, reviewForm.getForkCutletName(), reviewForm.makeForkCutletType(), reviewForm.getRestaurantName(),
-                reviewForm.makeAddress(), reviewForm.getContent(), reviewForm.getOneSentence(), reviewForm.makeRatingInfo(), images);
-        return "{\"result\":\"OK\"}";
+        return images == null ? imageService.getImagesByReviewId(reviewId) : images;
     }
 
     private void validateFile(BindingResult bindingResult, List<MultipartFile> files, List<String> preImages, List<String> deleteImages) {
@@ -160,8 +172,8 @@ public class ReviewController {
         return !findReview.getUser().getId().equals(user.getId());
     }
 
-    private String alertMessage(String redirectPathName, Model model) {
-        model.addAttribute("errorMsg", "리뷰를 수정할 권한이 없습니다.");
+    private String alertMessage(String redirectPathName, String errorMsg, Model model) {
+        model.addAttribute("errorMsg", errorMsg);
         model.addAttribute("url", redirectPathName);
         return "fragments/alert";
     }
