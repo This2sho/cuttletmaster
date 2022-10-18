@@ -4,8 +4,6 @@
     <div id="upload-images">
     </div>
 
-
-<!--    <input id="preImages" th:field="*{preImages}" type="text" style="display: none">-->
     <div class="review-form-image">
         <label for="imageFiles">
             <div id="camera-ico-container">
@@ -15,6 +13,7 @@
                 사진
             </div>
         </label>
+        <div id="noImageError" class="non-error">버튼을 눌러 이미지를 업로드하세요.</div>
         <input id="imageFiles" type="file" multiple="multiple" placeholder="사진" style="display: none">
     </div>
 
@@ -40,6 +39,8 @@
 
         $(document).ready(function(){
             $("#imageFiles").on("change", fileCheck);
+
+            if(imagesNames == null) return;
 
             var hasImage = false;
             imagesNames.forEach(i => {
@@ -151,51 +152,6 @@
             $('#' + imageNum).remove();
             imageCount --;
             if(imageCount == 0) document.getElementById("upload-images").style.display = 'none';
-        }
-
-        function registerReview(){
-            var form = $("#review-form")[0];
-            var formData = new FormData(form);
-            image_files.forEach(image => {if(!image.is_delete) formData.append("imageFiles", image);});
-            var url = window.location.href;
-
-            pre_images.forEach(image => {if(!image.is_delete) formData.append("preImages", image);});
-            deleteImages.forEach(image => formData.append("deleteImages", image));
-
-            $.ajax({
-                type: "PUT",
-                enctype: "multipart/form-data",
-                url: url,
-                data : formData,
-                processData: false,
-                contentType: false,
-                async: false,
-                success: function (data) {
-                    if (typeof data == 'string') {
-                        var lastIdx = url.lastIndexOf('/');
-                        window.location.replace(url.substring(0, lastIdx));
-                    }else{
-                        data.forEach(error => {
-                            var errorElement = document.getElementById(error['field']);
-                            if(errorElement.getAttribute('class') == 'field-error') return;
-
-                            errorElement.setAttribute('class', 'field-error');
-
-                            var errorMessage = document.createElement('div');
-                            errorMessage.setAttribute('class', 'field-error');
-                            errorMessage.textContent = error['defaultMessage'];
-
-                            errorElement.insertAdjacentElement("afterend", errorMessage);
-                        })
-                    }
-
-                    return false;
-                },
-                error: function () {
-                    alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-                    return false;
-                }
-            });
         }
     </script>
 </div>
