@@ -20,6 +20,6 @@ public class RatingInfo {
         this.sauce = sauce;
         this.side = side;
         this.accessibility = accessibility;
-        this.overall = (texture.getValue() + sauce.getValue() + side.getValue() + accessibility.getValue()) / 5;
+        this.overall = (texture.getValue() + sauce.getValue() + side.getValue() + accessibility.getValue()) * 10 / 40.0;
     }
 }
