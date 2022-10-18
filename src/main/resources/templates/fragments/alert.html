@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="alert" class="alert">
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const msg = [[${errorMsg}]];
+        const redirectUrl = window.location.origin + [[${url}]];
+        /*]]>*/
+        alert(msg);
+        window.location.replace(redirectUrl);
+    </script>
+</div>
+</html>
