@@ -18,9 +18,9 @@ public class FileValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        List<MultipartFile> file = (List<MultipartFile>) target;
+        List<MultipartFile> imageFiles = (List<MultipartFile>) target;
 
-        if (file.get(0).isEmpty()) {
+        if (imageFiles == null || imageFiles.isEmpty() || imageFiles.get(0).getOriginalFilename().equals("")) {
             errors.rejectValue("imageFiles", "emptyFile", "파일을 업로드해주세요.");
         }
     }
