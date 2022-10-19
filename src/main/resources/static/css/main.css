@@ -922,11 +922,15 @@ label.by-bar {
     font-size: 1rem;
 }
 
-.review-detail-button{
+.controller-button{
     float: right;
 }
 
-.review-detail-button button {
+#delete-btn-form{
+    float: right;
+}
+
+.controller-button button {
     border: none;
     background: none;
     font-family: Pretendard;
@@ -999,16 +1003,37 @@ div.rating {
     border-bottom: solid 1px #4b4141;
 }
 
+.comment-container {
+ width: 62.2vw;
+ padding: 1vh 0;
+ border-bottom: solid 1px #4b4141;
+}
+
+.comment-user {
+    float: left;
+    font-weight: 700;
+}
+
+.comment-content {
+    padding-top: 4vh;
+}
+
 .page-container {
     width: 62.2vw;
     height: 8vh;
     padding: 2vh 25vw;
 }
-.comment-container {
+.comment-controller-container {
     width: 62.4vw;
     height: 15vh;
     border: solid 1px #4b4141;
     margin-bottom: 20vh;
+}
+.comment-update-controller-container {
+    width: 62.4vw;
+    height: 15vh;
+    margin: 1vh 0;
+    border: solid 1px #4b4141;
 }
 .write-container {
     width: 62.2vw;

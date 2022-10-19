@@ -71,6 +71,15 @@ public class CommentService {
         return Pair.of(totalPage, comments);
     }
 
+    public Pair<Integer, List<Comment>> getPresentCommentsWithTotalPage(Long reviewId, int pageNum) {
+        int totalPage = getTotalPage(reviewId).intValue();
+        pageNum = pageNum > totalPage ? totalPage : pageNum;
+        PageRequest request = PageRequest.of(pageNum, commentsPageSize);
+        List<Comment> comments = commentRepository.findCommentsWithFetchJoin(request, reviewId);
+        return Pair.of(totalPage, comments);
+    }
+
+
     public Long getTotalPage(Long reviewId) {
         Long totalSize = commentRepository.countByReview_Id(reviewId);
         if(totalSize == 0) return 1L;

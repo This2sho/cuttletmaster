@@ -7,8 +7,8 @@
                 <button class="page-non-selected" th:unless="${page} == 1" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
             </th:block>
             <th:block th:unless = "${firstLoad}">
-                <button class="page-non-selected" th:if="${page} != ${totalPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
-                <button class="page-selected" th:unless="${page} != ${totalPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
+                <button class="page-non-selected" th:if="${page} != ${presentPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
+                <button class="page-selected" th:unless="${page} != ${presentPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
             </th:block>
         </div>
 

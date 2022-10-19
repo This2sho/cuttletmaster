@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div id="comments-content" class="comments" th:fragment="comments">
-    <div id="comment" th:each="comment : ${comments}" th:text="${comment.getContent()}">댓글을 달아용</div>
+    <div th:each="comment : ${comments}" class="comment-container" th:id="'comment-' + ${comment.getId()}">
+        <div class="comment-user" th:text="${comment.getNickName()}">작성자 닉네임</div>
+        <div th:if="${user} != null and ${user.getNickName()} == ${comment.getNickName()}" class="controller-button" th:commentId="${comment.getId()}">
+            <button onclick="updateCommentForm(this.parentElement.getAttribute('commentId'))">수정</button>
+            <label class="by-bar"> | </label>
+            <button onclick="deleteComment(this.parentElement.getAttribute('commentId'))">삭제</button>
+        </div>
+        <div class="comment-content" th:text="${comment.getContent()}">댓글 내용</div>
+    </div>
 
     <div th:replace="/fragments/page-container.html :: page-container"></div>
 
-    <div class="comment-container">
+    <div class="comment-controller-container">
         <div class="write-container">
             <input id="comment-content" type="text" class="write-comment" placeholder=""/>
         </div>
         <div class="send-container">
-            <button th:if="${user} == null" th:onclick="|location.href='@{/auth/login}'|">등록</button>
+            <button th:if="${user} == null" onclick="redirectLogin()">등록</button>
             <button th:unless="${user} == null" onclick="addComment()">등록</button>
         </div>
     </div>
 
+    <div id="comment-update-controller" style="display: none">
+        <div class="comment-update-controller-container">
+            <div class="write-container">
+                <input id="comment-update-content" type="text" class="write-comment" placeholder=""/>
+            </div>
+            <div class="send-container">
+                <button th:if="${user} == null" onclick="redirectLogin()">등록</button>
+                <button th:unless="${user} == null" onclick="updateComment()">등록</button>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
+        var updateIsOpen = false;
+        var preInnerHTML;
+        var preContainerId;
+        var preId;
         function addComment() {
-            var url = $(location).attr('origin') + $(location).attr('pathname') + "/comments";
+            var url = location.href + "/comments";
             var content = $("#comment-content").val();
             var data = {content : content}
+
             // var
             $.ajax({
                 type: "POST",
@@ -27,6 +52,69 @@
                 data: data,
                 dataType: "text"
             }).done(function (result){
+                if (result == 'ERROR') {
+                    window.location.replace(redirectLoginURL);
+                    return;
+                }
+
+                $("#comments-content").replaceWith(result);
+            });
+        }
+
+        function updateCommentForm(commentId) {
+            if (updateIsOpen) {
+                document.getElementById(preContainerId).innerHTML = preInnerHTML;
+            }
+            updateIsOpen = true;
+            var commentContainerId = 'comment-' + commentId;
+            preContainerId = commentContainerId;
+            preId = commentId;
+            preInnerHTML = document.getElementById(commentContainerId).innerHTML;
+            var preText = document.getElementById(commentContainerId).getElementsByClassName('comment-content')[0].textContent;
+            document.getElementById(commentContainerId).innerHTML = document.getElementById("comment-update-controller").innerHTML;
+            document.getElementById('comment-update-content').value = preText;
+        }
+
+        function updateComment() {
+            var url = location.href + "/comments/" + preId;
+            var content = $("#comment-update-content").val();
+            var pageNum = document.getElementsByClassName("page-selected")[0].getAttribute("page");
+            var data = {
+                "content" : content,
+                "pageNum" : pageNum
+            };
+            // var
+            $.ajax({
+                type: "PUT",
+                url: url,
+                data: data,
+                dataType: "text"
+            }).done(function (result){
+                if (result == 'ERROR') {
+                    window.location.replace(redirectLoginURL);
+                    return;
+                }
+                $("#comments-content").replaceWith(result);
+            });
+        }
+
+        function deleteComment(commentId) {
+            var url = location.href + "/comments/" + commentId;
+            var pageNum = document.getElementsByClassName("page-selected")[0].getAttribute("page");
+            var data = {
+                "pageNum": pageNum
+            };
+            // var
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                data: data,
+                dataType: "text"
+            }).done(function (result){
+                if (result == 'ERROR') {
+                    window.location.replace(redirectLoginURL);
+                    return;
+                }
                 $("#comments-content").replaceWith(result);
             });
         }

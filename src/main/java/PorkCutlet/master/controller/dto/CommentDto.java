@@ -9,11 +9,11 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @AllArgsConstructor
 public class CommentDto {
-    @NotEmpty
+    private Long id;
     private String content;
     private String nickName;
 
     public static CommentDto from(Comment comment) {
-        return new CommentDto(comment.getContent(), comment.getUser().getNickName());
+        return new CommentDto(comment.getId(), comment.getContent(), comment.getUser().getNickName());
     }
 }

@@ -21,7 +21,7 @@
                         <label th:text="${review.getCreatedDate()}">날짜</label>
                         <label class="by-bar">| </label>
                         <label th:text="${review.getUserNickName()} + ' 님'">| 작성자</label>
-                        <div class="review-detail-button">
+                        <div class="controller-button">
                             <button onclick="update_review()">수정</button>
                             <label class="by-bar"> | </label>
                             <form id="delete-btn-form" th:action th:method="DELETE">
@@ -59,6 +59,12 @@
     <div th:replace="/fragments/footer.html :: fragment-footer"></div>
 </body>
 <script type="text/javascript">
+    const redirectLoginURL = window.location.origin + "/auth/login?redirectURL=" + location.pathname;
+
+    function redirectLogin() {
+        window.location.replace(redirectLoginURL);
+        return;
+    }
     function update_review() {
         var url = $(location).attr('pathname') + "/update";
         location.replace(url);
