@@ -7,7 +7,10 @@
     </div>
 
     <div class="like-list">
-        <div class="review-list-container" th:each="review : ${likeList}">
+        <div class="review-list-container" th:each="review : ${likeList}" th:id="'likeReview-'+${review.getId()}">
+            <div class="input-button">
+                <button id="like-review-delete-btn" onclick="deleteLikeReview(this.parentElement.parentElement.id)">삭제</button>
+            </div>
             <a th:href="|/reviews/${review.getId()}|">
                 <div id="review-list-thumbnail">
                     <img src="/img/home-top.png" th:src="|/images/${review.getStoreImageName()}|">
@@ -25,5 +28,18 @@
             </a>
         </div>
     </div>
+    <script th:inline="javascript">
+        function deleteLikeReview(likeReviewId) {
+            var reviewId = likeReviewId.split("-")[1];
+            var url = location.href + "/likes/reviews/" + reviewId;
+
+            $.ajax({
+                type: "DELETE",
+                url: url
+            }).done(function (){
+                document.getElementById(likeReviewId).hidden = true;
+            });
+        }
+    </script>
 </div>
 </html>

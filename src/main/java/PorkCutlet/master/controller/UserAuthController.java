@@ -1,5 +1,6 @@
 package PorkCutlet.master.controller;
 
+import PorkCutlet.master.UserPatternUtil;
 import PorkCutlet.master.controller.dto.UserAuthDto;
 import PorkCutlet.master.controller.dto.UserInfoDto;
 import PorkCutlet.master.domain.User;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class UserAuthController {
     private final UserService userService;
+    private final UserPatternUtil userPatternUtil;
     @GetMapping("/join")
     public String joinForm(UserAuthDto userAuthDto) {
         return "auth/joinForm";
@@ -29,12 +32,23 @@ public class UserAuthController {
 
     @PostMapping("/join")
     public String join(@Valid UserAuthDto userAuthDto, BindingResult bindingResult) {
+        validatePasswordEqual(userAuthDto, bindingResult);
+        userPatternUtil.loginIdMatches(userAuthDto.getLoginId(), bindingResult);
+        userPatternUtil.passwordMatches(userAuthDto.getPassword(), bindingResult);
+        userPatternUtil.nickNameMatches(userAuthDto.getNickName(), bindingResult);
         if (bindingResult.hasErrors()) {
             return "auth/joinForm";
         }
-        userService.join(new User(userAuthDto.getLoginId(), userAuthDto.getPassword(), userAuthDto.getNickName()));
+        try {
+            userService.join(new User(userAuthDto.getLoginId(), userAuthDto.getPassword(), userAuthDto.getNickName()));
+        } catch (Exception e) {
+            bindingResult.reject("duplicatedUser",e.getMessage());
+            return "auth/joinForm";
+        }
         return "redirect:/";
     }
+
+
 
     @GetMapping("/login")
     public String loginForm(UserAuthDto userAuthDto) {
@@ -42,7 +56,7 @@ public class UserAuthController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid UserAuthDto userAuthDto, BindingResult bindingResult,
+    public String login(@RequestParam(required = false, defaultValue = "/") String redirectURL, @Valid UserAuthDto userAuthDto, BindingResult bindingResult,
                         HttpServletRequest request) {
         if (bindingResult.hasErrors() && errorIsNotNickName(bindingResult)) {
             return "auth/loginForm";
@@ -58,11 +72,7 @@ public class UserAuthController {
         HttpSession session = request.getSession();
 
         session.setAttribute(SessionConst.LOGIN_USER, UserInfoDto.from(loginUser));
-        return "redirect:/";
-    }
-
-    private boolean errorIsNotNickName(BindingResult bindingResult) {
-        return !(bindingResult.getAllErrors().size() == 1 && bindingResult.getFieldError().getField().equals("nickName"));
+        return "redirect:"+redirectURL;
     }
 
     @PostMapping("/logout")
@@ -73,4 +83,16 @@ public class UserAuthController {
         }
         return "redirect:/";
     }
+
+    private void validatePasswordEqual(UserAuthDto userAuthDto, BindingResult bindingResult) {
+        if (!userAuthDto.getPassword().equals(userAuthDto.getPasswordCheck())) {
+            bindingResult.rejectValue("passwordCheck", "passwordNotEqual", "비밀번호가 일치하지 않습니다.");
+        }
+    }
+
+    private boolean errorIsNotNickName(BindingResult bindingResult) {
+        return !(bindingResult.getAllErrors().size() == 1 && bindingResult.getFieldError().getField().equals("nickName"));
+    }
+
+
 }

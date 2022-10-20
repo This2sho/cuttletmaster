@@ -747,7 +747,7 @@ div.right{
 }
 #review-list-info {
     height: 14vh;
-    width: 50vw;
+    width: 35vw;
     padding-left: 3.3vw;
     padding-top: 2vh;
     float: left;
@@ -1165,8 +1165,9 @@ input.star-input {
 }
 
 #update-content {
-    height: 52vh;
+    min-height: 52vh;
     padding: 1vh 1vw;
+    margin-bottom: 4vh;
 }
 
 .my-page-content-title {
@@ -1197,15 +1198,32 @@ input.star-input {
     color: #982d25;
 }
 
+
 #like-list-content {
     min-height: 52vh;
+    padding: 1vh 1vw;
     width: 100%;
 }
 
+.user-control-container {
+    width: 20vw;
+}
+
+#user-update-btn {
+    float: left;
+}
+
+#user-delete-btn {
+    float: right;
+}
+
+#like-review-delete-btn {
+    float: right;
+}
 /*myPage*/
 
 /*에러*/
-.error-filed::placeholder{
+.error-field::placeholder{
     color: #d02926;
 }
 div#noImageError {

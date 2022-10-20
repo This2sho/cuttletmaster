@@ -4,6 +4,7 @@ import PorkCutlet.master.domain.User;
 import PorkCutlet.master.domain.UserType;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ public class UserAuthDto {
     private String loginId;
     @NotEmpty
     private String password;
+    private String passwordCheck;
     @NotEmpty
     private String nickName;
 

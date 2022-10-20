@@ -25,6 +25,16 @@ public class UserService {
         return user.getId();
     }
 
+    @Transactional
+    public void updateUser(User user, String password, String nickName) {
+        user.update(password, nickName);
+    }
+
+    @Transactional
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
     private void validateDuplicateUser(User user) {
         if (userRepository.findByLoginId(user.getLoginId()).isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원 입니다.");
