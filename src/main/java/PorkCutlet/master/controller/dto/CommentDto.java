@@ -1,6 +1,8 @@
 package PorkCutlet.master.controller.dto;
 
 import PorkCutlet.master.domain.Comment;
+import PorkCutlet.master.domain.User;
+import PorkCutlet.master.domain.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,8 +14,10 @@ public class CommentDto {
     private Long id;
     private String content;
     private String nickName;
+    private Boolean isAdmin;
 
     public static CommentDto from(Comment comment) {
-        return new CommentDto(comment.getId(), comment.getContent(), comment.getUser().getNickName());
+        User user = comment.getUser();
+        return new CommentDto(comment.getId(), comment.getContent(), user.getNickName(), user.getUserType().isAdmin());
     }
 }
