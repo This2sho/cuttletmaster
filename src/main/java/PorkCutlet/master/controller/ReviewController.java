@@ -1,9 +1,11 @@
 package PorkCutlet.master.controller;
 
-import PorkCutlet.master.controller.dto.*;
-import PorkCutlet.master.controller.auth.Login;
-import PorkCutlet.master.domain.*;
 import PorkCutlet.master.ImageUtils;
+import PorkCutlet.master.controller.auth.Login;
+import PorkCutlet.master.controller.dto.*;
+import PorkCutlet.master.domain.Image;
+import PorkCutlet.master.domain.Review;
+import PorkCutlet.master.domain.User;
 import PorkCutlet.master.service.*;
 import PorkCutlet.master.validation.FileValidator;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static PorkCutlet.master.controller.PageConst.commentsPageSize;
+import static PorkCutlet.master.controller.PageConst.reviewsPageSize;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,11 +42,14 @@ public class ReviewController {
     private final FileValidator fileValidator;
 
     @GetMapping
-    public String reviewList(@Login UserInfoDto user, @PageableDefault(size = 4)
-            Pageable pageable, Model model) {
-        List<ThumbNailReviewDto> reviewList = reviewService.getPagingReview(pageable).getContent()
+    public String reviewList(@Login UserInfoDto user, @PageableDefault(size = reviewsPageSize) Pageable pageable,
+                             Model model) {
+        List<ThumbNailReviewDto> reviewList = reviewService.getPagingReview(pageable)
                 .stream().map(ThumbNailReviewDto::from).collect(Collectors.toList());
         model.addAttribute("reviewList", reviewList);
+        model.addAttribute("totalPage", reviewService.getTotalPage());
+        model.addAttribute("firstLoad", false);
+        model.addAttribute("presentPage", pageable.getPageNumber() == 0 ? 1 : pageable.getPageNumber());
         return "reviews/reviewList";
     }
 
