@@ -1,6 +1,8 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.*;
+import PorkCutlet.master.domain.Like;
+import PorkCutlet.master.domain.Review;
+import PorkCutlet.master.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
