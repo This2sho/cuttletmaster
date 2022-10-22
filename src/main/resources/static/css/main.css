@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'GangwonEduAll';
+    src: url("../fonts/GangwonEduAll.woff") format('woff');
+    src: url("../fonts/GangwonEduAll.ttf") format('truetype');
+    src: url("../fonts/GangwonEduAll.otf") format('truetype');
+    src: url("../fonts/GangwonEdu_OTFBoldA.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'GangwonEduAll';
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -31,27 +45,30 @@ footer {
     letter-spacing: normal;
     text-align: left;
     padding-bottom: 1vh;
-    font-size: 120%;
+    font-size: 110%;
 }
 
-.about-people{
+.about-people {
     font-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    font-size: 90%;
+    margin-bottom: 1vh;
 }
 
-#about-project{
+#about-project {
     font-family: GangwonEduAll;
-    font-weight: bold;
+    font-weight: 350;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    font-size: 80%;
+    margin-top: 2vh;
 }
-
 .footer-logo {
     float: right;
     height: 100%;
@@ -391,13 +408,13 @@ textarea#content {
 }
 
 /* nav bar */
-.navbar-brand {
-    color: #a5201d;
+a.nav-logo {
+    float: left;
 }
+
 .nav-logo-container {
     width: 10vw;
     height: 7vh;
-    margin-bottom: 4vh;
 }
 .nav-logo-container img {
     width: 100%;
@@ -409,19 +426,27 @@ textarea#content {
     border-bottom: 3px solid #a5201d;
     height: 17vh;
     margin: 0 4vw;
+    width: 91vw;
     padding-top: 8vh;
 }
-#nav-no-login {
+
+
+.nav-control-container {
     height: 8vh;
-    align-items: end;
-    display: flex;
+    width: 80vw;
+    padding-top: 5vh;
+    float: left;
 }
-#nav-login{
-    height: 8vh;
-    align-items: end;
-    display: flex;
+
+.nav-control {
+    height: 100%;
+    float: right;
 }
-a.nav-link{
+
+.nav-control-item{
+    float: left;
+}
+a.nav-href{
     color: #a5201d;
 }
 .userName{
@@ -437,24 +462,16 @@ button.logout:hover{
 }
 a.mypage{
     color: #a5201d;
+    float: left;
 }
-div.middle-dot1 {
+div.middle-dot {
     height: 0.7vh;
     width: 0.4vw;
-    margin-top: 1.5vh;
+    margin-top: 0.8vh;
     background-color: #a6201f;
-    border-radius: 3vh;
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
-}
-div.middle-dot2 {
-    height: 0.7vh;
-    width: 0.4vw;
-    margin-top: 1vh;
-    background-color: #a6201f;
-    border-radius: 3vh;
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
+    border-radius: 100%;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 /* nav bar */
 
@@ -507,7 +524,7 @@ div.desc{
     line-height: normal;
     letter-spacing: normal;
     color: #2f200d;
-    font-size: 110%;
+    font-size: 130%;
     font-weight: 600;
 }
 
@@ -617,10 +634,10 @@ div.image-6-container {
 }
 
 .recommend-title {
-    height: 15vh;
-    padding-top: 5vh;
+    height: 20vh;
+    padding-top: 10vh;
     font-size: 2.5vh;
-    font-weight: bold;
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -661,9 +678,9 @@ div.image-6-container {
 }
 
 .desc-title {
-    height: 8vh;
+    height: 5vh;
     font-size: 2.5vh;
-    font-weight: bold;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -682,13 +699,12 @@ div.image-6-container {
 }
 
 .desc-recommend button{
-    /* text-decoration: none; */
     background: #a5201d;
     color: white;
     border: none;
-    width: 21.6vw;
+    width: 16vw;
     height: 4vh;
-    border-radius: 10%;
+    border-radius: 15%/100%;
 }
 
 
@@ -766,7 +782,6 @@ span.list-title {
 
 
 .review-list-title{
-    font-family: Pretendard;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -785,7 +800,6 @@ a.list-write {
 }
 
 .review-list-menu{
-    ont-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -793,10 +807,10 @@ a.list-write {
     letter-spacing: normal;
     color: #0b0a0a;
     font-size: 1.4rem;
+    float: left;
 }
 
 .review-list-by {
-    font-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -822,7 +836,6 @@ label.by-bar {
     height: 25vh;
     width: 100%;
     padding-top: 5vh;
-    padding-left: 25vw;
 }
 
 .page-num {
@@ -894,15 +907,29 @@ label.by-bar {
     font-size: 2rem;
 }
 
-.review-detail-menu {
-    font-weight: 300;
+.detail-menu {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     color: #0b0a0a;
+    height: 3vh;
+    margin-bottom: 3.5vh;
+}
+
+.review-detail-menu {
+    font-weight: 300;
     font-size: 1.3rem;
-    padding-bottom: 3.5vh;
+    float: left;
+}
+
+.review-detail-menu-type {
+    font-weight: 100;
+    font-size: 1rem;
+    margin-left: 1vw;
+    margin-top: 0.2rem;
+    float: left;
+    color: #982d25;
 }
 
 .review-detail-overall {
@@ -912,7 +939,6 @@ label.by-bar {
 }
 
 .review-detail-by {
-    font-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -933,7 +959,6 @@ label.by-bar {
 .controller-button button {
     border: none;
     background: none;
-    font-family: Pretendard;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -1220,6 +1245,31 @@ input.star-input {
 #like-review-delete-btn {
     float: right;
 }
+
+textarea#apply-content {
+    height: 20vh;
+    width: 20vw;
+    border: 1px solid #982d25;
+    padding: 1vh 1vw;
+}
+
+.apply-list-container {
+    padding: 4vh 0;
+    height: 20vh;
+    width: 40vw;
+}
+
+.apply-list-border {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #a5201d;
+    border-top: 1px solid #a5201d;
+}
+
+.apply-control{
+    float: right;
+}
+
 /*myPage*/
 
 /*에러*/
