@@ -1,12 +1,15 @@
 package PorkCutlet.master.controller;
 
 import PorkCutlet.master.UserPatternUtil;
+import PorkCutlet.master.controller.dto.MasterApplyDto;
 import PorkCutlet.master.controller.dto.ThumbNailReviewDto;
 import PorkCutlet.master.controller.dto.UserInfoDto;
 import PorkCutlet.master.controller.dto.UserUpdateDto;
 import PorkCutlet.master.controller.auth.Login;
+import PorkCutlet.master.domain.MasterApply;
 import PorkCutlet.master.domain.User;
 import PorkCutlet.master.service.LikeService;
+import PorkCutlet.master.service.MasterApplyService;
 import PorkCutlet.master.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,7 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
     private final LikeService likeService;
+    private final MasterApplyService masterApplyService;
     private final UserPatternUtil userPatternUtil;
 
     @GetMapping("/{userId}")
@@ -38,26 +42,44 @@ public class UserController {
                 .stream().map(ThumbNailReviewDto::from).collect(Collectors.toList());
         model.addAttribute("userUpdateDto", userUpdateDto);
         model.addAttribute("likeList", likeList);
+
+        if (user.isAdmin()) {
+            List<MasterApply> applies = masterApplyService.getApplies();
+            model.addAttribute("applyList", applies.stream().map(MasterApplyDto::from).collect(Collectors.toList()));
+            return "myPage";
+        }
+
+        boolean applied = masterApplyService.isApplied(user.getId());
+        model.addAttribute("applied", applied);
+
+        if (!applied) {
+            model.addAttribute("masterApplyDto", new MasterApplyDto());
+        }
         return "myPage";
     }
 
     @PutMapping("/{userId}")
     public String updateUser(@Login UserInfoDto user, @PathVariable Long userId, @Valid UserUpdateDto userUpdateDto,
                              BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) return "myPage";
+
         User findUser = userService.findById(user.getId()).orElseThrow();
         String currentPassword = findUser.getPassword();
         String currentNickName = findUser.getNickName();
-
         validatePassword(userUpdateDto.getPassword(), bindingResult, currentPassword);
         currentPassword = checkPassword(userUpdateDto, bindingResult, currentPassword);
         currentNickName = checkNickName(userUpdateDto, bindingResult, currentNickName);
         validateNoChange(bindingResult, findUser, currentPassword, currentNickName);
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) return "myPage";
+
+        try {
+            userService.updateUser(findUser, currentPassword, currentNickName);
+        } catch (Exception e) {
+            bindingResult.reject("duplicatedUser",e.getMessage());
             return "myPage";
         }
 
-        userService.updateUser(findUser, currentPassword, currentNickName);
         logout(request);
         return "redirect:/";
     }
@@ -77,6 +99,29 @@ public class UserController {
         logout(request);
         return "redirect:/";
     }
+
+    @PostMapping("/{userId}/applies")
+    @ResponseBody
+    public Object applyMaster(@Login UserInfoDto user, @PathVariable Long userId, @Valid MasterApplyDto masterApplyDto
+            , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return bindingResult.getAllErrors();
+
+        masterApplyService.apply(userService.findById(user.getId()).orElseThrow(), masterApplyDto.getContent());
+        return "{\"result\":\"OK\"}";
+    }
+
+    @PutMapping("/{userId}/applies/{applyId}")
+    public ResponseEntity acceptApply(@Login UserInfoDto user, @PathVariable Long userId, @PathVariable Long applyId) {
+        userService.appointUser(applyId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}/applies/{applyId}")
+    public ResponseEntity rejectApply(@Login UserInfoDto user, @PathVariable Long userId, @PathVariable Long applyId) {
+        masterApplyService.delete(applyId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{userId}/likes/reviews/{reviewId}")
     public ResponseEntity deleteLikeReview(@Login UserInfoDto user, @PathVariable Long userId, @PathVariable Long reviewId) {
