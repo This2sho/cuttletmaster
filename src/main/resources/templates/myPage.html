@@ -23,6 +23,9 @@
                 <ui>
                     <button class="non-selected" id="menu-1" onclick="selectMenu(1)">찜한 맛집 목록</button>
                 </ui>
+                <ui>
+                    <button class="non-selected" id="menu-2" onclick="selectMenu(2)">돈가스 미식가 신청</button>
+                </ui>
             </div>
 
             <div id="selected-0" style="display: block">
@@ -30,6 +33,9 @@
             </div>
             <div id="selected-1" style="display: none">
                 <div th:replace="/fragments/myPageLikeList.html :: likeList"></div>
+            </div>
+            <div id="selected-2" style="display: none">
+                <div th:replace="/fragments/myPageMasterApply.html :: masterApply"></div>
             </div>
 
         </div>
@@ -42,7 +48,7 @@
         var selectId = "selected-";
         var selectMenu = "menu-";
 
-        var menuSize = 2;
+        var menuSize = 3;
         for (var i = 0; i < menuSize; i++) {
             if (i != num) {
                 document.getElementById(selectId + i).style.display = 'none';
