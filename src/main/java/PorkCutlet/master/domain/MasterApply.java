@@ -17,8 +17,7 @@ public class MasterApply {
 
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "masterApply", fetch = FetchType.LAZY)
     private User user;
 
     public MasterApply(User user, String content) {
