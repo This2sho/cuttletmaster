@@ -1,6 +1,5 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.QRestaurant;
 import PorkCutlet.master.domain.Restaurant;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

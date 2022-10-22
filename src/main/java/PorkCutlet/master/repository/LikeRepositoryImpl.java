@@ -1,18 +1,16 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.QUser;
 import PorkCutlet.master.domain.Review;
-import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static PorkCutlet.master.domain.QLike.*;
+import static PorkCutlet.master.domain.QLike.like;
 import static PorkCutlet.master.domain.QRestaurant.restaurant;
-import static PorkCutlet.master.domain.QReview.*;
-import static PorkCutlet.master.domain.QUser.*;
+import static PorkCutlet.master.domain.QReview.review;
+import static PorkCutlet.master.domain.QUser.user;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
