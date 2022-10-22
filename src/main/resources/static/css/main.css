@@ -1028,10 +1028,18 @@ div.rating {
     border-bottom: solid 1px #4b4141;
 }
 
+
+
 .comment-container {
  width: 62.2vw;
  padding: 1vh 0;
  border-bottom: solid 1px #4b4141;
+}
+
+span.user-grade {
+    float: left;
+    margin-right: 0.5vw;
+    color: #a5201d;
 }
 
 .comment-user {
@@ -1245,7 +1253,11 @@ input.star-input {
 #like-review-delete-btn {
     float: right;
 }
-
+#master-apply-content {
+    min-height: 52vh;
+    padding: 1vh 1vw;
+    width: 100%;
+}
 textarea#apply-content {
     height: 20vh;
     width: 20vw;
@@ -1269,7 +1281,9 @@ textarea#apply-content {
 .apply-control{
     float: right;
 }
-
+.apply-btn{
+    float: left;
+}
 /*myPage*/
 
 /*에러*/
