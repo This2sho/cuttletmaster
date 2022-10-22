@@ -40,6 +40,6 @@ out/
 **/src/main/resources/static/img/
 
 ### 테스트용 ###
-initDB.java
+**/src/main/java/PorkCutlet/master/initDB.java
 
 
