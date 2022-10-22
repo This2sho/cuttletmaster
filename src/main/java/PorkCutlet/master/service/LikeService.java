@@ -22,6 +22,12 @@ public class LikeService {
         likeRepository.save(like);
     }
 
+    @Transactional
+    public void deleteLike(Long userId, Long reviewId) {
+        Like like = likeRepository.findLikeByUserIdAndReviewId(userId, reviewId);
+        likeRepository.delete(like);
+    }
+
     public Long countLikesNum(Long reviewId) {
         return likeRepository.countAllByReviewId(reviewId);
     }
@@ -30,11 +36,7 @@ public class LikeService {
         return likeRepository.existsLikeByUserIdAndReviewId(userId, reviewId);
     }
 
-    @Transactional
-    public void deleteLike(Long userId, Long reviewId) {
-        Like like = likeRepository.findLikeByUserIdAndReviewId(userId, reviewId);
-        likeRepository.delete(like);
-    }
+
 
     public List<Review> getLikeList(Long userId) {
         return likeRepository.findReviewsByUserIdWithFetchJoin(userId);
