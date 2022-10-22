@@ -7,7 +7,6 @@ import PorkCutlet.master.repository.CommentRepository;
 import PorkCutlet.master.repository.ReviewRepository;
 import PorkCutlet.master.repository.UserRepository;
 import com.mysema.commons.lang.Pair;
-import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static PorkCutlet.master.controller.PageConst.commentsPageSize;
@@ -48,9 +46,8 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long userId, Long commentId) throws AccessException{
+    public void deleteComment(Long commentId) throws AccessException{
         Comment comment = commentRepository.findById(commentId).orElseThrow();
-        validateAuthority(userId, comment);
         commentRepository.delete(comment);
     }
 

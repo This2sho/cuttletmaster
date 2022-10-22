@@ -58,7 +58,8 @@ public class ReviewController {
                                Model model) {
         Review review = reviewService.getReviewByIdWithFetchJoin(reviewId);
 
-        model.addAttribute("review" ,DetailReviewDto.from(review));
+        DetailReviewDto detailReviewDto = DetailReviewDto.from(review);
+        model.addAttribute("review" , detailReviewDto);
         model.addAttribute("likes", userLikesReview(user, reviewId));
 
         Long likesNum = likeService.countLikesNum(reviewId);
@@ -72,6 +73,7 @@ public class ReviewController {
         model.addAttribute("firstLoad", true);
         model.addAttribute("comments", comments);
         model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
+        model.addAttribute("reviewCreator", detailReviewDto.getUserNickName());
 
         return "reviews/reviewDetail";
     }

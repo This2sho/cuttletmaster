@@ -27,13 +27,16 @@ public class CommentController {
     @GetMapping("/reviews/{reviewId}/comments")
     public String getComments(@Login UserInfoDto user, @PathVariable Long reviewId, Model model,
                               @PageableDefault(size = commentsPageSize) Pageable pageable) {
-        List<CommentDto> comments = commentService.getCommentsWithFetchJoin(pageable, reviewId)
+        List<Comment> commentsWithFetchJoin = commentService.getCommentsWithFetchJoin(pageable, reviewId);
+        List<CommentDto> comments = commentsWithFetchJoin
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        String reviewCreator = commentsWithFetchJoin.size() > 0 ? commentsWithFetchJoin.get(0).getReview().getUser().getNickName() : "";
         model.addAttribute("firstLoad", false);
         model.addAttribute("comments", comments);
         model.addAttribute("totalPage", commentService.getTotalPage(reviewId));
         model.addAttribute("presentPage", pageable.getPageNumber());
+        model.addAttribute("reviewCreator", reviewCreator);
         return "fragments/comments";
     }
 
@@ -60,31 +63,39 @@ public class CommentController {
         if(user == null){
             return "CONST-ERROR";
         }
-        commentService.deleteComment(user.getId(), commentId);
+        commentService.deleteComment(commentId);
         return getPresentComment(reviewId, pageNum, model);
     }
 
     private String getLastComment(Long reviewId, Model model) {
         Pair<Integer, List<Comment>> result = commentService.getLastCommentsWithTotalPage(reviewId);
-        List<CommentDto> comments = result.getSecond()
+        List<Comment> comments = result.getSecond();
+        List<CommentDto> commentsDto = comments
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        String reviewCreator = comments.size() > 0 ? comments.get(0).getReview().getUser().getNickName() : "";
+
         model.addAttribute("firstLoad", false);
-        model.addAttribute("comments", comments);
+        model.addAttribute("comments", commentsDto);
         model.addAttribute("totalPage", result.getFirst());
         model.addAttribute("presentPage", result.getFirst());
+        model.addAttribute("reviewCreator", reviewCreator);
         return "fragments/comments";
     }
 
     private String getPresentComment(Long reviewId, int pageNum, Model model) {
         Pair<Integer, List<Comment>> result = commentService.getPresentCommentsWithTotalPage(reviewId, pageNum);
-        List<CommentDto> comments = result.getSecond()
+        List<Comment> comments = result.getSecond();
+        List<CommentDto> commentsDto = comments
                 .stream().map(CommentDto::from).collect(Collectors.toList());
 
+        String reviewCreator = comments.size() > 0 ? comments.get(0).getReview().getUser().getNickName() : "";
+
         model.addAttribute("firstLoad", false);
-        model.addAttribute("comments", comments);
+        model.addAttribute("comments", commentsDto);
         model.addAttribute("totalPage", result.getFirst());
         model.addAttribute("presentPage", pageNum > result.getFirst() ? result.getFirst() : pageNum);
+        model.addAttribute("reviewCreator", reviewCreator);
         return "fragments/comments";
     }
 }

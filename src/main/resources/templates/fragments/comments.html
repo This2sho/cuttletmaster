@@ -4,9 +4,11 @@
     <div th:each="comment : ${comments}" class="comment-container" th:id="'comment-' + ${comment.getId()}">
         <span th:if="${comment.getIsAdmin()}" th:text="미식가 " class="user-grade"></span>
         <div class="comment-user" th:text="${comment.getNickName()}">작성자 닉네임</div>
-        <div th:if="${user} != null and ${user.getNickName()} == ${comment.getNickName()}" class="controller-button" th:commentId="${comment.getId()}">
-            <button onclick="updateCommentForm(this.parentElement.getAttribute('commentId'))">수정</button>
-            <label class="by-bar"> | </label>
+        <div th:if="${user} != null and ${user.getNickName()} == ${comment.getNickName()} or ${reviewCreator} == ${user.getNickName()}" class="controller-button" th:commentId="${comment.getId()}">
+            <th:block th:if="${user} != null and ${user.getNickName()} == ${comment.getNickName()}">
+                <button onclick="updateCommentForm(this.parentElement.getAttribute('commentId'))">수정</button>
+                <label class="by-bar"> | </label>
+            </th:block>
             <button onclick="deleteComment(this.parentElement.getAttribute('commentId'))">삭제</button>
         </div>
         <div class="comment-content" th:text="${comment.getContent()}">댓글 내용</div>
