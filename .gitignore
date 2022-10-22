@@ -39,3 +39,7 @@ out/
 ### 이미지 파일 ###
 **/src/main/resources/static/img/
 
+### 테스트용 ###
+initDB.java
+
+
