@@ -20,7 +20,7 @@
                                 <a href="#recommend">오늘의 돈가스 맛집 추천</a>
                             </div>
                             <div class="top-img">
-                                <img th:if="${mostRecentReview}" th:src="|/images/${mostRecentReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
+                                <img src="/img/home-top.png">
                             </div>
                             <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
                         </div>
@@ -106,7 +106,7 @@
                 if (delta < 0){
                     if (elmSelector !== elmCount-1){
                         try{
-                            moveTop = window.pageYOffset + elmSelector.nextElementSibling.getBoundingClientRect().top;
+                            moveTop = window.scrollY + elmSelector.nextElementSibling.getBoundingClientRect().top;
                         }catch(e){}
                     }
                 }
@@ -115,12 +115,11 @@
                 else{
                     if (elmSelector !== 0){
                         try{
-                            moveTop = window.pageYOffset + elmSelector.previousElementSibling.getBoundingClientRect().top;
+                            moveTop = window.scrollY + elmSelector.previousElementSibling.getBoundingClientRect().top;
                         }catch(e){}
                     }
                 }
 
-                const body = document.querySelector('html');
                 window.scrollTo({top:moveTop, left:0, behavior:'smooth'});
             });
         });
