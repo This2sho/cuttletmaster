@@ -4,7 +4,7 @@
 
     <div th:if="${user} == null">
         <div class="likes-container">
-            <button th:onclick="|location.href='@{/auth/login}'|"><img src="/img/empty-like.webp"></button>
+            <button onclick="redirectLogin()"><img src="/img/empty-like.webp"></button>
             <span th:text="${likesNum}">좋아요 수</span>
         </div>
     </div>
