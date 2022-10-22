@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="master-apply-content" class="update" th:fragment="masterApply">
+
+    <div th:if="${user.isAdmin()}" class="apply-container">
+        <div class="my-page-content-title">
+            <b>돈가스 미식가 신청 목록</b>
+        </div>
+
+        <div class="apply-list-container" th:each="apply : ${applyList}" th:id="'apply-'+${apply.getId()}">
+            <div class="apply-control">
+                <div class="input-button apply-btn">
+                    <button id="apply-accept-btn" onclick="acceptApply(this.parentElement.parentElement.parentElement.id)">승인</button>
+                </div>
+                <div class="input-button apply-btn">
+                    <button id="apply-reject-btn" onclick="deleteApply(this.parentElement.parentElement.parentElement.id)">거절</button>
+                </div>
+            </div>
+            <div th:text="|신청자 : ${apply.getUserNickName()}|" class="apply-list-nickName">신청자 닉네임</div>
+            <div class="apply-list-border">
+                <div th:text="|신청 내용 : ${apply.getContent()}|" class="apply-list-content">신청 내용</div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            function acceptApply(applyContainerId) {
+                var applyId = applyContainerId.split("-")[1];
+                var url = location.href + "/applies/" + applyId;
+
+                $.ajax({
+                    type: "PUT",
+                    url: url
+                }).done(function (){
+                    deleteApply(applyContainerId);
+                });
+            }
+            function deleteApply(applyContainerId) {
+                var applyId = applyContainerId.split("-")[1];
+                var url = location.href + "/applies/" + applyId;
+
+                $.ajax({
+                    type: "DELETE",
+                    url: url
+                }).done(function (){
+                    document.getElementById(applyContainerId).hidden = true;
+                });
+            }
+        </script>
+    </div>
+
+    <div th:unless="${user.isAdmin()}" class="apply-container">
+        <div class="my-page-content-title">
+            <b>돈가스 미식가 신청서</b>
+        </div>
+        <div th:if="${applied}">
+            <div>
+                돈가스 미식가 승인 대기중입니다.
+            </div>
+        </div>
+
+        <div th:unless="${applied}" class="master-apply-form">
+            <form id="apply-form" th:object="${masterApplyDto}">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:text="${#fields.globalErrors()[0]}">전체 오류 메시지</p>
+                </div>
+                <div class="input-container">
+                    <label for="apply-content">신청 내용</label>
+                    <textarea id="apply-content" name="content" placeholder="신청 내용" th:field="*{content}"></textarea>
+                    <div class="field-error" th:errors="*{content}" />
+                </div>
+            </form>
+            <div class="user-control-container">
+                <div id="user-update-btn" class="input-button">
+                    <button onclick="apply()">신청</button>
+                </div>
+            </div>
+
+            <script th:inline="javascript">
+                function apply() {
+                    var url = location.href + "/applies";
+                    var formData = $("#apply-form").serialize();
+                    // var
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: formData,
+                        dataType: "json",
+                        async: false,
+                        success: function (response) {
+                            console.log("result : ", response);
+                            console.log("result type : ", typeof response);
+
+                            if (response['result'] == 'OK'){
+                                alert("신청이 완료되었습니다.");
+                                window.location.reload();
+                                return;
+                            }
+
+                            response.forEach(error => {
+                                let errorField = error['field'];
+                                console.log(errorField);
+                                var errorElement = document.getElementsByName(errorField)[0];
+                                if(errorElement.getAttribute('class') == 'error-field') return;
+                                errorElement.setAttribute('class', 'error-field');
+                                errorElement.setAttribute('placeholder', error['defaultMessage']);
+                            });
+                            window.scrollTo(0, 0);
+                        },
+                        error: function () {
+                            alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+                            return false;
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+
+</div>
+</html>
