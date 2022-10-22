@@ -1,7 +1,7 @@
 package PorkCutlet.master.config;
 
-import PorkCutlet.master.controller.login.LoginMemberArgumentResolver;
-import PorkCutlet.master.controller.login.LoginCheckInterceptor;
+import PorkCutlet.master.controller.auth.LoginMemberArgumentResolver;
+import PorkCutlet.master.controller.auth.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,6 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/auth/join", "/auth/login","/reviews", "/reviews/{spring:^[0-9]*$}",
-                        "/css/**","/js/**","/img/**", "/*.ico", "/images/**", "/recommend");
+                        "/css/**","/js/**","/img/**","/fonts/**", "/*.ico", "/images/**", "/recommend", "/reviews/{spring:^[0-9]*$}/comments");
     }
 }
