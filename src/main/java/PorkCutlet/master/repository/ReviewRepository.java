@@ -3,5 +3,8 @@ package PorkCutlet.master.repository;
 import PorkCutlet.master.domain.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+import java.util.Optional;
+
+public interface ReviewRepository extends ReviewRepositoryCustom, JpaRepository<Review, Long> {
+    Optional<Review> findByRestaurant_Name(String restaurantName);
 }
