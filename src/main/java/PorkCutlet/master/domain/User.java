@@ -36,6 +36,9 @@ public class User extends BaseTimeEntity{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private MasterApply masterApply;
+
 
     @Builder
     public User(String loginId, String password, String nickName) {
@@ -51,5 +54,9 @@ public class User extends BaseTimeEntity{
 
     public void setAdmin() {
         this.userType = UserType.ADMIN;
+    }
+
+    public void setMasterApply(MasterApply masterApply) {
+        this.masterApply = masterApply;
     }
 }
