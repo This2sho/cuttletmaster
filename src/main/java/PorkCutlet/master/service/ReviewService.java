@@ -2,15 +2,19 @@ package PorkCutlet.master.service;
 
 import PorkCutlet.master.domain.*;
 import PorkCutlet.master.repository.ReviewRepository;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import static PorkCutlet.master.controller.PageConst.reviewsPageSize;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +54,13 @@ public class ReviewService {
         return reviewRepository.findReviewByIdWithFetchJoin(id);
     }
 
-    public Page<Review> getPagingReview(Pageable pageable) {
+    public Long getTotalPage() {
+        Long totalSize = reviewRepository.count();
+        if(totalSize == 0) return 1L;
+        return totalSize % reviewsPageSize == 0 ? (totalSize / reviewsPageSize) : (totalSize / reviewsPageSize) + 1;
+    }
+
+    public List<Review> getPagingReview(Pageable pageable) {
         return reviewRepository.findReviewsPageWithFetchJoin(pageable);
     }
 
@@ -58,20 +68,49 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-    public Review recommend(String userId) {
-        if(userId == null) return getRandomReview();
+    public Review recommend(Long userId) {
+        if(userId == null){
+            return getRandomReview();
+        }
         return getRecommendReview(userId);
     }
 
-    public Review getRecommendReview(String userId) {
-        List<Review> reviews = reviewRepository.findReviewsWithFetchJoin();
-        /**
-         * todo
-         * 유저의 Like 정보를 보고 어느 타입의 돈까스를 더 좋아하는지 알아야함.
-         * 그 후 더 많은 좋아요를 누른 종류의 돈가스 4개 랜덤 선택, 나머지 2개 랜덤 선택
-         * 3개의 돈가스중 하나를 랜덤 선택
-         */
-        return null;
+    public Review getRecommendReview(Long userId) {
+        List<Tuple> userLikesType = reviewRepository.findForkCutletTypeRateByUserLikes(userId);
+        if(userLikesType.size() == 0) return getRandomReview();
+
+        if(userLikesType.size() == 1){
+            List<Review> LikesForkCutletTypeReview = reviewRepository.findReviewsByForkCutletType(userLikesType.get(0).get(0, ForkCutletType.class));
+            return getRandomReview(LikesForkCutletTypeReview);
+        }
+
+
+        Long userLike0TypeNum = userLikesType.get(0).get(1, Long.class);
+        Long userLike1TypeNum = userLikesType.get(1).get(1, Long.class);
+        Long totalNum = userLike0TypeNum + userLike1TypeNum;
+
+        List<Review> reviewsByForkCutletType0 = reviewRepository.findReviewsByForkCutletType(userLikesType.get(0).get(0, ForkCutletType.class));
+        List<Review> reviewsByForkCutletType1 = reviewRepository.findReviewsByForkCutletType(userLikesType.get(1).get(0, ForkCutletType.class));
+        int totalReviewNum = reviewsByForkCutletType0.size() + reviewsByForkCutletType1.size();
+
+        int pick0TypeNum = Math.round(totalReviewNum * ((float) userLike0TypeNum / totalNum));
+        int pick1TypeNum = Math.round(totalReviewNum * ((float) userLike1TypeNum / totalNum));
+
+        int gcd = getGCD(pick0TypeNum, pick1TypeNum);
+
+        pick0TypeNum /= gcd;
+        pick1TypeNum /= gcd;
+
+        List<Review> result = new ArrayList<>();
+
+        for (int i = 0; i < pick0TypeNum; i++) {
+            result.add(getRandomReview(reviewsByForkCutletType0));
+        }
+        for (int i = 0; i < pick1TypeNum; i++) {
+            result.add(getRandomReview(reviewsByForkCutletType1));
+        }
+
+        return getRandomReview(result);
     }
 
     public Review getRandomReview() {
@@ -82,6 +121,13 @@ public class ReviewService {
         Random random = new Random();
         random.setSeed(System.currentTimeMillis());
         int randomIdx = random.nextInt(size);
+        return reviews.get(randomIdx);
+    }
+
+    public Review getRandomReview(List<Review> reviews) {
+        int size = reviews.size();
+        if(size == 0) return null;
+        int randomIdx = (int) (Math.random() * size);
         return reviews.get(randomIdx);
     }
 
@@ -97,5 +143,23 @@ public class ReviewService {
 
     public Review getMostRecentReview() {
         return reviewRepository.findMostRecentReview();
+    }
+
+
+    public int getGCD(int num1, int num2) {
+        if (num1 < num2) {
+            int tmp = num1;
+            num1 = num2;
+            num2 = tmp;
+        }
+        num1 = Math.max(num1, num2);
+        num2 = Math.min(num1, num2);
+
+        while (num2 != 0) {
+            int r = num1 % num2;
+            num1 = num2;
+            num2 = r;
+        }
+        return num1;
     }
 }

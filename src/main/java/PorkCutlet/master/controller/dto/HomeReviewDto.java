@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class HomeReviewDto {
+    private Long id;
     private String restaurantName;
     private String forkCutletName;
     private String roadAddress;
@@ -33,6 +34,6 @@ public class HomeReviewDto {
         for (Image image : images) {
             storeFileNames.add(image.getStoreImageName());
         }
-        return new HomeReviewDto(restaurantName, forkCutletName, roadAddress, detailAddress, storeFileNames);
+        return new HomeReviewDto(review.getId(), restaurantName, forkCutletName, roadAddress, detailAddress, storeFileNames);
     }
 }

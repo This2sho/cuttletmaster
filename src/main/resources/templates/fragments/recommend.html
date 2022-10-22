@@ -33,14 +33,17 @@
 
         <script type="text/javascript">
             function getRecommend() {
+                if(!confirm("새로운 돈가스 추천을 원하십니까?\n(로그인시 더 정확한 추천 돈가스 제공)")){
+                    // 아니오
+                    return;
+                }
                 // var
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
                     url: "/recommend",
                     // data: JSON.stringify(param),
                     dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
                 }).done(function (result){
-                    console.log(result);
                     $("#recommend-content").replaceWith(result);
                 });
             }
