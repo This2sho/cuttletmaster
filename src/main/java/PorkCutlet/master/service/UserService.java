@@ -20,13 +20,15 @@ public class UserService {
 
     @Transactional
     public Long join(User user) {
-        validateDuplicateUser(user); // 중복 회원 거르기
+        validateDuplicateLoginId(user); // 중복 회원 거르기
+        validateDuplicateNickName(user);
         userRepository.save(user);
         return user.getId();
     }
 
     @Transactional
     public void updateUser(User user, String password, String nickName) {
+        validateDuplicateNickName(nickName);
         user.update(password, nickName);
     }
 
@@ -35,9 +37,27 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    private void validateDuplicateUser(User user) {
+    @Transactional
+    public void appointUser(Long masterApplyId) {
+        User user = userRepository.findByMasterApplyId(masterApplyId).orElseThrow();
+        user.setAdmin();
+    }
+
+    private void validateDuplicateLoginId(User user) {
         if (userRepository.findByLoginId(user.getLoginId()).isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원 입니다.");
+            throw new IllegalStateException("이미 존재하는 아이디 입니다.");
+        }
+    }
+
+    private void validateDuplicateNickName(User user) {
+        if (userRepository.findByNickName(user.getNickName()).isPresent()) {
+            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
+        }
+    }
+
+    private void validateDuplicateNickName(String nickName) {
+        if (userRepository.findByNickName(nickName).isPresent()) {
+            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
         }
     }
 

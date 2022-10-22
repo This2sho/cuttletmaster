@@ -32,13 +32,15 @@ public class UserAuthController {
 
     @PostMapping("/join")
     public String join(@Valid UserAuthDto userAuthDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "auth/joinForm";
+
+
         validatePasswordEqual(userAuthDto, bindingResult);
         userPatternUtil.loginIdMatches(userAuthDto.getLoginId(), bindingResult);
         userPatternUtil.passwordMatches(userAuthDto.getPassword(), bindingResult);
         userPatternUtil.nickNameMatches(userAuthDto.getNickName(), bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "auth/joinForm";
-        }
+        if (bindingResult.hasErrors()) return "auth/joinForm";
+
         try {
             userService.join(new User(userAuthDto.getLoginId(), userAuthDto.getPassword(), userAuthDto.getNickName()));
         } catch (Exception e) {
@@ -72,6 +74,7 @@ public class UserAuthController {
         HttpSession session = request.getSession();
 
         session.setAttribute(SessionConst.LOGIN_USER, UserInfoDto.from(loginUser));
+        if(redirectURL.equals("/auth/logout")) return "redirect:/";
         return "redirect:"+redirectURL;
     }
 
@@ -93,6 +96,7 @@ public class UserAuthController {
     private boolean errorIsNotNickName(BindingResult bindingResult) {
         return !(bindingResult.getAllErrors().size() == 1 && bindingResult.getFieldError().getField().equals("nickName"));
     }
+
 
 
 }
