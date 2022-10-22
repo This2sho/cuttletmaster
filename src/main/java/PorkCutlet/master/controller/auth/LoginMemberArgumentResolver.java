@@ -27,6 +27,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
             return null;
         }
         UserInfoDto user = (UserInfoDto) session.getAttribute(SessionConst.LOGIN_USER);
+        session.setMaxInactiveInterval(240);
         mavContainer.addAttribute("user", user);
         return session.getAttribute(SessionConst.LOGIN_USER);
     }
