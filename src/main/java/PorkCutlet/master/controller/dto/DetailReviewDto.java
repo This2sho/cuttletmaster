@@ -15,6 +15,7 @@ import java.util.Map;
 public class DetailReviewDto {
     private String restaurantName;
     private String forkCutletName;
+    private String forkCutletType;
 
     private String createdDate;
     private String userNickName;
@@ -27,7 +28,7 @@ public class DetailReviewDto {
     private Double overallRating;
 
     public static DetailReviewDto from(Review review) {
-        return new DetailReviewDto(review.getRestaurant().getName(), review.getRestaurant().getForkCutlet().getName(),
+        return new DetailReviewDto(review.getRestaurant().getName(), review.getRestaurant().getForkCutlet().getName(), review.getRestaurant().getForkCutlet().getForkCutletType().getName(),
                 review.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")), review.getUser().getNickName(),
                 review.getOneSentence(), review.getContent(), makeStoreImageNames(review), makeRatingMap(review), review.getRatingInfo().getOverall());
     }

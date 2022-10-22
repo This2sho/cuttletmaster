@@ -12,4 +12,9 @@ public enum ForkCutletType {
     public int getValue() {
         return value;
     }
+
+    public String getName() {
+        if(this.value == 0) return "경양식";
+        return "일식";
+    }
 }
