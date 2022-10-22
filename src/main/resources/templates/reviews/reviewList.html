@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <head>
     <meta charset="utf-8">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <div th:replace="fragments/header.html :: fragment-header"></div>
 </head>
 
 <body>
     <div id="wrapper" class="review-background">
-        <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+        <div th:replace="fragments/nav.html :: fragment-nav"></div>
 
         <div class="review-list-page">
             <div class="left">
@@ -27,7 +27,7 @@
                                 <div th:text="${review.getRestaurantName()}" class="review-list-title">가게 이름</div>
                                 <div th:text="${review.getForkCutletName()}" class="review-list-menu">메뉴 이름</div>
                                 <div class="review-list-by">
-                                    <span class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</span>
+                                    <span class="rating" th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</span>
                                     <label th:text="${review.getCreatedDate()}">날짜</label>
                                     <label class="by-bar">| </label>
                                     <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="review-paging">
-                    <div th:replace="/fragments/page-container.html :: page-container('reviews')"></div>
+                    <div th:replace="fragments/page-container.html :: page-container('reviews')"></div>
                 </div>
 
             </div>
@@ -47,6 +47,6 @@
 
         </div>
     </div>
-    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+    <div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 </html>

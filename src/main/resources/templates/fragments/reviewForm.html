@@ -8,16 +8,16 @@
         </div>
 
         <div class="review-form-menu">
-            <div th:replace="/fragments/forkCutletType.html :: forkCutletType"></div>
+            <div th:replace="fragments/forkCutletType.html :: forkCutletType"></div>
 
             <input class="menu-name" type="text" id="forkCutletName" name="restaurantName" th:field="*{forkCutletName}" placeholder="메뉴 이름"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{forkCutletName}" />
         </div>
 
-        <div th:replace="/fragments/imageUpload.html :: imageUpload"></div>
+        <div th:replace="fragments/imageUpload.html :: imageUpload"></div>
 
-        <div th:replace="/fragments/location.html :: location"></div>
+        <div th:replace="fragments/location.html :: location"></div>
 
         <div class="review-form-oneSentence">
             <input type="text" class="oneSentence" name="oneSentence" th:field="*{oneSentence}" placeholder="한줄 추천을 입력해주세요"/>
@@ -34,25 +34,25 @@
             <div class="review-form-rating">
                 <label>식감</label>
                 <input type="number" style="display: none" th:field="*{texture}">
-                <div th:replace="/fragments/star.html :: star('texture', ${reviewForm.getTexture()})"></div>
+                <div th:replace="fragments/star.html :: star('texture', ${reviewForm.getTexture()})"></div>
                 <div class="field-error" th:errors="*{texture}"></div>
             </div>
             <div class="review-form-rating">
                 <label>소스</label>
                 <input type="number" style="display: none" th:field="*{sauce}" value="0">
-                <div th:replace="/fragments/star.html :: star('sauce', ${reviewForm.getSauce()})"></div>
+                <div th:replace="fragments/star.html :: star('sauce', ${reviewForm.getSauce()})"></div>
                 <div class="field-error" th:errors="*{sauce}"></div>
             </div>
             <div class="review-form-rating">
                 <label>사이드</label>
                 <input type="number" style="display: none" th:field="*{side}" value="0">
-                <div th:replace="/fragments/star.html :: star('side', ${reviewForm.getSide()})"></div>
+                <div th:replace="fragments/star.html :: star('side', ${reviewForm.getSide()})"></div>
                 <div class="field-error" th:errors="*{side}"></div>
             </div>
             <div class="review-form-rating">
                 <label>접근성</label>
                 <input type="number" style="display: none" th:field="*{accessibility}" value="0">
-                <div th:replace="/fragments/star.html :: star('accessibility', ${reviewForm.getAccessibility()})"></div>
+                <div th:replace="fragments/star.html :: star('accessibility', ${reviewForm.getAccessibility()})"></div>
                 <div class="field-error" th:errors="*{accessibility}"></div>
             </div>
         </div>

@@ -22,7 +22,7 @@
                         <div th:text="|(${review.getForkCutletType})|" class="review-detail-menu-type">메뉴 타입</div>
                     </div>
                     <div class="review-list-by">
-                        <label class="rating" th:replace="/fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</label>
+                        <label class="rating" th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</label>
                         <label th:text="${review.getCreatedDate()}">날짜</label>
                         <label class="by-bar">| </label>
                         <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>

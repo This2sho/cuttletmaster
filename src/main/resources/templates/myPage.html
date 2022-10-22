@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <div th:replace="fragments/header.html :: fragment-header"></div>
 </head>
 <body>
     <div id="wrapper">
         <div id="navbar">
-            <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
+            <th:block th:replace="fragments/nav.html :: fragment-nav"></th:block>
         </div>
         <!--페이지 소스-->
         <div id="my-page-container">
@@ -29,19 +29,19 @@
             </div>
 
             <div id="selected-0" style="display: block">
-                <div th:replace="/fragments/myPageUpdate.html :: update"></div>
+                <div th:replace="fragments/myPageUpdate.html :: update"></div>
             </div>
             <div id="selected-1" style="display: none">
-                <div th:replace="/fragments/myPageLikeList.html :: likeList"></div>
+                <div th:replace="fragments/myPageLikeList.html :: likeList"></div>
             </div>
             <div id="selected-2" style="display: none">
-                <div th:replace="/fragments/myPageMasterApply.html :: masterApply"></div>
+                <div th:replace="fragments/myPageMasterApply.html :: masterApply"></div>
             </div>
 
         </div>
     </div>
     <!--페이지 소스-->
-    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+    <div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 <script type="text/javascript">
     function selectMenu(num) {

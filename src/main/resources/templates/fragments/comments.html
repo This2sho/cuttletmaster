@@ -14,7 +14,7 @@
         <div class="comment-content" th:text="${comment.getContent()}">댓글 내용</div>
     </div>
 
-    <div th:replace="/fragments/page-container.html :: page-container('comments')"></div>
+    <div th:replace="fragments/page-container.html :: page-container('comments')"></div>
 
     <div class="comment-controller-container">
         <div class="write-container">

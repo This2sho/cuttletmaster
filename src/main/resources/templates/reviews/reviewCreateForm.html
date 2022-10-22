@@ -1,22 +1,22 @@
 <!DOCTYPE HTML>
 <head>
     <meta charset="utf-8">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <div th:replace="fragments/header.html :: fragment-header"></div>
 </head>
 <body>
 <div id="wrapper">
-    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+    <div th:replace="fragments/nav.html :: fragment-nav"></div>
     <!--페이지 소스-->
     <div class="review-form-back">
         <div class="review-container">
-            <form th:replace="/fragments/reviewForm.html :: reviewForm"></form>
+            <form th:replace="fragments/reviewForm.html :: reviewForm"></form>
             <div class="review-form-button">
                 <button onclick="createReview()">발행</button>
             </div>
         </div>
     </div>
 </div>
-<div th:replace="/fragments/footer.html :: fragment-footer"></div>
+<div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 <script type="text/javascript">
     function createReview(){

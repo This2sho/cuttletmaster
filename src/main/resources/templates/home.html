@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <div th:replace="fragments/header.html :: fragment-header"></div>
 </head>
 <body>
     <div class="home-background">
         <div id="wrapper">
                 <div class="section">
                     <div id="navbar">
-                        <th:block th:replace="/fragments/nav.html :: fragment-nav"></th:block>
+                        <th:block th:replace="fragments/nav.html :: fragment-nav"></th:block>
                     </div>
                     <!--페이지 소스-->
                     <div>
@@ -71,12 +71,12 @@
 
 
                     <div class="recommend-review section" id="recommend">
-                        <div id="recommend-content" th:replace="/fragments/recommend.html :: recommend"></div>
+                        <div id="recommend-content" th:replace="fragments/recommend.html :: recommend"></div>
                     </div>
         </div>
 
         <!--페이지 소스-->
-        <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+        <div th:replace="fragments/footer.html :: fragment-footer"></div>
     </div>
 
 </body>
