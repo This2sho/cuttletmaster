@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <body th:fragment="location" th:object="${createReviewForm}">
+    <body th:fragment="location" th:object="${reviewForm}">
         <div class="review-form-location">
             <input type="button" id="location-btn" onclick="execDaumPostcode()" value="가게 위치">
             <input type="text" id="roadAddress" th:field="*{roadAddress}" placeholder="도로명주소">
