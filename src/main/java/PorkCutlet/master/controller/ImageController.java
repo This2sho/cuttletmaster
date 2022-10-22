@@ -1,26 +1,24 @@
 package PorkCutlet.master.controller;
 
-import PorkCutlet.master.ImageStore;
+import PorkCutlet.master.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
+@RequestMapping("/images")
 public class ImageController {
-    private final ImageStore imageStore;
+    private final ImageUtils imageUtils;
 
+    @GetMapping("/{fileName}")
     @ResponseBody
-    @GetMapping("/images/{fileName}")
-    public Resource downloadImage(@PathVariable String fileName) throws MalformedURLException {
-        return new UrlResource("file:" + imageStore.getFullPath(fileName));
+    public Resource getImage(@PathVariable String fileName) throws MalformedURLException {
+        return new UrlResource("file:" + imageUtils.getFullPath(fileName));
     }
 }
