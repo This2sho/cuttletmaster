@@ -7,4 +7,13 @@ public enum UserType {
     UserType(int value) {
         this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+    public boolean isAdmin() {
+        if(getValue() == 0) return false;
+        return true;
+    }
 }
