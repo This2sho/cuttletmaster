@@ -1,12 +1,16 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/porkcutlet
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://<hostName>/<dbName>
+    username: <id>
+    password: <password>
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+file:
+  dir: <파일 위치>
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -30,6 +34,3 @@ server:
     session:
       tracking-modes: COOKIE
       timeout: 240
-
-file:
-  dir: /Users/geonholee/Documents/개인프로젝트/cutletMasterRes/
