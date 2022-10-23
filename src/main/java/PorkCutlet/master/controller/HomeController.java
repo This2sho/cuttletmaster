@@ -3,6 +3,7 @@ package PorkCutlet.master.controller;
 import PorkCutlet.master.controller.dto.HomeReviewDto;
 import PorkCutlet.master.controller.dto.UserInfoDto;
 import PorkCutlet.master.controller.auth.Login;
+import PorkCutlet.master.domain.Review;
 import PorkCutlet.master.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,14 @@ public class HomeController {
                 .map(HomeReviewDto::from).collect(Collectors.toList());
         model.addAttribute("top6Reviews", top6Reviews);
 
-        HomeReviewDto recommendReview = HomeReviewDto.from(reviewService.recommend(user != null ? user.getId() : null));
+        Review recommend = reviewService.recommend(user != null ? user.getId() : null);
+
+        if(recommend == null){
+            model.addAttribute("recommendReview", null);
+            return "home";
+        }
+
+        HomeReviewDto recommendReview = HomeReviewDto.from(recommend);
         model.addAttribute("recommendReview", recommendReview);
         return "home";
     }

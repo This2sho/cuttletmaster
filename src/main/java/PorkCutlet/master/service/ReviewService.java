@@ -4,7 +4,6 @@ import PorkCutlet.master.domain.*;
 import PorkCutlet.master.repository.ReviewRepository;
 import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -138,7 +137,9 @@ public class ReviewService {
     }
 
     public List<Review> getTop6Reviews() {
-        return reviewRepository.findTop6Reviews();
+        List<Review> top6Reviews = reviewRepository.findTop6Reviews();
+        if(top6Reviews.isEmpty()) return new ArrayList<>();
+        return top6Reviews;
     }
 
     public Review getMostRecentReview() {
