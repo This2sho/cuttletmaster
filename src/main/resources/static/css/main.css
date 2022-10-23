@@ -434,7 +434,7 @@ a.nav-logo {
 .nav-control-container {
     height: 8vh;
     width: 80vw;
-    padding-top: 5vh;
+    padding-top: 6vh;
     float: left;
 }
 
@@ -465,9 +465,9 @@ a.mypage{
     float: left;
 }
 div.middle-dot {
-    height: 0.7vh;
-    width: 0.4vw;
-    margin-top: 0.55rem;
+    height: 6px;
+    width: 6px;
+    margin-top: 8px;
     background-color: #a6201f;
     border-radius: 100%;
     margin-left: 1vw;
