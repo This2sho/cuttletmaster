@@ -19,6 +19,13 @@ public class Review extends BaseTimeEntity {
     @Column(name = "review_id")
     private Long id;
 
+    private String content;
+
+    private String oneSentence;
+
+    @Embedded
+    private RatingInfo ratingInfo;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
@@ -35,13 +42,6 @@ public class Review extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
-
-    private String content;
-
-    private String oneSentence;
-
-    @Embedded
-    private RatingInfo ratingInfo;
 
     public Review(User user, Restaurant restaurant, List<Image> images, String content,String oneSentence, RatingInfo ratingInfo) {
         this.user = user;
