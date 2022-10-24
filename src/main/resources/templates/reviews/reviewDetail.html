@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="review-detail-content" th:text="${review.getContent()}">리뷰 상세 평가 내용이다능</div>
+                <pre class="review-detail-content" th:text="${review.getContent()}">리뷰 상세 평가 내용이다능</pre>
 
                 <div class="review-detail-ratings">
                     <div class="rating"> <label>식감</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('texture', ${review.getRatingInfo().get('texture')})">3</span> </div>
