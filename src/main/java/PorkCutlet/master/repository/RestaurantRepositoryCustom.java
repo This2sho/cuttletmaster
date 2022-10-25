@@ -1,9 +1,9 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.Restaurant;
-
 import java.util.List;
 
+import PorkCutlet.master.domain.Restaurant;
+
 public interface RestaurantRepositoryCustom {
-    List<Restaurant> findRestaurantCustom();
+	List<Restaurant> findRestaurantCustom();
 }

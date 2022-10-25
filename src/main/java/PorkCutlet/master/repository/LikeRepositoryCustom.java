@@ -1,9 +1,9 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.Review;
-
 import java.util.List;
 
+import PorkCutlet.master.domain.Review;
+
 public interface LikeRepositoryCustom {
-    List<Review> findReviewsByUserIdWithFetchJoin(Long userId);
+	List<Review> findReviewsByUserIdWithFetchJoin(Long userId);
 }

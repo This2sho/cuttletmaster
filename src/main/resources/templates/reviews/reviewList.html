@@ -5,48 +5,48 @@
 </head>
 
 <body>
-    <div id="wrapper" class="review-background">
-        <div th:replace="fragments/nav.html :: fragment-nav"></div>
+<div class="review-background" id="wrapper">
+    <div th:replace="fragments/nav.html :: fragment-nav"></div>
 
-        <div class="review-list-page">
-            <div class="left">
-            </div>
-            <div class="right">
-                <div class="list-head">
-                    <span class="list-title">생생한 돈가스 맛집 리뷰</span>
-                    <a class="list-write" th:if="${user != null} and ${user.isAdmin()}" href="/reviews/new">글쓰기</a>
-                </div>
-
-                <div class="review-list">
-                    <div class="review-list-container" th:each="review : ${reviewList}">
-                        <a th:href="|/reviews/${review.getId()}|">
-                            <div id="review-list-thumbnail">
-                                <img src="/img/home-top.png" th:src="|/images/${review.getStoreImageName()}|">
-                            </div>
-                            <div id="review-list-info">
-                                <div th:text="${review.getRestaurantName()}" class="review-list-title">가게 이름</div>
-                                <div th:text="${review.getForkCutletName()}" class="review-list-menu">메뉴 이름</div>
-                                <div class="review-list-by">
-                                    <span class="rating" th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</span>
-                                    <label th:text="${review.getCreatedDate()}">날짜</label>
-                                    <label class="by-bar">| </label>
-                                    <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="review-paging">
-                    <div th:replace="fragments/page-container.html :: page-container('reviews')"></div>
-                </div>
-
+    <div class="review-list-page">
+        <div class="left">
+        </div>
+        <div class="right">
+            <div class="list-head">
+                <span class="list-title">생생한 돈가스 맛집 리뷰</span>
+                <a class="list-write" href="/reviews/new" th:if="${user != null} and ${user.isAdmin()}">글쓰기</a>
             </div>
 
+            <div class="review-list">
+                <div class="review-list-container" th:each="review : ${reviewList}">
+                    <a th:href="|/reviews/${review.getId()}|">
+                        <div id="review-list-thumbnail">
+                            <img src="/img/home-top.png" th:src="|/images/${review.getStoreImageName()}|">
+                        </div>
+                        <div id="review-list-info">
+                            <div class="review-list-title" th:text="${review.getRestaurantName()}">가게 이름</div>
+                            <div class="review-list-menu" th:text="${review.getForkCutletName()}">메뉴 이름</div>
+                            <div class="review-list-by">
+                                <span class="rating"
+                                      th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">평점</span>
+                                <label th:text="${review.getCreatedDate()}">날짜</label>
+                                <label class="by-bar">| </label>
+                                <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
+            <div class="review-paging">
+                <div th:replace="fragments/page-container.html :: page-container('reviews')"></div>
+            </div>
 
         </div>
+
+
     </div>
-    <div th:replace="fragments/footer.html :: fragment-footer"></div>
+</div>
+<div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 </html>

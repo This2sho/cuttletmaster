@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <div id="update-content" class="update" th:fragment="update">
+<div class="update" id="update-content" th:fragment="update">
 
-        <div class="my-page-content-title">
-            <b>회원정보 수정</b>
-        </div>
-
-        <div class="my-page-update-form">
-            <form th:action th:method="PUT" th:object="${userUpdateDto}" id="userUpdateForm">
-                <div th:if="${#fields.hasGlobalErrors()}">
-                    <p class="field-error" th:text="${#fields.globalErrors()[0]}">전체 오류 메시지</p>
-                </div>
-                <div class="input-container">
-                    <label for="password">현재 비밀번호</label>
-                    <input type="password" id="password" placeholder="현재 비밀번호" th:field="*{password}" th:errorclass="field-error">
-                    <div class="field-error" th:errors="*{password}" />
-                </div>
-                <div class="input-container">
-                    <label for="newPassword">새 비밀번호</label>
-                    <input type="password" id="newPassword" placeholder="새 비밀번호" th:field="*{newPassword}">
-                </div>
-                <div class="input-container">
-                    <label for="newPasswordCheck">새 비밀번호 확인</label>
-                    <input type="password" id="newPasswordCheck" placeholder="새 비밀번호 확인" th:field="*{newPasswordCheck}">
-                </div>
-                <div class="input-container">
-                    <label for="nickName">닉네임</label>
-                    <input type="text" id="nickName" placeholder="닉네임" th:field="*{nickName}">
-                </div>
-
-                <div class="user-control-container">
-                    <div id="user-update-btn" class="input-button">
-                        <button>수정</button>
-                    </div>
-
-                    <div id="user-delete-btn" class="input-button">
-                        <button type="button" onclick="userDelete()">회원탈퇴</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <script th:inline="javascript">
-            function userDelete() {
-                if(confirm("회원 탈퇴할 경우 재사용 및 복구가 불가능합니다.\n정말로 돈까스 미식가를 떠나시겠습니까?")){
-                    // 예
-                    document.getElementsByName('_method')[0].value = 'DELETE';
-                    $("#userUpdateForm").submit();
-                }
-            }
-        </script>
+    <div class="my-page-content-title">
+        <b>회원정보 수정</b>
     </div>
+
+    <div class="my-page-update-form">
+        <form id="userUpdateForm" th:action th:method="PUT" th:object="${userUpdateDto}">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error" th:text="${#fields.globalErrors()[0]}">전체 오류 메시지</p>
+            </div>
+            <div class="input-container">
+                <label for="password">현재 비밀번호</label>
+                <input id="password" placeholder="현재 비밀번호" th:errorclass="field-error" th:field="*{password}"
+                       type="password">
+                <div class="field-error" th:errors="*{password}"/>
+            </div>
+            <div class="input-container">
+                <label for="newPassword">새 비밀번호</label>
+                <input id="newPassword" placeholder="새 비밀번호" th:field="*{newPassword}" type="password">
+            </div>
+            <div class="input-container">
+                <label for="newPasswordCheck">새 비밀번호 확인</label>
+                <input id="newPasswordCheck" placeholder="새 비밀번호 확인" th:field="*{newPasswordCheck}" type="password">
+            </div>
+            <div class="input-container">
+                <label for="nickName">닉네임</label>
+                <input id="nickName" placeholder="닉네임" th:field="*{nickName}" type="text">
+            </div>
+
+            <div class="user-control-container">
+                <div class="input-button" id="user-update-btn">
+                    <button>수정</button>
+                </div>
+
+                <div class="input-button" id="user-delete-btn">
+                    <button onclick="userDelete()" type="button">회원탈퇴</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script th:inline="javascript">
+        function userDelete() {
+            if (confirm("회원 탈퇴할 경우 재사용 및 복구가 불가능합니다.\n정말로 돈까스 미식가를 떠나시겠습니까?")) {
+                // 예
+                document.getElementsByName('_method')[0].value = 'DELETE';
+                $("#userUpdateForm").submit();
+            }
+        }
+    </script>
+</div>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div id="likes-content" class="likes" th:fragment="likes">
+<div class="likes" id="likes-content" th:fragment="likes">
 
     <div th:if="${user} == null">
         <div class="likes-container">
@@ -33,7 +33,7 @@
                 url: url,
                 // data: JSON.stringify(param),
                 dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
-            }).done(function (result){
+            }).done(function (result) {
                 $("#likes-content").replaceWith(result);
             });
         }

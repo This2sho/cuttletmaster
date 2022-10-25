@@ -1,15 +1,17 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import PorkCutlet.master.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByLoginId(String loginId);
-    Optional<User> findByNickName(String nickName);
+	Optional<User> findByLoginId(String loginId);
 
-    @EntityGraph(attributePaths = {"masterApply"})
-    Optional<User> findByMasterApplyId(Long masterApplyId);
+	Optional<User> findByNickName(String nickName);
+
+	@EntityGraph(attributePaths = {"masterApply"})
+	Optional<User> findByMasterApplyId(Long masterApplyId);
 }

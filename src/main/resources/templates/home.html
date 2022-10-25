@@ -6,91 +6,95 @@
     <div th:replace="fragments/header.html :: fragment-header"></div>
 </head>
 <body>
-    <div class="home-background">
-        <div id="wrapper">
-            <div class="section">
-                <div id="navbar">
-                    <th:block th:replace="fragments/nav.html :: fragment-nav"></th:block>
-                </div>
-                <!--페이지 소스-->
-                <div>
-                    <div class="home-top section">
-                        <div class="feature">
-                            <a href="#reviews">돈가스 맛집 리뷰</a>
-                            <a href="#recommend">오늘의 돈가스 맛집 추천</a>
-                        </div>
-                        <div class="top-img">
-                            <img src="/img/home-top.png">
-                        </div>
-                        <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
-                    </div>
-                </div>
+<div class="home-background">
+    <div id="wrapper">
+        <div class="section">
+            <div id="navbar">
+                <th:block th:replace="fragments/nav.html :: fragment-nav"></th:block>
             </div>
-
-            <div class="review-6-images section" id="reviews">
-                <div class="up-3-images">
-                    <div class="image-6-container" th:each="idx : ${#numbers.sequence(0,2)}">
-                        <a th:if="${top6Reviews.size() > idx}" th:href="|/reviews/${top6Reviews.get(idx).getId()}|">
-                            <img th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
-                            <div class="review-6-explain">
-                                <div class="explain-restaurant-name" th:text="${top6Reviews.get(idx).getRestaurantName()}"> 식당 이름</div>
-                                <div class="explain-address">
-                                    <div th:text="${top6Reviews.get(idx).getRoadAddress()}"> 도로명 주소</div>
-                                    <div th:text="${top6Reviews.get(idx).getDetailAddress()}"> 상세 주소</div>
-                                </div>
-                                <div class="review-go">리뷰 보러가기 ></div>
-                            </div>
-                        </a>
-                        <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
+            <!--페이지 소스-->
+            <div>
+                <div class="home-top section">
+                    <div class="feature">
+                        <a href="#reviews">돈가스 맛집 리뷰</a>
+                        <a href="#recommend">오늘의 돈가스 맛집 추천</a>
                     </div>
-                </div>
-
-                <div class="line"></div>
-
-                <div class="down-3-images">
-                    <div class="image-6-container" th:each="idx : ${#numbers.sequence(3,5)}">
-                        <a th:if="${top6Reviews.size() > idx}" th:href="|/reviews/${top6Reviews.get(idx).getId()}|">
-                            <img th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
-                            <div class="review-6-explain">
-                                <div class="explain-restaurant-name" th:text="${top6Reviews.get(idx).getRestaurantName()}"> 식당 이름</div>
-                                <div class="explain-address">
-                                    <div th:text="${top6Reviews.get(idx).getRoadAddress()}"> 도로명 주소</div>
-                                    <div th:text="${top6Reviews.get(idx).getDetailAddress()}"> 상세 주소</div>
-                                </div>
-                                <div class="review-go">리뷰 보러가기 ></div>
-                            </div>
-                        </a>
-                        <img th:unless="${top6Reviews.size() > idx}" src="/img/home-top.png">
+                    <div class="top-img">
+                        <img src="/img/home-top.png">
                     </div>
+                    <div class="desc">세상에 있는 모든 돈가스를 리뷰한다!</div>
                 </div>
-
-                <div class="reviews">
-                    <a href="/reviews">생생한 돈가스 맛집 리뷰 보러가기 ></a>
-                </div>
-            </div>
-
-
-            <div th:if="${recommendReview} != null" class="recommend-review section" id="recommend">
-                <div id="recommend-content" th:replace="fragments/recommend.html :: recommend"></div>
-            </div>
-
-            <div th:unless="${recommendReview} != null" class="recommend-review section">
             </div>
         </div>
 
-        <!--페이지 소스-->
-        <div th:replace="fragments/footer.html :: fragment-footer"></div>
+        <div class="review-6-images section" id="reviews">
+            <div class="up-3-images">
+                <div class="image-6-container" th:each="idx : ${#numbers.sequence(0,2)}">
+                    <a th:href="|/reviews/${top6Reviews.get(idx).getId()}|" th:if="${top6Reviews.size() > idx}">
+                        <img th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                        <div class="review-6-explain">
+                            <div class="explain-restaurant-name" th:text="${top6Reviews.get(idx).getRestaurantName()}">
+                                식당 이름
+                            </div>
+                            <div class="explain-address">
+                                <div th:text="${top6Reviews.get(idx).getRoadAddress()}"> 도로명 주소</div>
+                                <div th:text="${top6Reviews.get(idx).getDetailAddress()}"> 상세 주소</div>
+                            </div>
+                            <div class="review-go">리뷰 보러가기 ></div>
+                        </div>
+                    </a>
+                    <img src="/img/home-top.png" th:unless="${top6Reviews.size() > idx}">
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="down-3-images">
+                <div class="image-6-container" th:each="idx : ${#numbers.sequence(3,5)}">
+                    <a th:href="|/reviews/${top6Reviews.get(idx).getId()}|" th:if="${top6Reviews.size() > idx}">
+                        <img th:src="|/images/${top6Reviews.get(idx).getStoreFileNames().get(0)}|">
+                        <div class="review-6-explain">
+                            <div class="explain-restaurant-name" th:text="${top6Reviews.get(idx).getRestaurantName()}">
+                                식당 이름
+                            </div>
+                            <div class="explain-address">
+                                <div th:text="${top6Reviews.get(idx).getRoadAddress()}"> 도로명 주소</div>
+                                <div th:text="${top6Reviews.get(idx).getDetailAddress()}"> 상세 주소</div>
+                            </div>
+                            <div class="review-go">리뷰 보러가기 ></div>
+                        </div>
+                    </a>
+                    <img src="/img/home-top.png" th:unless="${top6Reviews.size() > idx}">
+                </div>
+            </div>
+
+            <div class="reviews">
+                <a href="/reviews">생생한 돈가스 맛집 리뷰 보러가기 ></a>
+            </div>
+        </div>
+
+
+        <div class="recommend-review section" id="recommend" th:if="${recommendReview} != null">
+            <div id="recommend-content" th:replace="fragments/recommend.html :: recommend"></div>
+        </div>
+
+        <div class="recommend-review section" th:unless="${recommendReview} != null">
+        </div>
     </div>
+
+    <!--페이지 소스-->
+    <div th:replace="fragments/footer.html :: fragment-footer"></div>
+</div>
 
 </body>
 </html>
 <script>
-// 참고 : https://velog.io/@jaenny/JavaScript-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%8B%9C-%ED%95%9C-%EC%84%B9%EC%85%98%EC%94%A9-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B2%8C-%ED%95%98%EA%B8%B0
-    window.onload = function(){
+    // 참고 : https://velog.io/@jaenny/JavaScript-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%8B%9C-%ED%95%9C-%EC%84%B9%EC%85%98%EC%94%A9-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B2%8C-%ED%95%98%EA%B8%B0
+    window.onload = function () {
         const elm = document.querySelectorAll('.section');
         const elmCount = elm.length;
-        elm.forEach(function(item, index){
-            item.addEventListener('mousewheel', function(event){
+        elm.forEach(function (item, index) {
+            item.addEventListener('mousewheel', function (event) {
                 event.preventDefault();
                 let delta = 0;
 
@@ -98,32 +102,33 @@
                 if (event.wheelDelta) {
                     delta = event.wheelDelta / 120;
                     if (window.opera) delta = -delta;
-                }
-                else if (event.detail)
+                } else if (event.detail)
                     delta = -event.detail / 3;
 
                 let moveTop = window.scrollY;
                 let elmSelector = elm[index];
 
                 // wheel down : move to next section
-                if (delta < 0){
-                    if (elmSelector !== elmCount-1){
-                        try{
+                if (delta < 0) {
+                    if (elmSelector !== elmCount - 1) {
+                        try {
                             moveTop = window.scrollY + elmSelector.nextElementSibling.getBoundingClientRect().top;
-                        }catch(e){}
+                        } catch (e) {
+                        }
                     }
                 }
 
                 // wheel up : move to previous section
-                else{
-                    if (elmSelector !== 0){
-                        try{
+                else {
+                    if (elmSelector !== 0) {
+                        try {
                             moveTop = window.scrollY + elmSelector.previousElementSibling.getBoundingClientRect().top;
-                        }catch(e){}
+                        } catch (e) {
+                        }
                     }
                 }
 
-                window.scrollTo({top:moveTop, left:0, behavior:'smooth'});
+                window.scrollTo({top: moveTop, left: 0, behavior: 'smooth'});
             });
         });
     }
