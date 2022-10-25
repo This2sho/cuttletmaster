@@ -9,22 +9,23 @@
 <div id="wrapper">
     <div th:replace="fragments/authHead.html :: authHead"></div>
     <!--페이지 소스-->
-    <div id="loginForm" class="login">
+    <div class="login" id="loginForm">
 
         <div class="my-page-update-form">
-            <form action="" th:action th:object="${userAuthDto}" method="post">
+            <form action="" method="post" th:action th:object="${userAuthDto}">
 
                 <div th:if="${#fields.hasGlobalErrors()}">
                     <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
                 </div>
 
                 <div class="input-container">
-                    <input type="text" id="loginId" placeholder="아이디" th:field="*{loginId}" th:errorclass="field-error">
-                    <div class="field-error" th:errors="*{loginId}" />
+                    <input id="loginId" placeholder="아이디" th:errorclass="field-error" th:field="*{loginId}" type="text">
+                    <div class="field-error" th:errors="*{loginId}"/>
                 </div>
                 <div class="input-container">
-                    <input type="password" id="password" placeholder="비밀번호" th:field="*{password}" th:errorclass="field-error">
-                    <div class="field-error" th:errors="*{password}" />
+                    <input id="password" placeholder="비밀번호" th:errorclass="field-error" th:field="*{password}"
+                           type="password">
+                    <div class="field-error" th:errors="*{password}"/>
                 </div>
                 <div class="auth-button">
                     <button>로그인</button>

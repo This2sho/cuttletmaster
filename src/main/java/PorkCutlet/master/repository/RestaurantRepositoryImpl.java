@@ -1,21 +1,21 @@
 package PorkCutlet.master.repository;
 
-import PorkCutlet.master.domain.Restaurant;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
+import static PorkCutlet.master.domain.QRestaurant.*;
 
 import java.util.List;
 
-import static PorkCutlet.master.domain.QRestaurant.restaurant;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import PorkCutlet.master.domain.Restaurant;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class RestaurantRepositoryImpl implements RestaurantRepositoryCustom{
-    private final JPAQueryFactory queryFactory;
+public class RestaurantRepositoryImpl implements RestaurantRepositoryCustom {
+	private final JPAQueryFactory queryFactory;
 
-    @Override
-    public List<Restaurant> findRestaurantCustom() {
-        return queryFactory.selectFrom(restaurant)
-                .fetch();
-    }
+	@Override
+	public List<Restaurant> findRestaurantCustom() {
+		return queryFactory.selectFrom(restaurant)
+			.fetch();
+	}
 }

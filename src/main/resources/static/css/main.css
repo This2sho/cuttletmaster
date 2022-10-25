@@ -18,7 +18,7 @@ html, body {
     padding: 0;
 }
 
-#wrapper{
+#wrapper {
     height: auto;
     min-height: 100%;
     padding-bottom: 15vh;
@@ -26,11 +26,12 @@ html, body {
 
 footer {
     height: 15vh;
-    position : relative;
-    transform : translateY(-100%);
+    position: relative;
+    transform: translateY(-100%);
     background: #a5201d;
     color: #ffffff;
 }
+
 .about {
     float: left;
     padding: 1.5vh 1vw;
@@ -69,6 +70,7 @@ footer {
     font-size: 80%;
     margin-top: 2vh;
 }
+
 .footer-logo {
     float: right;
     height: 100%;
@@ -144,6 +146,7 @@ footer {
     height: 4.5vh;
     border-radius: 4px;
 }
+
 /* 로그인 페이지*/
 
 
@@ -155,6 +158,7 @@ footer {
     margin-top: 2vh;
     height: auto;
 }
+
 .review-container {
     height: auto;
     background: white;
@@ -163,7 +167,7 @@ footer {
     padding-left: 2vw;
 }
 
-.review-container input{
+.review-container input {
     border: none;
     height: 100%;
     width: 100%;
@@ -198,6 +202,7 @@ footer {
     float: left;
     border-right: solid 1px #982d25;
 }
+
 .right-type {
     width: 6.5vw;
     height: 100%;
@@ -221,6 +226,7 @@ input#forkCutletName {
     height: 100%;
     width: 82%;
 }
+
 #pre-upload-images {
     height: auto;
     width: 100%;
@@ -228,6 +234,7 @@ input#forkCutletName {
     border-bottom: 1px solid #982d25;
     text-align: -webkit-center;
 }
+
 #upload-images {
     height: auto;
     width: 100%;
@@ -254,20 +261,24 @@ button.delete_btn {
     font-size: 0.75rem;
     border-radius: 4px;
 }
+
 .upload-image-container {
     width: 65vw;
     height: 55vh;
     margin-bottom: 3vh;
 }
-.upload-image-container img{
+
+.upload-image-container img {
     width: 100%;
     height: 100%;
 }
-.review-form-image{
+
+.review-form-image {
     height: 8vh;
     width: 100%;
     border-bottom: solid 1px #982d25;
 }
+
 .review-form-image label {
     width: 14vw;
     height: 100%;
@@ -275,7 +286,8 @@ button.delete_btn {
     margin: 0;
     float: left;
 }
-.review-form-image label:hover{
+
+.review-form-image label:hover {
     cursor: pointer;
 }
 
@@ -287,6 +299,7 @@ button.delete_btn {
     margin-top: 0.5vh;
     margin-left: 3.5vh;
 }
+
 #camera-ico-container img {
     width: 100%;
     height: 100%;
@@ -308,14 +321,16 @@ button.delete_btn {
 }
 
 
-.review-form-location{
+.review-form-location {
     height: 7vh;
     width: 100%;
     border-bottom: solid 1px #982d25;
 }
+
 .review-form-location input {
     float: left;
 }
+
 input#location-btn {
     width: 10%;
     background: none;
@@ -328,22 +343,25 @@ input#location-btn {
     line-height: normal;
     letter-spacing: normal;
 }
+
 input#roadAddress {
     width: 45%;
     height: 100%;
     border-right: solid 1px #982d25;
 }
+
 input#detailAddress {
     width: 45%;
     height: 100%;
 }
-.review-form-oneSentence{
+
+.review-form-oneSentence {
     height: 6vh;
     width: 100%;
     border-bottom: solid 1px #982d25;
 }
 
-.review-form-content{
+.review-form-content {
     height: 15vh;
     width: 100%;
     border-bottom: solid 1px #982d25;
@@ -396,12 +414,14 @@ textarea#content {
     height: 3.8vh;
     border-radius: 5px;
 }
+
 /* 리뷰 폼 */
 
 /* 에러 */
 .container {
-     max-width: 560px;
+    max-width: 560px;
 }
+
 .field-error {
     border-color: #dc3545;
     color: #dc3545;
@@ -416,12 +436,13 @@ a.nav-logo {
     width: 10vw;
     height: 7vh;
 }
+
 .nav-logo-container img {
     width: 100%;
     height: 100%;
 }
 
-.nav-bg{
+.nav-bg {
     background: #ffffff;
     border-bottom: 3px solid #a5201d;
     height: 17vh;
@@ -443,27 +464,33 @@ a.nav-logo {
     float: right;
 }
 
-.nav-control-item{
+.nav-control-item {
     float: left;
 }
-a.nav-href{
+
+a.nav-href {
     color: #a5201d;
 }
-.userName{
+
+.userName {
     color: #a5201d;
 }
-button.logout{
+
+button.logout {
     border: none;
     background: none;
     color: #a5201d;
 }
-button.logout:hover{
+
+button.logout:hover {
     text-decoration: underline;
 }
-a.mypage{
+
+a.mypage {
     color: #a5201d;
     float: left;
 }
+
 div.middle-dot {
     height: 6px;
     width: 6px;
@@ -473,11 +500,12 @@ div.middle-dot {
     margin-left: 1vw;
     margin-right: 1vw;
 }
+
 /* nav bar */
 
 
 /* home */
-.home-top{
+.home-top {
     margin: 0% 4.1%;
     height: 83vh;
 }
@@ -496,7 +524,7 @@ div.feature {
     padding-top: 2.4vh;
 }
 
-.feature a{
+.feature a {
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -505,17 +533,17 @@ div.feature {
     color: #a4a2a2;
 }
 
-div.top-img{
+div.top-img {
     width: 100%;
     height: 58.9vh;
 }
 
-div.top-img img{
+div.top-img img {
     height: 100%;
     width: 100%;
 }
 
-div.desc{
+div.desc {
     height: 14.5vh;
     text-align: center;
     padding-top: 6vh;
@@ -597,12 +625,11 @@ div.image-6-container {
 }
 
 
-
-.image-6-container:hover img{
+.image-6-container:hover img {
     filter: brightness(0.4);
 }
 
-.image-6-container:hover .review-6-explain{
+.image-6-container:hover .review-6-explain {
     opacity: 1;
 }
 
@@ -612,7 +639,6 @@ div.image-6-container {
     border-radius: 7%;
     position: absolute;
 }
-
 
 
 .reviews a {
@@ -628,7 +654,7 @@ div.image-6-container {
     letter-spacing: normal;
 }
 
-.recommend-review{
+.recommend-review {
     height: 85vh;
     text-align: center;
 }
@@ -662,13 +688,13 @@ div.image-6-container {
     float: left;
 }
 
-.recommend-image-container{
+.recommend-image-container {
     width: 29.6vw;
     height: 25vh;
     margin: 0 2.1vw;
 }
 
-.recommend-images img{
+.recommend-images img {
     height: 100%;
     width: 100%;
 }
@@ -698,7 +724,7 @@ div.image-6-container {
     height: 8vh;
 }
 
-.desc-recommend button{
+.desc-recommend button {
     background: #a5201d;
     color: white;
     border: none;
@@ -706,7 +732,6 @@ div.image-6-container {
     height: 4vh;
     border-radius: 15%/100%;
 }
-
 
 
 /* home */
@@ -718,6 +743,7 @@ div.image-6-container {
     overflow: hidden;
     position: relative;
 }
+
 div.left {
     float: left;
     width: 18%;
@@ -725,7 +751,8 @@ div.left {
     position: absolute;
     background-color: #f8f1f0;
 }
-div.right{
+
+div.right {
     float: right;
     width: 82%;
     height: 100%;
@@ -738,6 +765,7 @@ div.right{
     border-bottom: 3px solid #a5201d;
     height: 8vh;
 }
+
 .review-list {
     height: 163vh;
     width: 100%;
@@ -751,16 +779,19 @@ div.right{
     height: 40vh;
     border-top: 3px solid #a5201d;
 }
-#review-list-thumbnail{
+
+#review-list-thumbnail {
     width: 14.5vw;
     height: 32vh;
     float: left;
 }
-#review-list-thumbnail img{
+
+#review-list-thumbnail img {
     width: 100%;
     height: 100%;
     border-radius: 10%;
 }
+
 #review-list-info {
     height: 14vh;
     width: 35vw;
@@ -768,6 +799,7 @@ div.right{
     padding-top: 2vh;
     float: left;
 }
+
 span.list-title {
     font-weight: bold;
     font-stretch: normal;
@@ -781,7 +813,7 @@ span.list-title {
 }
 
 
-.review-list-title{
+.review-list-title {
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -799,7 +831,7 @@ a.list-write {
     font-size: 1.2rem;
 }
 
-.review-list-menu{
+.review-list-menu {
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -846,6 +878,7 @@ label.by-bar {
     text-align: center;
     border: solid 1px #4b4141;
 }
+
 .page-num button {
     border: none;
     padding: 20%;
@@ -853,12 +886,12 @@ label.by-bar {
     height: 100%;
 }
 
-.page-selected{
+.page-selected {
     background: #982d25;
     color: white;
 }
 
-.page-non-selected{
+.page-non-selected {
     background: white;
     color: #982d25;
 }
@@ -875,6 +908,7 @@ label.by-bar {
     width: 2.2vw;
     height: 2.5vh;
 }
+
 /*reviewList*/
 
 /*reviewDetail*/
@@ -948,11 +982,11 @@ label.by-bar {
     font-size: 1rem;
 }
 
-.controller-button{
+.controller-button {
     float: right;
 }
 
-#delete-btn-form{
+#delete-btn-form {
     float: right;
 }
 
@@ -996,6 +1030,7 @@ pre.review-detail-content {
     padding-bottom: 2.2vh;
     font-size: 100%;
     font-family: 'GangwonEduAll';
+    white-space: pre-wrap;
 }
 
 .review-detail-ratings {
@@ -1009,7 +1044,6 @@ div.rating {
     width: 100%;
     height: 5vh;
 }
-
 
 
 .likes {
@@ -1031,11 +1065,10 @@ div.rating {
 }
 
 
-
 .comment-container {
- width: 62.2vw;
- padding: 1vh 0;
- border-bottom: solid 1px #4b4141;
+    width: 62.2vw;
+    padding: 1vh 0;
+    border-bottom: solid 1px #4b4141;
 }
 
 span.user-grade {
@@ -1058,28 +1091,33 @@ span.user-grade {
     height: 8vh;
     padding: 2vh 25vw;
 }
+
 .comment-controller-container {
     width: 62.4vw;
     height: 15vh;
     border: solid 1px #4b4141;
     margin-bottom: 20vh;
 }
+
 .comment-update-controller-container {
     width: 62.4vw;
     height: 15vh;
     margin: 1vh 0;
     border: solid 1px #4b4141;
 }
+
 .write-container {
     width: 62.2vw;
     height: 10vh;
 }
+
 input.write-comment {
     width: 100%;
     height: 100%;
     border: none;
 }
-.send-container{
+
+.send-container {
     width: 62.2vw;
     height: 5vh;
     border-top: solid 1px #4b4141;
@@ -1114,22 +1152,26 @@ input.write-comment {
     height: 100%;
     float: left;
 }
+
 div.star {
     width: 6vw;
     height: 1.6vh;
     position: relative;
 }
+
 .star-empty {
     position: absolute;
     width: 100%;
     height: 100%;
 }
+
 .star-img-container {
     width: 0%;
     height: 100%;
     pointer-events: none;
     overflow: hidden;
 }
+
 .star-full {
     position: relative;
     pointer-events: none;
@@ -1137,6 +1179,7 @@ div.star {
     height: 1.6vh;
     vertical-align: super;
 }
+
 input.star-input {
     width: 100%;
     height: 100%;
@@ -1181,7 +1224,7 @@ input.star-input {
     outline: none;
 }
 
-.selected{
+.selected {
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -1190,7 +1233,7 @@ input.star-input {
     color: #982d25;
 }
 
-.non-selected{
+.non-selected {
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
@@ -1226,6 +1269,7 @@ input.star-input {
     border: 1px solid #982d25;
     padding-left: 1vw;
 }
+
 .input-button button {
     border: none;
     background: none;
@@ -1255,11 +1299,13 @@ input.star-input {
 #like-review-delete-btn {
     float: right;
 }
+
 #master-apply-content {
     min-height: 52vh;
     padding: 1vh 1vw;
     width: 100%;
 }
+
 textarea#apply-content {
     height: 20vh;
     width: 20vw;
@@ -1280,18 +1326,21 @@ textarea#apply-content {
     border-top: 1px solid #a5201d;
 }
 
-.apply-control{
+.apply-control {
     float: right;
 }
-.apply-btn{
+
+.apply-btn {
     float: left;
 }
+
 /*myPage*/
 
 /*에러*/
-.error-field::placeholder{
+.error-field::placeholder {
     color: #d02926;
 }
+
 div#noImageError {
     float: left;
     height: 100%;
@@ -1302,15 +1351,17 @@ div#noImageError {
     letter-spacing: normal;
 }
 
-#rating-error{
+#rating-error {
     padding: 1vh 1vw;
     height: 5vh;
 }
 
-.non-error{
+.non-error {
     color: gray;
 }
-.yes-error{
+
+.yes-error {
     color: #d02926;
 }
+
 /*에러*/

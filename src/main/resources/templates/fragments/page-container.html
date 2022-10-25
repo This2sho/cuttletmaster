@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <div class="page-container" th:fragment="page-container(pageName)">
-        <div class="page-num" th:each="page : ${#numbers.sequence(1, totalPage)}">
-            <th:block th:if="${firstLoad}">
-                <button class="page-selected" th:if="${page} == 1" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
-                <button class="page-non-selected" th:unless="${page} == 1" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
-            </th:block>
-            <th:block th:unless = "${firstLoad}">
-                <button class="page-non-selected" th:if="${page} != ${presentPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
-                <button class="page-selected" th:unless="${page} != ${presentPage}" th:id="'page-' + ${page}" th:text="${page}" th:page="${page}" th:totalPage="${totalPage}" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))"></button>
-            </th:block>
-        </div>
-
-        <script type="text/javascript">
-            /*<![CDATA[*/
-            var pageName = '[[${pageName}]]';
-            /*]]>*/
-
-            function getCommentPage(page, totalPage) {
-                var url;
-                if(pageName == 'reviews') {
-                    url = $(location).attr('origin') + $(location).attr('pathname') + "?page=" + page;
-                    window.location.replace(url);
-                    return;
-                }
-
-                url = $(location).attr('origin') + $(location).attr('pathname') + "/" + pageName + "?page=" + page;
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
-                }).done(function (result){
-                    $("#comments-content").replaceWith(result);
-                    selectOrNot(page, totalPage);
-                });
-            }
-
-            function selectOrNot(page, totalPage) {
-                var selectedId = 'page-';
-                for (var i = 1; i <= totalPage; i++){
-                    if (i != page) {
-                        document.getElementById(selectedId + i).className = "page-non-selected";
-                    }
-                    if (i == page) {
-                        document.getElementById(selectedId + i).className = "page-selected";
-                    }
-                }
-            }
-        </script>
+<div class="page-container" th:fragment="page-container(pageName)">
+    <div class="page-num" th:each="page : ${#numbers.sequence(1, totalPage)}">
+        <th:block th:if="${firstLoad}">
+            <button class="page-selected" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))" th:id="'page-' + ${page}" th:if="${page} == 1"
+                    th:page="${page}" th:text="${page}"
+                    th:totalPage="${totalPage}"></button>
+            <button class="page-non-selected" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))" th:id="'page-' + ${page}" th:page="${page}"
+                    th:text="${page}" th:totalPage="${totalPage}"
+                    th:unless="${page} == 1"></button>
+        </th:block>
+        <th:block th:unless="${firstLoad}">
+            <button class="page-non-selected" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))" th:id="'page-' + ${page}"
+                    th:if="${page} != ${presentPage}" th:page="${page}" th:text="${page}"
+                    th:totalPage="${totalPage}"></button>
+            <button class="page-selected" onclick="getCommentPage(this.getAttribute('page'), this.getAttribute('totalPage'))" th:id="'page-' + ${page}"
+                    th:page="${page}" th:text="${page}" th:totalPage="${totalPage}"
+                    th:unless="${page} != ${presentPage}"></button>
+        </th:block>
     </div>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        var pageName = '[[${pageName}]]';
+
+        /*]]>*/
+
+        function getCommentPage(page, totalPage) {
+            var url;
+            if (pageName == 'reviews') {
+                url = $(location).attr('origin') + $(location).attr('pathname') + "?page=" + page;
+                window.location.replace(url);
+                return;
+            }
+
+            url = $(location).attr('origin') + $(location).attr('pathname') + "/" + pageName + "?page=" + page;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
+            }).done(function (result) {
+                $("#comments-content").replaceWith(result);
+                selectOrNot(page, totalPage);
+            });
+        }
+
+        function selectOrNot(page, totalPage) {
+            var selectedId = 'page-';
+            for (var i = 1; i <= totalPage; i++) {
+                if (i != page) {
+                    document.getElementById(selectedId + i).className = "page-non-selected";
+                }
+                if (i == page) {
+                    document.getElementById(selectedId + i).className = "page-selected";
+                }
+            }
+        }
+    </script>
+</div>
 </html>

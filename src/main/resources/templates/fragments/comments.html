@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div id="comments-content" class="comments" th:fragment="comments">
-    <div th:each="comment : ${comments}" class="comment-container" th:id="'comment-' + ${comment.getId()}">
-        <span th:if="${comment.getIsAdmin()}" th:text="미식가 " class="user-grade"></span>
+<div class="comments" id="comments-content" th:fragment="comments">
+    <div class="comment-container" th:each="comment : ${comments}" th:id="'comment-' + ${comment.getId()}">
+        <span class="user-grade" th:if="${comment.getIsAdmin()}" th:text="미식가 "></span>
         <div class="comment-user" th:text="${comment.getNickName()}">작성자 닉네임</div>
         <th:block th:if="${user} != null">
-            <div th:if="${user.getNickName()} == ${comment.getNickName()} or ${reviewCreator} == ${user.getNickName()}" class="controller-button" th:commentId="${comment.getId()}">
+            <div class="controller-button"
+                 th:commentId="${comment.getId()}" th:if="${user.getNickName()} == ${comment.getNickName()} or ${reviewCreator} == ${user.getNickName()}">
                 <th:block th:if="${user.getNickName()} == ${comment.getNickName()}">
                     <button onclick="updateCommentForm(this.parentElement.getAttribute('commentId'))">수정</button>
                     <label class="by-bar"> | </label>
@@ -20,22 +21,22 @@
 
     <div class="comment-controller-container">
         <div class="write-container">
-            <input id="comment-content" type="text" class="write-comment" placeholder=""/>
+            <input class="write-comment" id="comment-content" placeholder="" type="text"/>
         </div>
         <div class="send-container">
-            <button th:if="${user} == null" onclick="redirectLogin()">등록</button>
-            <button th:unless="${user} == null" onclick="addComment()">등록</button>
+            <button onclick="redirectLogin()" th:if="${user} == null">등록</button>
+            <button onclick="addComment()" th:unless="${user} == null">등록</button>
         </div>
     </div>
 
     <div id="comment-update-controller" style="display: none">
         <div class="comment-update-controller-container">
             <div class="write-container">
-                <input id="comment-update-content" type="text" class="write-comment" placeholder=""/>
+                <input class="write-comment" id="comment-update-content" placeholder="" type="text"/>
             </div>
             <div class="send-container">
-                <button th:if="${user} == null" onclick="redirectLogin()">등록</button>
-                <button th:unless="${user} == null" onclick="updateComment()">등록</button>
+                <button onclick="redirectLogin()" th:if="${user} == null">등록</button>
+                <button onclick="updateComment()" th:unless="${user} == null">등록</button>
             </div>
         </div>
     </div>
@@ -45,10 +46,11 @@
         var preInnerHTML;
         var preContainerId;
         var preId;
+
         function addComment() {
             var url = location.href + "/comments";
             var content = $("#comment-content").val();
-            var data = {content : content}
+            var data = {content: content}
 
             // var
             $.ajax({
@@ -56,7 +58,7 @@
                 url: url,
                 data: data,
                 dataType: "text"
-            }).done(function (result){
+            }).done(function (result) {
                 if (result == 'ERROR') {
                     window.location.replace(redirectLoginURL);
                     return;
@@ -85,8 +87,8 @@
             var content = $("#comment-update-content").val();
             var pageNum = document.getElementsByClassName("page-selected")[0].getAttribute("page");
             var data = {
-                "content" : content,
-                "pageNum" : pageNum
+                "content": content,
+                "pageNum": pageNum
             };
             // var
             $.ajax({
@@ -94,7 +96,7 @@
                 url: url,
                 data: data,
                 dataType: "text"
-            }).done(function (result){
+            }).done(function (result) {
                 if (result == 'ERROR') {
                     window.location.replace(redirectLoginURL);
                     return;
@@ -115,7 +117,7 @@
                 url: url,
                 data: data,
                 dataType: "text"
-            }).done(function (result){
+            }).done(function (result) {
                 if (result == 'ERROR') {
                     window.location.replace(redirectLoginURL);
                     return;

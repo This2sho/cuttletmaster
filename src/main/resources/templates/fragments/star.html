@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="star(fieldName, width)" class="starRateContainer">
+<div class="starRateContainer" th:fragment="star(fieldName, width)">
     <div class="star">
         <img class="star-empty" src="/img/empty-ratings.webp"/>
-        <input class="star-input" type="range" th:fieldName = "${fieldName}" th:id="${fieldName}" onclick="drawStar(this, this.getAttribute('fieldName'))" value="0" step="1" min="1" max="5"/>
-        <div th:id="rating- + ${fieldName}" th:if="${width} != null" th:style="|width : ${width * 20}%|" class="star-img-container">
+        <input class="star-input" max="5" min="1" onclick="drawStar(this, this.getAttribute('fieldName'))"
+               step="1" th:fieldName="${fieldName}" th:id="${fieldName}" type="range" value="0"/>
+        <div class="star-img-container" th:id="rating- + ${fieldName}" th:if="${width} != null"
+             th:style="|width : ${width * 20}%|">
             <img class="star-full" src="/img/full-ratings.webp"/>
         </div>
-        <div th:id="rating- + ${fieldName}" th:if="${width} == null" class="star-img-container">
+        <div class="star-img-container" th:id="rating- + ${fieldName}" th:if="${width} == null">
             <img class="star-full" src="/img/full-ratings.webp"/>
         </div>
     </div>

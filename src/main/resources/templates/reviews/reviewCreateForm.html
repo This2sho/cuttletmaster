@@ -19,20 +19,24 @@
 <div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 <script type="text/javascript">
-    function createReview(){
+    function createReview() {
         var form = $("#review-form")[0];
         var formData = new FormData(form);
-        image_files.forEach(image => {if(!image.is_delete) formData.append("imageFiles", image);});
+        image_files.forEach(image => {
+            if (!image.is_delete) formData.append("imageFiles", image);
+        });
         var url = window.location.origin + "/reviews/new";
 
-        pre_images.forEach(image => {if(!image.is_delete) formData.append("preImages", image);});
+        pre_images.forEach(image => {
+            if (!image.is_delete) formData.append("preImages", image);
+        });
         deleteImages.forEach(image => formData.append("deleteImages", image));
 
         $.ajax({
             type: "POST",
             enctype: "multipart/form-data",
             url: url,
-            data : formData,
+            data: formData,
             processData: false,
             contentType: false,
             async: false,
@@ -40,13 +44,13 @@
                 if (typeof data == 'string') {
                     var lastIdx = url.lastIndexOf('/');
                     window.location.replace(url.substring(0, lastIdx));
-                }else{
+                } else {
                     var hasImageError = false;
                     var hasRatingError = false;
                     var ratingInfoArr = ['texture', 'sauce', 'side', 'accessibility'];
                     data.forEach(error => {
                         let errorField = error['field'];
-                        if(error['field'] == 'imageFiles') {
+                        if (error['field'] == 'imageFiles') {
                             hasImageError = true;
                             var errorElement = document.getElementById('noImageError');
                             errorElement.className = 'yes-error';
@@ -61,12 +65,12 @@
                         }
 
                         var errorElement = document.getElementById(errorField);
-                        if(errorElement.getAttribute('class') == 'error-field') return;
+                        if (errorElement.getAttribute('class') == 'error-field') return;
 
                         errorElement.setAttribute('class', 'error-field');
                         errorElement.setAttribute('placeholder', error['defaultMessage']);
                     })
-                    if(!hasImageError){
+                    if (!hasImageError) {
                         var errorElement = document.getElementById('noImageError');
                         errorElement.className = 'non-error';
                     }

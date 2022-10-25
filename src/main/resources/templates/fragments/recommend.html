@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <div id="recommend-content" th:fragment="recommend">
-        <div class="recommend-title">오늘의 추천 돈가스는?</div>
-        <div class="recommend-images">
-            <div class="recommend-two-img" th:if="${recommendReview.getStoreFileNames().size() > 1}">
-                <div class="recommend-image-container">
-                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                </div>
-                <div class="recommend-image-container">
-                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|" src="/img/home-top.png">
-                </div>
+<div id="recommend-content" th:fragment="recommend">
+    <div class="recommend-title">오늘의 추천 돈가스는?</div>
+    <div class="recommend-images">
+        <div class="recommend-two-img" th:if="${recommendReview.getStoreFileNames().size() > 1}">
+            <div class="recommend-image-container">
+                <img src="/img/home-top.png" th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|">
             </div>
-
-            <div class="recommend-one-img" th:unless="${recommendReview.getStoreFileNames().size() > 1}">
-                <div class="recommend-image-container">
-                    <img th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|" src="/img/home-top.png">
-                </div>
+            <div class="recommend-image-container">
+                <img src="/img/home-top.png" th:src="|/images/${recommendReview.getStoreFileNames().get(1)}|">
             </div>
         </div>
 
-        <div class="recommend-desc">
-            <div th:text="${recommendReview.getRestaurantName()}" class="desc-title">가게 이름</div>
-            <div th:text="${recommendReview.getForkCutletName()}" class="desc-menu">메뉴 이름</div>
-            <div th:text="|${recommendReview.getRoadAddress()} ${recommendReview.getDetailAddress()}|" class="desc-address">가게 주소</div>
-
-            <div class="desc-recommend">
-                <button type="button" onclick="getRecommend()">다시 추천받기</button>
+        <div class="recommend-one-img" th:unless="${recommendReview.getStoreFileNames().size() > 1}">
+            <div class="recommend-image-container">
+                <img src="/img/home-top.png" th:src="|/images/${recommendReview.getStoreFileNames().get(0)}|">
             </div>
         </div>
-
-
-
-        <script type="text/javascript">
-            function getRecommend() {
-                if(!confirm("새로운 돈가스 추천을 원하십니까?\n(로그인시 더 정확한 추천 돈가스 제공)")){
-                    // 아니오
-                    return;
-                }
-                // var
-                $.ajax({
-                    type: "GET",
-                    url: "/recommend",
-                    // data: JSON.stringify(param),
-                    dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
-                }).done(function (result){
-                    $("#recommend-content").replaceWith(result);
-                });
-            }
-        </script>
     </div>
+
+    <div class="recommend-desc">
+        <div class="desc-title" th:text="${recommendReview.getRestaurantName()}">가게 이름</div>
+        <div class="desc-menu" th:text="${recommendReview.getForkCutletName()}">메뉴 이름</div>
+        <div class="desc-address" th:text="|${recommendReview.getRoadAddress()} ${recommendReview.getDetailAddress()}|">
+            가게 주소
+        </div>
+
+        <div class="desc-recommend">
+            <button onclick="getRecommend()" type="button">다시 추천받기</button>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function getRecommend() {
+            if (!confirm("새로운 돈가스 추천을 원하십니까?\n(로그인시 더 정확한 추천 돈가스 제공)")) {
+                // 아니오
+                return;
+            }
+            // var
+            $.ajax({
+                type: "GET",
+                url: "/recommend",
+                // data: JSON.stringify(param),
+                dataType: "text"// api 호출을 위한 요청 변수가 필요하다면 사용해주세요.
+            }).done(function (result) {
+                $("#recommend-content").replaceWith(result);
+            });
+        }
+    </script>
+</div>
 </html>

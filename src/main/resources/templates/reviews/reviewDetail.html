@@ -5,62 +5,75 @@
 </head>
 
 <body>
-    <div id="wrapper" class="review-background">
-        <div th:replace="fragments/nav.html :: fragment-nav"></div>
+<div class="review-background" id="wrapper">
+    <div th:replace="fragments/nav.html :: fragment-nav"></div>
 
-        <div class="review-detail-page">
-            <div class="left">
+    <div class="review-detail-page">
+        <div class="left">
+        </div>
+        <div class="right">
+            <div id="review-detail-info">
+                <div th:if="${errorMsg} != null" th:text="${errorMsg}"></div>
+                <div class="review-detail-title" th:text="${review.getRestaurantName()}">가게 이름</div>
+                <div class="detail-menu">
+                    <div class="review-detail-menu" th:text="${review.getForkCutletName()}">메뉴 이름</div>
+                    <div class="review-detail-menu-type" th:text="|(${review.getForkCutletType})|">메뉴 타입</div>
+                </div>
+
+                <div class="review-detail-overall"><span class="rating"
+                                                         th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span>
+                </div>
+                <div class="review-detail-by">
+                    <label th:text="${review.getCreatedDate()}">날짜</label>
+                    <label class="by-bar">| </label>
+                    <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>
+                    <div class="controller-button"
+                         th:if="${user} != null and ${user.getNickName()} == ${review.getUserNickName()}">
+                        <button onclick="update_review()">수정</button>
+                        <label class="by-bar"> | </label>
+                        <form id="delete-btn-form" th:action th:method="DELETE">
+                            <button>삭제</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="right">
-                <div id="review-detail-info">
-                    <div th:if="${errorMsg} != null" th:text="${errorMsg}"></div>
-                    <div th:text="${review.getRestaurantName()}" class="review-detail-title">가게 이름</div>
-                    <div class="detail-menu">
-                        <div th:text="${review.getForkCutletName()}" class="review-detail-menu">메뉴 이름</div>
-                        <div th:text="|(${review.getForkCutletType})|" class="review-detail-menu-type">메뉴 타입</div>
-                    </div>
 
-                    <div class="review-detail-overall"><span class="rating" th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span></div>
-                    <div class="review-detail-by">
-                        <label th:text="${review.getCreatedDate()}">날짜</label>
-                        <label class="by-bar">| </label>
-                        <label th:text="|미식가 ${review.getUserNickName()}|">| 작성자</label>
-                        <div th:if="${user} != null and ${user.getNickName()} == ${review.getUserNickName()}" class="controller-button">
-                            <button onclick="update_review()">수정</button>
-                            <label class="by-bar"> | </label>
-                            <form id="delete-btn-form" th:action th:method="DELETE">
-                                <button>삭제</button>
-                            </form>
-                        </div>
-                    </div>
+            <div class="review-detail-one-sentence" th:text="${review.getOneSentence()}">한줄평</div>
+
+            <div class="review-detail-images">
+                <div class="review-detail-container" th:each="storeImageName : ${review.getStoreImageNames()}">
+                    <img src="/img/home-top.png" th:src="|/images/${storeImageName}|">
                 </div>
-
-                <div class="review-detail-one-sentence" th:text="${review.getOneSentence()}">한줄평</div>
-
-                <div class="review-detail-images">
-                    <div class="review-detail-container" th:each="storeImageName : ${review.getStoreImageNames()}">
-                        <img src="/img/home-top.png" th:src="|/images/${storeImageName}|">
-                    </div>
-                </div>
-
-                <pre class="review-detail-content" th:text="${review.getContent()}">리뷰 상세 평가 내용이다능</pre>
-
-                <div class="review-detail-ratings">
-                    <div class="rating"> <label>식감</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('texture', ${review.getRatingInfo().get('texture')})">3</span> </div>
-                    <div class="rating"> <label>소스</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('sauce', ${review.getRatingInfo().get('sauce')})">3</span> </div>
-                    <div class="rating"> <label>사이드</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('side', ${review.getRatingInfo().get('side')})">3</span> </div>
-                    <div class="rating"> <label>접근성</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('accessibility', ${review.getRatingInfo().get('accessibility')})">3</span> </div>
-                    <br>
-                    <div class="rating"> <label>총점</label> <span class="rating" th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span> </div>
-                </div>
-
-                <div th:replace="fragments/likes.html :: likes"></div>
-                <div th:replace="fragments/comments.html :: comments"></div>
-
             </div>
+
+            <pre class="review-detail-content" th:text="${review.getContent()}">리뷰 상세 평가 내용이다능</pre>
+
+            <div class="review-detail-ratings">
+                <div class="rating"><label>식감</label> <span class="rating"
+                                                            th:replace="fragments/staticStar.html :: staticStar('texture', ${review.getRatingInfo().get('texture')})">3</span>
+                </div>
+                <div class="rating"><label>소스</label> <span class="rating"
+                                                            th:replace="fragments/staticStar.html :: staticStar('sauce', ${review.getRatingInfo().get('sauce')})">3</span>
+                </div>
+                <div class="rating"><label>사이드</label> <span class="rating"
+                                                             th:replace="fragments/staticStar.html :: staticStar('side', ${review.getRatingInfo().get('side')})">3</span>
+                </div>
+                <div class="rating"><label>접근성</label> <span class="rating"
+                                                             th:replace="fragments/staticStar.html :: staticStar('accessibility', ${review.getRatingInfo().get('accessibility')})">3</span>
+                </div>
+                <br>
+                <div class="rating"><label>총점</label> <span class="rating"
+                                                            th:replace="fragments/staticStar.html :: staticStar('overallrating', ${review.getOverallRating()})">3</span>
+                </div>
+            </div>
+
+            <div th:replace="fragments/likes.html :: likes"></div>
+            <div th:replace="fragments/comments.html :: comments"></div>
+
         </div>
     </div>
-    <div th:replace="fragments/footer.html :: fragment-footer"></div>
+</div>
+<div th:replace="fragments/footer.html :: fragment-footer"></div>
 </body>
 <script type="text/javascript">
     const redirectLoginURL = window.location.origin + "/auth/login?redirectURL=" + location.pathname;
@@ -69,6 +82,7 @@
         window.location.replace(redirectLoginURL);
         return;
     }
+
     function update_review() {
         var url = $(location).attr('pathname') + "/update";
         location.replace(url);

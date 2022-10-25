@@ -13,11 +13,11 @@
                 사진
             </div>
         </label>
-        <div id="noImageError" class="non-error">버튼을 눌러 이미지를 업로드하세요.</div>
-        <input id="imageFiles" type="file" multiple="multiple" placeholder="사진" style="display: none">
+        <div class="non-error" id="noImageError">버튼을 눌러 이미지를 업로드하세요.</div>
+        <input id="imageFiles" multiple="multiple" placeholder="사진" style="display: none" type="file">
     </div>
 
-    <script type="text/javascript" th:inline="javascript">
+    <script th:inline="javascript" type="text/javascript">
         // 파일 현재 필드 숫자 totalCount랑 비교값
         var imageCount = 0;
         // 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
@@ -37,10 +37,10 @@
         var imagesNames = [[${reviewForm.preImages}]];
         /*]]>*/
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#imageFiles").on("change", fileCheck);
 
-            if(imagesNames == null) return;
+            if (imagesNames == null) return;
 
             var hasImage = false;
             imagesNames.forEach(i => {
@@ -48,10 +48,10 @@
                 hasImage = true;
             });
             pre_images.forEach(imageName => {
-                var str = '<div id="image'+imageNum+'" class="upload-images-container">';
+                var str = '<div id="image' + imageNum + '" class="upload-images-container">';
                 var delbtn = '<button class="delete_btn" onclick="preImageDelete(\'image' + imageNum + '\')">X</button> <div class="upload-image-container">';
                 str += delbtn;
-                str += '<img src="/images/'+imageName+'"></div> </div>';
+                str += '<img src="/images/' + imageName + '"></div> </div>';
                 $(str).appendTo('#upload-images');
                 imageCount++;
                 imageNum++;
@@ -67,13 +67,13 @@
 
 
             //업로드 가능 파일인지 체크
-            if(!validateFiles(files, filesArr)) return;
+            if (!validateFiles(files, filesArr)) return;
             imageCount = imageCount + filesArr.length;
 
             var hasImage = false;
 
             filesArr.forEach(f => {
-                if(preview(f)) hasImage = true;
+                if (preview(f)) hasImage = true;
             })
 
             if (hasImage) document.getElementById('upload-images').style.display = 'block';
@@ -82,10 +82,10 @@
         }
 
         function validateFiles(files, filesArr) {
-            if(!checkFileCount(filesArr.length)) return false;
+            if (!checkFileCount(filesArr.length)) return false;
 
-            for(var i=0;i<files.length;i++){
-                if(!checkExtension(files[i].name,files[i].size)){
+            for (var i = 0; i < files.length; i++) {
+                if (!checkExtension(files[i].name, files[i].size)) {
                     return false;
                 }
             }
@@ -100,32 +100,32 @@
             return true;
         }
 
-        function checkExtension(fileName,fileSize){
+        function checkExtension(fileName, fileSize) {
 
             var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
             var maxSize = 20971520;  //20MB
 
-            if(fileSize >= maxSize){
+            if (fileSize >= maxSize) {
                 alert('파일 사이즈 초과');
                 return false;
             }
 
-            if(regex.test(fileName)){
+            if (regex.test(fileName)) {
                 alert('업로드 불가능한 파일이 있습니다.');
                 return false;
             }
             return true;
         }
 
-        function preview(f){
+        function preview(f) {
             //이미지 파일 미리보기
-            if(f.type.match('image.*')){
+            if (f.type.match('image.*')) {
                 var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
                 reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-                    var str = '<div id="image'+imageNum+'" class="upload-images-container">';
+                    var str = '<div id="image' + imageNum + '" class="upload-images-container">';
                     var delbtn = '<button class="delete_btn" onclick="fileDelete(\'image' + imageNum + '\')">X</button> <div class="upload-image-container">';
                     str += delbtn;
-                    str += '<img src="'+e.target.result+'"></div> </div>';
+                    str += '<img src="' + e.target.result + '"></div> </div>';
                     $(str).appendTo('#upload-images');
                     image_files.push(f);
                     imageNum++;
@@ -136,22 +136,22 @@
             return false;
         }
 
-        function preImageDelete(imageNum){
+        function preImageDelete(imageNum) {
             var no = imageNum.replace(/[^0-9]/g, "");
             pre_images[no].is_delete = true;
             deleteImages.push(pre_images[no]);
             $('#' + imageNum).remove();
-            imageCount --;
-            if(imageCount == 0) document.getElementById("upload-images").style.display = 'none';
+            imageCount--;
+            if (imageCount == 0) document.getElementById("upload-images").style.display = 'none';
         }
 
         // 파일 부분 삭제 함수
-        function fileDelete(imageNum){
+        function fileDelete(imageNum) {
             var no = imageNum.replace(/[^0-9]/g, "") - preImageNum;
             image_files[no].is_delete = true;
             $('#' + imageNum).remove();
-            imageCount --;
-            if(imageCount == 0) document.getElementById("upload-images").style.display = 'none';
+            imageCount--;
+            if (imageCount == 0) document.getElementById("upload-images").style.display = 'none';
         }
     </script>
 </div>
