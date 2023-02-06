@@ -43,6 +43,4 @@ out/
 **/src/main/java/PorkCutlet/master/initDB.java
 
 ### DB 설정 ###
-**/application.yml
-
-
+**/src/main/resources/application.yml
