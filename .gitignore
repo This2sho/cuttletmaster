@@ -42,4 +42,7 @@ out/
 ### 테스트용 ###
 **/src/main/java/PorkCutlet/master/initDB.java
 
+### DB 설정 ###
+**/src/main/java/PorkCutlet/master/application.yml
+
 
